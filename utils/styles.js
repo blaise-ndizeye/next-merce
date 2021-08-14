@@ -8,14 +8,22 @@ const useStyles = makeStyles({
       marginLeft: 10,
     },
   },
-  text: {
+  brand: {
     color: "#000",
+    fontWeight: "bold",
+    fontSize: "1.5rem",
+  },
+  grow: {
+    flexGrow: 1,
   },
   main: {
     minHeight: "80vh",
   },
   footer: {
     textAlign: "center",
+  },
+  cardImg: {
+    height: "236px",
   },
 })
 
