@@ -18,7 +18,9 @@ export const Layout = ({ children }) => {
         </ToolBar>
       </AppBar>
       <Container className={classes.main}>{children}</Container>
-      <footer>All rights reserved Next commerce</footer>
+      <footer className={classes.footer}>
+        All rights reserved Next commerce
+      </footer>
     </div>
   )
 }
