@@ -40,7 +40,7 @@ export default function ProductScreen({ params }) {
         <Grid item md={3} xs={12}>
           <List>
             <ListItem>
-              <Typography component="h1">
+              <Typography component="h1" variant="h1">
                 &nbsp; {product.name.toUpperCase()}
               </Typography>
             </ListItem>
@@ -89,7 +89,7 @@ export default function ProductScreen({ params }) {
               </ListItem>
               <ListItem>
                 <Button
-                  fullwidth
+                  fullwidth="true"
                   type="button"
                   variant="contained"
                   color="primary"
