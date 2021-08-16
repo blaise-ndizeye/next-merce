@@ -6,12 +6,13 @@ import ToolBar from "@material-ui/core/ToolBar"
 import { Typography, Container, Link } from "@material-ui/core"
 import useStyles from "../utils/styles"
 
-export const Layout = ({ children }) => {
+export const Layout = ({ children, title, description }) => {
   const classes = useStyles()
   return (
     <div>
       <Head>
-        <title>Next Commerce</title>
+        <title>{title ? `${title}-Next Commerce` : "Next Commerce"}</title>
+        {description && <meta name="description" content={description} />}
       </Head>
       <AppBar position="static" className={classes.navbar}>
         <ToolBar>

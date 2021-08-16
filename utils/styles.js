@@ -21,9 +21,15 @@ const useStyles = makeStyles({
   },
   footer: {
     textAlign: "center",
+    marginTop: 12,
+    marginBottom: 12,
   },
   cardImg: {
     height: "236px",
+  },
+  section: {
+    marginTop: 10,
+    marginBottom: 10,
   },
 })
 

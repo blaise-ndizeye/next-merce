@@ -19,7 +19,7 @@ export default function Home() {
     <Layout>
       <div>
         <h1>Products</h1>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} justify="center">
           {data.products.map((product) => (
             <Grid item md={4} sm={6} xs={12} key={product.name}>
               <Card>

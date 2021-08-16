@@ -73,6 +73,18 @@ const data = {
       countInStock: 20,
       description: "A popular pants",
     },
+    {
+      name: "Sport Pants",
+      slug: "sport-pants",
+      category: "Pants",
+      image: "/images/pants4.jpg",
+      price: 75,
+      brand: "Adidas",
+      rating: 4.4,
+      numReviews: 9,
+      countInStock: 21,
+      description: "A popular sport pants",
+    },
   ],
 }
 export default data
