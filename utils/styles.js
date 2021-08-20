@@ -2,14 +2,14 @@ import { makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles({
   navbar: {
-    backgroundColor: "#f4f4f4",
+    backgroundColor: "rgb(76, 22, 83)",
     "& a": {
-      color: "#000",
+      color: "#f4f4f4",
       marginLeft: 10,
     },
   },
   brand: {
-    color: "#000",
+    color: "#f4f4f4",
     fontWeight: "bold",
     fontSize: "1.5rem",
   },
@@ -30,6 +30,14 @@ const useStyles = makeStyles({
   section: {
     marginTop: 10,
     marginBottom: 10,
+  },
+  // link: {
+  //   color: "#f4f4f4",
+  //   marginLeft: 10,
+  // },
+  linkWrapper: {
+    display: "flex",
+    flexDirection: "flex-end",
   },
 })
 

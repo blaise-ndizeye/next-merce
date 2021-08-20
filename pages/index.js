@@ -18,8 +18,13 @@ export default function Home() {
   return (
     <Layout>
       <div>
-        <h1>Products</h1>
-        <Grid container spacing={3} justify="center">
+        <h1 style={{ textAlign: "center" }}>Products</h1>
+        <Grid
+          container
+          spacing={3}
+          justifyContent="center"
+          alignContent="center"
+        >
           {data.products.map((product) => (
             <Grid item md={4} sm={6} xs={12} key={product.name}>
               <Card>
