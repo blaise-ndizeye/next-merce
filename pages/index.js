@@ -10,10 +10,12 @@ import {
   Typography,
 } from "@material-ui/core"
 import { Layout } from "../components/Layout"
-import data from "../utils/data"
+import db from "../utils/db"
 import useStyles from "../utils/styles"
+import Product from "../models/Product"
 
-export default function Home() {
+export default function Home(props) {
+  const { products } = props
   const classes = useStyles()
   return (
     <Layout>
@@ -25,7 +27,7 @@ export default function Home() {
           justifyContent="center"
           alignContent="center"
         >
-          {data.products.map((product) => (
+          {products.map((product) => (
             <Grid item md={4} sm={6} xs={12} key={product.name}>
               <Card>
                 <NextLink href={`/product/${product.slug}`} passHref>
@@ -54,4 +56,15 @@ export default function Home() {
       </div>
     </Layout>
   )
+}
+
+export async function getServerSideProps() {
+  await db.connect()
+  const products = await Product.find().sort({ _id: -1 }).lean()
+  await db.disconnect()
+  return {
+    props: {
+      products: products.map((product) => db.convertDocToObj(product)),
+    },
+  }
 }

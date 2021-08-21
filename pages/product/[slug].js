@@ -1,7 +1,7 @@
 import React from "react"
 import NextLink from "next/link"
 import Image from "next/image"
-import data from "../../utils/data"
+import db from "../../utils/db"
 import { Layout } from "../../components/Layout"
 import {
   Grid,
@@ -13,10 +13,10 @@ import {
   Button,
 } from "@material-ui/core"
 import useStyles from "../../utils/styles"
+import Product from "../../models/Product"
 
-export default function ProductScreen({ params }) {
+export default function ProductScreen({ product }) {
   const classes = useStyles()
-  const product = data.products.find((product) => product?.slug === params.slug)
   if (!product) return null
   return (
     <Layout title={product.name} description={product.description}>
@@ -106,10 +106,16 @@ export default function ProductScreen({ params }) {
   )
 }
 
-export function getServerSideProps(ctx) {
+export async function getServerSideProps(ctx) {
+  const { params } = ctx
+  await db.connect()
+  const product = await Product.findOne({ slug: params.slug })
+    .sort({ _id: -1 })
+    .lean()
+  await db.disconnect()
   return {
     props: {
-      params: ctx.params,
+      product: db.convertDocToObj(product),
     },
   }
 }
