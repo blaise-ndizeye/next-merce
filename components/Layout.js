@@ -4,11 +4,11 @@ import NextLink from "next/link"
 import AppBar from "@material-ui/core/AppBar"
 import ToolBar from "@material-ui/core/ToolBar"
 import {
-  Typography,
   Container,
   Link,
   ThemeProvider,
   Switch,
+  Button,
 } from "@material-ui/core"
 import Cookies from "js-cookie"
 import { createTheme } from "@material-ui/core/styles"
@@ -16,6 +16,14 @@ import useStyles from "../utils/styles"
 import { CssBaseline } from "@material-ui/core"
 import { purple, red } from "@material-ui/core/colors"
 import { Store } from "../utils/Store"
+import NProgress from "nprogress"
+import Router from "next/router"
+
+NProgress.configure({ showSpinner: false })
+
+Router.onRouteChangeStart = (url) => NProgress.start()
+Router.onRouteChangeComplete = () => NProgress.done()
+Router.onRouteChangeError = () => NProgress.done()
 
 export const Layout = ({ children, title, description }) => {
   const { state, dispatch } = React.useContext(Store)
@@ -52,6 +60,13 @@ export const Layout = ({ children, title, description }) => {
     <>
       <Head>
         <title>{title ? `${title}-Next Commerce` : "Next Commerce"}</title>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
+          integrity="sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
         {description && <meta name="description" content={description} />}
       </Head>
       <ThemeProvider theme={theme}>
@@ -60,23 +75,24 @@ export const Layout = ({ children, title, description }) => {
           <ToolBar>
             <NextLink href="/" passHref>
               <Link>
-                <Typography className={classes.brand}>COMMERCE</Typography>
+                <Button className={classes.brand}>COMMERCE</Button>
               </Link>
             </NextLink>
             <div className={classes.grow}></div>
             <div className={classes.linkWrapper}>
               <Switch
+                color="primary"
                 checked={state.darkMode}
                 onChange={darkModeChangeHandler}
               ></Switch>
               <NextLink href="/cart" passHref>
                 <Link>
-                  <Typography>Cart</Typography>
+                  <Button>Cart</Button>
                 </Link>
               </NextLink>
               <NextLink href="/login" passHref>
                 <Link>
-                  <Typography>Login</Typography>
+                  <Button>Login</Button>
                 </Link>
               </NextLink>
             </div>

@@ -109,9 +109,7 @@ export default function ProductScreen({ product }) {
 export async function getServerSideProps(ctx) {
   const { params } = ctx
   await db.connect()
-  const product = await Product.findOne({ slug: params.slug })
-    .sort({ _id: -1 })
-    .lean()
+  const product = await Product.findOne({ slug: params.slug }).lean()
   await db.disconnect()
   return {
     props: {
