@@ -24,7 +24,6 @@ const data = {
       countInStock: 20,
       description: "A popular shirt",
     },
-    ,
     {
       name: "Slim shirt",
       slug: "slim-shirt",

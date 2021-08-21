@@ -31,10 +31,6 @@ const useStyles = makeStyles({
     marginTop: 10,
     marginBottom: 10,
   },
-  // link: {
-  //   color: "#f4f4f4",
-  //   marginLeft: 10,
-  // },
   linkWrapper: {
     display: "flex",
     flexDirection: "flex-end",
