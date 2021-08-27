@@ -35,6 +35,12 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "flex-end",
   },
+  navBtn: {
+    color: "#f4f4f4",
+  },
+  active: {
+    color: "red",
+  },
 })
 
 export default useStyles
