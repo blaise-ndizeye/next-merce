@@ -8,11 +8,13 @@ import { Layout } from "../components/Layout"
 import useStyles from "../utils/styles"
 import { Store } from "../utils/Store"
 
-export default function Login() {
+export default function Register() {
   const router = useRouter()
   const { dispatch, state } = React.useContext(Store)
+  const [name, setName] = React.useState("")
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
+  const [confirmPassword, setConfirmPassword] = React.useState("")
   const classes = useStyles()
   React.useEffect(() => {
     if (state.userInfo) {
@@ -22,8 +24,14 @@ export default function Login() {
 
   const submitHandler = async (e) => {
     e.preventDefault()
+    if (password !== confirmPassword) return alert("Passwords don't match")
+
     try {
-      const { data } = await axios.post("/api/users/login", { email, password })
+      const { data } = await axios.post("/api/users/register", {
+        name,
+        email,
+        password,
+      })
       dispatch({ type: "USER_LOGIN", payload: data })
       router.push(router.query.redirect || "/")
     } catch (err) {
@@ -31,14 +39,25 @@ export default function Login() {
     }
   }
   return (
-    <Layout title="Login">
+    <Layout title="Register">
       <form
         onSubmit={submitHandler}
         className={classes.form}
         autoComplete="off"
       >
-        <Typography className={classes.title}>Login</Typography>
+        <Typography className={classes.title}>Register</Typography>
         <List>
+          <ListItem>
+            <TextField
+              fullWidth
+              variant="outlined"
+              id="name"
+              label="Name"
+              inputProps={{ type: "text" }}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </ListItem>
           <ListItem>
             <TextField
               fullWidth
@@ -62,17 +81,28 @@ export default function Login() {
             />
           </ListItem>
           <ListItem>
+            <TextField
+              fullWidth
+              variant="outlined"
+              id="confirmPassword"
+              label="Confirm Password"
+              inputProps={{ type: "password" }}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </ListItem>
+          <ListItem>
             <Button variant="contained" type="submit" fullWidth color="primary">
-              Login
+              Register
             </Button>
           </ListItem>
           <ListItem>
-            Don't have an account? &nbsp;
+            Already have an account? &nbsp;
             <NextLink
-              href={`/register?redirect=${router.query.redirect || "/"}`}
+              href={`/login?redirect=${router.query.redirect || "/"}`}
               passHref
             >
-              <Link>Register</Link>
+              <Link>Login</Link>
             </NextLink>
           </ListItem>
         </List>

@@ -13,7 +13,6 @@ handler.post(async (req, res) => {
   await db.disconnect()
   if (user && bcrypt.compareSync(password, user.password)) {
     const token = signToken(user)
-    delete user.password
     res.send({
       token,
       _id: user._id,
