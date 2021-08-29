@@ -41,6 +41,14 @@ const useStyles = makeStyles({
   active: {
     color: "red",
   },
+  title: {
+    textAlign: "center",
+    fontSize: "1.5rem",
+  },
+  form: {
+    maxWidth: 800,
+    margin: "0 auto",
+  },
 })
 
 export default useStyles

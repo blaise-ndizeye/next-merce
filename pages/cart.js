@@ -3,6 +3,7 @@ import axios from "axios"
 import dynamic from "next/dynamic"
 import NextLink from "next/link"
 import Image from "next/image"
+import { useRouter } from "next/router"
 import {
   Button,
   Typography,
@@ -24,7 +25,12 @@ import { Layout } from "../components/Layout"
 import { Store } from "../utils/Store"
 
 function Cart() {
+  const router = useRouter()
   const { state, dispatch } = React.useContext(Store)
+
+  const checkoutHandler = () => {
+    router.push("/shipping")
+  }
 
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/products/${item._id}`)
@@ -137,7 +143,12 @@ function Cart() {
                   </Typography>
                 </ListItem>
                 <ListItem>
-                  <Button variant="contained" color="primary" fullWidth>
+                  <Button
+                    onClick={checkoutHandler}
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                  >
                     Check Out
                   </Button>
                 </ListItem>
