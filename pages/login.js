@@ -1,6 +1,8 @@
 import React from "react"
 import axios from "axios"
 import NextLink from "next/link"
+import { useSnackbar } from "notistack"
+import { useForm, Controller } from "react-hook-form"
 import { useRouter } from "next/router"
 import TextField from "@material-ui/core/TextField"
 import { Typography, List, ListItem, Button, Link } from "@material-ui/core"
@@ -10,9 +12,13 @@ import { Store } from "../utils/Store"
 
 export default function Login() {
   const router = useRouter()
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm()
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const { dispatch, state } = React.useContext(Store)
-  const [email, setEmail] = React.useState("")
-  const [password, setPassword] = React.useState("")
   const classes = useStyles()
   React.useEffect(() => {
     if (state.userInfo) {
@@ -20,45 +26,85 @@ export default function Login() {
     }
   }, [])
 
-  const submitHandler = async (e) => {
-    e.preventDefault()
+  const submitHandler = async ({ email, password }) => {
+    closeSnackbar()
     try {
       const { data } = await axios.post("/api/users/login", { email, password })
       dispatch({ type: "USER_LOGIN", payload: data })
+      enqueueSnackbar("Successfully logged in", { variant: "success" })
       router.push(router.query.redirect || "/")
     } catch (err) {
-      alert(err.response.data ? err.response.data.message : err.message)
+      enqueueSnackbar(
+        err.response.data ? err.response.data.message : err.message,
+        { variant: "error" }
+      )
     }
   }
   return (
     <Layout title="Login">
       <form
-        onSubmit={submitHandler}
+        onSubmit={handleSubmit(submitHandler)}
         className={classes.form}
         autoComplete="off"
       >
         <Typography className={classes.title}>Login</Typography>
         <List>
           <ListItem>
-            <TextField
-              fullWidth
-              variant="outlined"
-              id="email"
-              label="Email"
-              inputProps={{ type: "email" }}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              rules={{
+                required: true,
+                pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+              }}
+              render={({ field }) => (
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  id="email"
+                  label="Email"
+                  inputProps={{ type: "email" }}
+                  error={Boolean(errors.email)}
+                  helperText={
+                    errors.email
+                      ? errors.email.type === "pattern"
+                        ? "Email is not valid"
+                        : "Email is required"
+                      : ""
+                  }
+                  {...field}
+                />
+              )}
             />
           </ListItem>
           <ListItem>
-            <TextField
-              fullWidth
-              variant="outlined"
-              id="password"
-              label="Password"
-              inputProps={{ type: "password" }}
-              onChange={(e) => setPassword(e.target.value)}
-              required
+            <Controller
+              name="password"
+              control={control}
+              defaultValue=""
+              rules={{
+                required: true,
+                minLength: 6,
+              }}
+              render={({ field }) => (
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  id="password"
+                  label="Password"
+                  inputProps={{ type: "password" }}
+                  error={Boolean(errors.password)}
+                  helperText={
+                    errors.password
+                      ? errors.password.type === "minLength"
+                        ? "Password length must be at least 6"
+                        : "Password is required"
+                      : ""
+                  }
+                  {...field}
+                />
+              )}
             />
           </ListItem>
           <ListItem>
