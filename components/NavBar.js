@@ -107,6 +107,20 @@ export default function NavBar() {
               </Link>
             </NextLink>
           )}
+          {!state.userInfo && (
+            <NextLink href="/register" passHref>
+              <Link>
+                <Button
+                  className={clsx(
+                    classes.navBtn,
+                    router.pathname === "/register" && classes.active
+                  )}
+                >
+                  Register
+                </Button>
+              </Link>
+            </NextLink>
+          )}
         </div>
       </ToolBar>
     </AppBar>
