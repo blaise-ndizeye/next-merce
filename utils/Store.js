@@ -55,6 +55,12 @@ const reducer = (state, action) => {
         ...state,
         cart: { ...state.cart, shippingAddress: action.payload },
       }
+    case "SAVE_PAYMENT_METHOD":
+      Cookies.set("paymentMethod", action.payload)
+      return {
+        ...state,
+        cart: { ...state.cart, paymentMethod: action.payload },
+      }
     case "USER_LOGIN":
       Cookies.set("userInfo", JSON.stringify(action.payload))
       return { ...state, userInfo: action.payload }
