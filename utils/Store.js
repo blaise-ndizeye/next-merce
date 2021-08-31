@@ -66,14 +66,18 @@ const reducer = (state, action) => {
       }
     case "CART_CLEAR":
       Cookies.remove("cartItems")
-      return { ...state, cart: { cartItems: [] } }
+      return { ...state, cart: { ...state.cart, cartItems: [] } }
     case "USER_LOGIN":
       Cookies.set("userInfo", JSON.stringify(action.payload))
       return { ...state, userInfo: action.payload }
     case "USER_LOGOUT":
       Cookies.remove("userInfo")
       Cookies.remove("cartItems")
-      return { ...state, userInfo: null, cart: { cartItems: [] } }
+      return {
+        ...state,
+        userInfo: null,
+        cart: { cartItems: [], shippingAddress: {}, paymentMethod: "" },
+      }
     default:
       return state
   }

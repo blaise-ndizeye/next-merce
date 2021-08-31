@@ -52,6 +52,13 @@ const useStyles = makeStyles({
   bgTransparent: {
     backgroundColor: "transparent",
   },
+  error: {
+    color: "#f04040",
+    textAlign: "center",
+    padding: "20px",
+    marginTop: 20,
+    backgroundColor: "#f4f4f4",
+  },
 })
 
 export default useStyles
