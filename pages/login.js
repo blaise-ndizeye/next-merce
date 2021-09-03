@@ -9,6 +9,7 @@ import { Typography, List, ListItem, Button, Link } from "@material-ui/core"
 import { Layout } from "../components/Layout"
 import useStyles from "../utils/styles"
 import { Store } from "../utils/Store"
+import { getError } from "../utils/error"
 
 export default function Login() {
   const router = useRouter()
@@ -34,10 +35,7 @@ export default function Login() {
       enqueueSnackbar("Successfully logged in", { variant: "success" })
       router.push(router.query.redirect || "/")
     } catch (err) {
-      enqueueSnackbar(
-        err.response.data ? err.response.data.message : err.message,
-        { variant: "error" }
-      )
+      enqueueSnackbar(getError(err), { variant: "error" })
     }
   }
   return (

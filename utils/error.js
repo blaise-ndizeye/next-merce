@@ -2,7 +2,7 @@ import db from "./db"
 
 const getError = (err) =>
   err.response && err.response.data && err.response.data.message
-    ? err.response.data.data.message
+    ? err.response.data.message
     : err.message
 
 const onError = async (err, req, res, next) => {
