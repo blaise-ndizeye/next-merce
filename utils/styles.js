@@ -59,6 +59,9 @@ const useStyles = makeStyles({
     marginTop: 20,
     backgroundColor: "#f4f4f4",
   },
+  fullWidth: {
+    width: "100%",
+  },
 })
 
 export default useStyles
