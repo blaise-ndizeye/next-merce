@@ -10,11 +10,11 @@ const handler = nc({
 
 handler.use(isAuth)
 
-handler.post(async (req, res) => {
+handler.get(async (req, res) => {
   await db.connect()
-  const newOrder = await new Order({ ...req.body, user: req.user._id }).save()
+  const orders = await Order.find({ user: req.user._id }).sort({ _id: -1 })
   await db.disconnect()
-  res.status(201).send(newOrder)
+  res.send(orders)
 })
 
 export default handler

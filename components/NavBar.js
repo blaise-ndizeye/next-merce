@@ -25,8 +25,11 @@ export default function NavBar() {
     setAnchorEl(e.currentTarget)
   }
 
-  const loginMenuCloseHandler = () => {
+  const loginMenuCloseHandler = (e, redirect) => {
     setAnchorEl(null)
+    if (redirect) {
+      router.push(redirect)
+    }
   }
 
   const logoutClickHandler = () => {
@@ -88,8 +91,14 @@ export default function NavBar() {
                 open={Boolean(anchorEl)}
                 keepMounted
               >
-                <MenuItem onClick={loginMenuCloseHandler}>Profile</MenuItem>
-                <MenuItem onClick={loginMenuCloseHandler}>My account</MenuItem>
+                <MenuItem onClick={(e) => loginMenuCloseHandler(e, "/profile")}>
+                  Profile
+                </MenuItem>
+                <MenuItem
+                  onClick={(e) => loginMenuCloseHandler(e, "/order-history")}
+                >
+                  Order History
+                </MenuItem>
                 <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
               </Menu>
             </>
