@@ -30,11 +30,14 @@ export default function Login() {
   const submitHandler = async ({ email, password }) => {
     closeSnackbar()
     try {
+      dispatch({ type: "OPEN_LOADER" })
       const { data } = await axios.post("/api/users/login", { email, password })
       dispatch({ type: "USER_LOGIN", payload: data })
-      enqueueSnackbar("Successfully logged in", { variant: "success" })
       router.push(router.query.redirect || "/")
+      dispatch({ type: "CLOSE_LOADER" })
+      enqueueSnackbar("Successfully logged in", { variant: "success" })
     } catch (err) {
+      dispatch({ type: "CLOSE_LOADER" })
       enqueueSnackbar(getError(err), { variant: "error" })
     }
   }

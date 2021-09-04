@@ -14,12 +14,11 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Link,
   Card,
   List,
   ListItem,
   ListItemText,
-  CircularProgress,
+  LinearProgress,
 } from "@material-ui/core"
 import { Store } from "../utils/Store"
 import { getError } from "../utils/error"
@@ -98,7 +97,7 @@ function OrderHistory() {
               </ListItem>
               <ListItem>
                 {loading ? (
-                  <CircularProgress />
+                  <LinearProgress color="secondary" />
                 ) : error ? (
                   <Typography className={classes.error}>{error}</Typography>
                 ) : (
@@ -123,18 +122,24 @@ function OrderHistory() {
                             </TableCell>
                             <TableCell>${order.totalPrice}</TableCell>
                             <TableCell>
-                              {order.isPaid
-                                ? `Paid at ${moment(order.paidAt).format(
-                                    "LLLL"
-                                  )}`
-                                : `not paid`}
+                              {order.isPaid ? (
+                                <p style={{ color: "green" }}>
+                                  Paid at&nbsp;
+                                  {moment(order.paidAt).format("LLLL")}
+                                </p>
+                              ) : (
+                                <p style={{ color: "red" }}>not paid</p>
+                              )}
                             </TableCell>
                             <TableCell>
-                              {order.isDelivered
-                                ? `Delivered at ${moment(
-                                    order.deliveredAt
-                                  ).format("LLLL")}`
-                                : `not delivered`}
+                              {order.isDelivered ? (
+                                <p style={{ color: "green" }}>
+                                  Delivered at&nbsp;
+                                  {moment(order.deliveredAt).format("LLLL")}
+                                </p>
+                              ) : (
+                                <p style={{ color: "red" }}>not delivered</p>
+                              )}
                             </TableCell>
                             <TableCell>
                               <NextLink href={`/order/${order._id}`} passHref>
@@ -148,6 +153,13 @@ function OrderHistory() {
                       </TableBody>
                     </Table>
                   </TableContainer>
+                )}
+              </ListItem>
+              <ListItem>
+                {orders.length === 0 && (
+                  <Typography className={classes.error}>
+                    No order history found
+                  </Typography>
                 )}
               </ListItem>
             </List>

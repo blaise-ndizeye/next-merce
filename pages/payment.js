@@ -24,17 +24,24 @@ export default function Payment() {
   const [paymentMethod, setPaymentMethod] = React.useState("")
   const { state, dispatch } = React.useContext(Store)
   React.useEffect(() => {
+    if (!state.userInfo) return router.push("/")
     if (!state.cart.shippingAddress.address) return router.push("/shipping")
+    if (state.appLoader) dispatch({ type: "CLOSE_LOADER" })
     setPaymentMethod(Cookies.get("paymentMethod") || "")
   }, [])
 
   const submitHandler = (e) => {
     closeSnackbar()
+    dispatch({ type: "OPEN_LOADER" })
     e.preventDefault()
-    if (!paymentMethod)
-      return enqueueSnackbar("Payment method is required", { variant: "error" })
+    if (!paymentMethod) {
+      dispatch({ type: "CLOSE_LOADER" })
+      enqueueSnackbar("Payment method is required", { variant: "error" })
+    }
     dispatch({ type: "SAVE_PAYMENT_METHOD", payload: paymentMethod })
     router.push("/placeorder")
+    if (router.pathname === "/placeorder")
+      return dispatch({ type: "CLOSE_LOADER" })
   }
   return (
     <Layout title="Payment Method">

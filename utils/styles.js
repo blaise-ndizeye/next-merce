@@ -60,6 +60,8 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     marginTop: 20,
     backgroundColor: "#f4f4f4",
+    width: "100%",
+    borderRadius: 20,
   },
   fullWidth: {
     width: "100%",
@@ -125,6 +127,10 @@ const useStyles = makeStyles((theme) => ({
   pink: {
     color: "#f4f4f4",
     backgroundColor: pink[100],
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
   },
 }))
 

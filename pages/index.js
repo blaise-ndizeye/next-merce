@@ -1,7 +1,8 @@
-import { Grid } from "@material-ui/core"
+import React from "react"
+import { Grid, Typography } from "@material-ui/core"
+import useStyles from "../utils/styles"
 import { Layout } from "../components/Layout"
 import db from "../utils/db"
-import useStyles from "../utils/styles"
 import Product from "../models/Product"
 import ProductCard from "../components/ProductCard"
 
@@ -11,7 +12,7 @@ export default function Home(props) {
   return (
     <Layout>
       <div>
-        <h1 style={{ textAlign: "center" }}>Products</h1>
+        <Typography className={classes.title}>Products</Typography>
         <Grid
           container
           spacing={3}

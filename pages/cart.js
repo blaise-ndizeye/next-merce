@@ -29,14 +29,23 @@ function Cart() {
   const { state, dispatch } = React.useContext(Store)
 
   const checkoutHandler = () => {
+    dispatch({ type: "OPEN_LOADER" })
     router.push("/shipping")
+    if (router.pathname === "/shipping")
+      return dispatch({ type: "CLOSE_LOADER" })
   }
 
   const updateCartHandler = async (item, quantity) => {
+    dispatch({ type: "OPEN_LOADER" })
     const { data } = await axios.get(`/api/products/${item._id}`)
-    if (data.countInStock < quantity)
-      return window.alert("Sorry. Product is out of stock...")
+    if (data.countInStock < quantity) {
+      dispatch({ type: "CLOSE_LOADER" })
+      return enqueueSnackbar("Sorry! Product is out of stock", {
+        variant: "error",
+      })
+    }
     dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } })
+    dispatch({ type: "CLOSE_LOADER" })
   }
 
   const removeItemHandler = (item) => {
@@ -141,6 +150,13 @@ function Cart() {
                       0
                     )}
                   </Typography>
+                </ListItem>
+                <ListItem>
+                  <NextLink href="/">
+                    <Button color="primary" fullWidth>
+                      Continue Shopping
+                    </Button>
+                  </NextLink>
                 </ListItem>
                 <ListItem>
                   <Button

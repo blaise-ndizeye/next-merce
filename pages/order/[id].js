@@ -6,6 +6,7 @@ import NextLink from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import {
+  Button,
   Typography,
   Grid,
   TableContainer,
@@ -18,7 +19,7 @@ import {
   Card,
   List,
   ListItem,
-  CircularProgress,
+  LinearProgress,
 } from "@material-ui/core"
 import { useSnackbar } from "notistack"
 import { Layout } from "../../components/Layout"
@@ -118,6 +119,12 @@ function Order({ params }) {
     loadPaypalScript()
   }, [order, successPay])
 
+  const goToHomeHandler = async () => {
+    dispatch({ type: "OPEN_LOADER" })
+    await router.push("/")
+    dispatch({ type: "CLOSE_LOADER" })
+  }
+
   const createOrder = (data, actions) => {
     return actions.order
       .create({
@@ -160,7 +167,7 @@ function Order({ params }) {
     <Layout title={`Order ${orderId}`}>
       <Typography className={classes.title}>Order {orderId}</Typography>
       {loading ? (
-        <CircularProgress />
+        <LinearProgress color="secondary" />
       ) : error ? (
         <Typography className={classes.error}>{error}</Typography>
       ) : (
@@ -307,10 +314,15 @@ function Order({ params }) {
                     </Grid>
                   </Grid>
                 </ListItem>
+                <ListItem>
+                  <Button onClick={goToHomeHandler} fullWidth color="primary">
+                    Go to home
+                  </Button>
+                </ListItem>
                 {!isPaid && (
                   <ListItem>
                     {isPending ? (
-                      <CircularProgress color="secondary" />
+                      <LinearProgress color="secondary" />
                     ) : (
                       <div className={classes.fullWidth}>
                         <PayPalButtons

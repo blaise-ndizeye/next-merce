@@ -25,6 +25,7 @@ export default function Shipping() {
     if (!state.userInfo) {
       router.push("/login?redirect=/shipping")
     }
+    if (state.appLoader) dispatch({ type: "CLOSE_LOADER" })
     setValue("fullName", shippingAddress.fullName)
     setValue("address", shippingAddress.address)
     setValue("city", shippingAddress.city)
@@ -33,6 +34,7 @@ export default function Shipping() {
   }, [])
 
   const submitHandler = ({ fullName, address, city, postalCode, country }) => {
+    dispatch({ type: "OPEN_LOADER" })
     dispatch({
       type: "SAVE_SHIPPING_ADDRESS",
       payload: {
@@ -44,6 +46,8 @@ export default function Shipping() {
       },
     })
     router.push("/payment")
+    if (router.pathName === "/payment")
+      return dispatch({ type: "CLOSE_LOADER" })
   }
   return (
     <Layout title="Shipping Address">

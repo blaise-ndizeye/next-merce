@@ -5,6 +5,7 @@ export const Store = createContext()
 
 const initialState = {
   darkMode: Cookies.get("darkMode") === "ON" ? true : false,
+  appLoader: false,
   cart: {
     cartItems: Cookies.get("cartItems")
       ? JSON.parse(Cookies.get("cartItems"))
@@ -63,6 +64,16 @@ const reducer = (state, action) => {
       return {
         ...state,
         cart: { ...state.cart, paymentMethod: action.payload },
+      }
+    case "OPEN_LOADER":
+      return {
+        ...state,
+        appLoader: true,
+      }
+    case "CLOSE_LOADER":
+      return {
+        ...state,
+        appLoader: false,
       }
     case "CART_CLEAR":
       Cookies.remove("cartItems")

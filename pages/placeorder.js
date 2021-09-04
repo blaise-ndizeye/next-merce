@@ -47,13 +47,16 @@ function PlaceOrder() {
   const totalPrice = roundTo2(itemsPrice + shippingPrice + taxPrice)
 
   React.useEffect(() => {
+    if (!state.userInfo) return router.push("/")
     if (!paymentMethod) return router.push("/payment")
     if (cartItems.length === 0) return router.push("/cart")
+    if (state.appLoader) dispatch({ type: "CLOSE_LOADER" })
   }, [])
 
   const placeOrderHandler = async () => {
     closeSnackbar()
     try {
+      dispatch({ type: "OPEN_LOADER" })
       setLoading(true)
       const { data } = await axios.post(
         "/api/orders",
@@ -75,6 +78,7 @@ function PlaceOrder() {
       dispatch({ type: "CART_CLEAR" })
       setLoading(false)
       router.push(`/order/${data._id}`)
+      dispatch({ type: "CLOSE_LOADER" })
     } catch (err) {
       setLoading(false)
       enqueueSnackbar(getError(err), { variant: "error" })
