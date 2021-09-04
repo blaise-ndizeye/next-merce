@@ -10,6 +10,7 @@ import NProgress from "nprogress"
 import Router from "next/router"
 import NavBar from "./NavBar"
 import Footer from "./Footer"
+import NewAppBar from "./NewNavBar"
 
 NProgress.configure({ showSpinner: false })
 
@@ -58,7 +59,8 @@ export const Layout = ({ children, title, description }) => {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <NavBar />
+        <NewAppBar />
+        {/* <NavBar /> */}
         <Container className={classes.main}>{children}</Container>
         <Footer />
       </ThemeProvider>
