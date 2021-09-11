@@ -1,5 +1,6 @@
 import React from "react"
 import Head from "next/head"
+import dynamic from "next/dynamic"
 import { Container, ThemeProvider, Slide } from "@material-ui/core"
 import { createTheme } from "@material-ui/core/styles"
 import { CssBaseline } from "@material-ui/core"
@@ -18,7 +19,7 @@ Router.onRouteChangeStart = () => NProgress.start()
 Router.onRouteChangeComplete = () => NProgress.done()
 Router.onRouteChangeError = () => NProgress.done()
 
-export const Layout = ({ children, title, description }) => {
+function Layout({ children, title, description }) {
   const { state } = React.useContext(Store)
   const theme = createTheme({
     typography: {
@@ -69,3 +70,5 @@ export const Layout = ({ children, title, description }) => {
     </>
   )
 }
+
+export default dynamic(() => Promise.resolve(Layout), { ssr: false })

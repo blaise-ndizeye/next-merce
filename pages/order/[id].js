@@ -22,7 +22,7 @@ import {
   LinearProgress,
 } from "@material-ui/core"
 import { useSnackbar } from "notistack"
-import { Layout } from "../../components/Layout"
+import Layout from "../../components/Layout"
 import { Store } from "../../utils/Store"
 import useStyles from "../../utils/styles"
 import { getError } from "../../utils/error"

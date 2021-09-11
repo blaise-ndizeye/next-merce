@@ -4,9 +4,17 @@ import db from "../../../utils/db"
 
 const handler = nc()
 
-handler.get(async (req, res) => {
+handler.post(async (req, res) => {
   await db.connect()
-  const products = await Product.find().sort({ _id: -1 })
+  const { lastId } = req.body
+  let products = []
+  if (!lastId) {
+    products = await Product.find().sort({ _id: -1 }).limit(9)
+  } else {
+    products = await Product.find({ _id: { $lt: lastId } })
+      .sort({ _id: -1 })
+      .limit(9)
+  }
   await db.disconnect()
   res.send(products)
 })

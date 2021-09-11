@@ -21,7 +21,7 @@ import {
   CircularProgress,
 } from "@material-ui/core"
 import { useSnackbar } from "notistack"
-import { Layout } from "../components/Layout"
+import Layout from "../components/Layout"
 import { Store } from "../utils/Store"
 import useStyles from "../utils/styles"
 import CheckoutWizard from "../components/CheckoutWizard"

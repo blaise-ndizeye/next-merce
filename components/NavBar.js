@@ -1,5 +1,6 @@
 import React from "react"
 import clsx from "clsx"
+import dynamic from "next/dynamic"
 import Cookies from "js-cookie"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
@@ -7,6 +8,7 @@ import useStyles from "../utils/styles"
 import { Store } from "../utils/Store"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
+import Link from "@material-ui/core/Link"
 import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
 import Avatar from "@material-ui/core/Avatar"
@@ -26,7 +28,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
 import LockIcon from "@material-ui/icons/Lock"
 import NavSearch from "./NavSearch"
 
-export default function NavBar() {
+function NavBar() {
   const router = useRouter()
   const classes = useStyles()
   const { state, dispatch } = React.useContext(Store)
@@ -199,14 +201,18 @@ export default function NavBar() {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            className={classes.navTitle}
-            variant="h6"
-            component="h1"
-            noWrap
-          >
-            Next Commerce
-          </Typography>
+          <NextLink href="/" passHref forwardRef>
+            <Link>
+              <Typography
+                className={clsx(classes.navTitle, classes.homeCardText)}
+                variant="h6"
+                component="h1"
+                noWrap
+              >
+                Next Commerce
+              </Typography>
+            </Link>
+          </NextLink>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -349,3 +355,5 @@ export default function NavBar() {
     </div>
   )
 }
+
+export default dynamic(() => Promise.resolve(NavBar), { ssr: false })

@@ -17,7 +17,7 @@ import { useSnackbar } from "notistack"
 import { useForm, Controller } from "react-hook-form"
 import { Store } from "../utils/Store"
 import { getError } from "../utils/error"
-import { Layout } from "../components/Layout"
+import Layout from "../components/Layout"
 import useStyles from "../utils/styles"
 
 function Profile() {

@@ -13,7 +13,7 @@ import {
 import { useSnackbar } from "notistack"
 import { useRouter } from "next/router"
 import CheckoutWizard from "../components/CheckoutWizard"
-import { Layout } from "../components/Layout"
+import Layout from "../components/Layout"
 import { Store } from "../utils/Store"
 import useStyles from "../utils/styles"
 

@@ -1,14 +1,15 @@
 import React from "react"
 import NextLink from "next/link"
+import dynamic from "next/dynamic"
 import { Grid, Typography, Slide, Divider, Link } from "@material-ui/core"
 import useStyles from "../utils/styles"
-import { Layout } from "../components/Layout"
+import Layout from "../components/Layout"
 import db from "../utils/db"
 import Product from "../models/Product"
 import ProductCard from "../components/ProductCard"
 import HomeCard from "../components/HomeCard"
 
-export default function Home(props) {
+function Home(props) {
   const { products } = props
   const classes = useStyles()
   return (
@@ -45,7 +46,7 @@ export default function Home(props) {
           </Grid>
         </Slide>
         <Divider style={{ marginTop: 10 }} />
-        <NextLink href="/" passHref>
+        <NextLink href="/product/all" passHref>
           <Link>
             <Typography className={classes.anotherPageLink}>
               FIND MORE PRODUCTS...
@@ -57,6 +58,8 @@ export default function Home(props) {
     </Layout>
   )
 }
+
+export default dynamic(() => Promise.resolve(Home), { ssr: false })
 
 export async function getServerSideProps() {
   await db.connect()

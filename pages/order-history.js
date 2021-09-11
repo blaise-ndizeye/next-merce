@@ -20,50 +20,37 @@ import {
   ListItemText,
   LinearProgress,
 } from "@material-ui/core"
+import { useSnackbar } from "notistack"
 import { Store } from "../utils/Store"
 import { getError } from "../utils/error"
-import { Layout } from "../components/Layout"
+import Layout from "../components/Layout"
 import useStyles from "../utils/styles"
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "FETCH_REQUEST":
-      return { ...state, loading: true, error: "" }
-    case "FETCH_SUCCESS":
-      return { ...state, loading: false, orders: action.payload, error: "" }
-    case "FETCH_FAIL":
-      return { ...state, loading: false, error: action.payload }
-    default:
-      return state
-  }
-}
-
 function OrderHistory() {
-  const { state } = React.useContext(Store)
+  const [orders, setOrders] = React.useState([])
+  const { state, dispatch } = React.useContext(Store)
   const router = useRouter()
   const classes = useStyles()
   const { userInfo } = state
-
-  const [{ loading, error, orders }, dispatch] = React.useReducer(reducer, {
-    loading: true,
-    orders: [],
-    error: "",
-  })
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
   React.useEffect(() => {
     if (!userInfo) return router.push("/")
 
     const fetchOrders = async () => {
+      closeSnackbar()
       try {
-        dispatch({ type: "FETCH_REQUEST" })
+        dispatch({ type: "OPEN_LOADER" })
         const { data } = await axios.get(`/api/orders/history`, {
           headers: {
             authorization: `Bearer ${userInfo.token}`,
           },
         })
-        dispatch({ type: "FETCH_SUCCESS", payload: data })
+        setOrders(data)
+        dispatch({ type: "CLOSE_LOADER" })
       } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: getError(err) })
+        dispatch({ type: "CLOSE_LOADER" })
+        enqueueSnackbar(getError(err), { variant: "error" })
       }
     }
 
@@ -96,64 +83,58 @@ function OrderHistory() {
                 <Typography className={classes.title}>Order History</Typography>
               </ListItem>
               <ListItem>
-                {loading ? (
-                  <LinearProgress color="secondary" />
-                ) : error ? (
-                  <Typography className={classes.error}>{error}</Typography>
-                ) : (
-                  <TableContainer>
-                    <Table>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>ID</TableCell>
-                          <TableCell>DATE</TableCell>
-                          <TableCell>TOTAL</TableCell>
-                          <TableCell>PAID</TableCell>
-                          <TableCell>DELIVERED</TableCell>
-                          <TableCell>ACTION</TableCell>
+                <TableContainer>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>ID</TableCell>
+                        <TableCell>DATE</TableCell>
+                        <TableCell>TOTAL</TableCell>
+                        <TableCell>PAID</TableCell>
+                        <TableCell>DELIVERED</TableCell>
+                        <TableCell>ACTION</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {orders.map((order) => (
+                        <TableRow key={order._id}>
+                          <TableCell>{order._id.substring(20, 24)}</TableCell>
+                          <TableCell>
+                            {moment(order.createdAt).format("LLLL")}
+                          </TableCell>
+                          <TableCell>${order.totalPrice}</TableCell>
+                          <TableCell>
+                            {order.isPaid ? (
+                              <p style={{ color: "green" }}>
+                                Paid at&nbsp;
+                                {moment(order.paidAt).format("LLLL")}
+                              </p>
+                            ) : (
+                              <p style={{ color: "red" }}>not paid</p>
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            {order.isDelivered ? (
+                              <p style={{ color: "green" }}>
+                                Delivered at&nbsp;
+                                {moment(order.deliveredAt).format("LLLL")}
+                              </p>
+                            ) : (
+                              <p style={{ color: "red" }}>not delivered</p>
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            <NextLink href={`/order/${order._id}`} passHref>
+                              <Button variant="contained" color="secondary">
+                                Details
+                              </Button>
+                            </NextLink>
+                          </TableCell>
                         </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {orders.map((order) => (
-                          <TableRow key={order._id}>
-                            <TableCell>{order._id.substring(20, 24)}</TableCell>
-                            <TableCell>
-                              {moment(order.createdAt).format("LLLL")}
-                            </TableCell>
-                            <TableCell>${order.totalPrice}</TableCell>
-                            <TableCell>
-                              {order.isPaid ? (
-                                <p style={{ color: "green" }}>
-                                  Paid at&nbsp;
-                                  {moment(order.paidAt).format("LLLL")}
-                                </p>
-                              ) : (
-                                <p style={{ color: "red" }}>not paid</p>
-                              )}
-                            </TableCell>
-                            <TableCell>
-                              {order.isDelivered ? (
-                                <p style={{ color: "green" }}>
-                                  Delivered at&nbsp;
-                                  {moment(order.deliveredAt).format("LLLL")}
-                                </p>
-                              ) : (
-                                <p style={{ color: "red" }}>not delivered</p>
-                              )}
-                            </TableCell>
-                            <TableCell>
-                              <NextLink href={`/order/${order._id}`} passHref>
-                                <Button variant="contained" color="secondary">
-                                  Details
-                                </Button>
-                              </NextLink>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                )}
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
               </ListItem>
               <ListItem>
                 {orders.length === 0 && (

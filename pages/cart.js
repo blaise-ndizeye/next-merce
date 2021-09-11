@@ -22,7 +22,7 @@ import {
   ListItem,
 } from "@material-ui/core"
 import useStyles from "../utils/styles"
-import { Layout } from "../components/Layout"
+import Layout from "../components/Layout"
 import { Store } from "../utils/Store"
 
 function Cart() {

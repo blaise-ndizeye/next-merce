@@ -2,7 +2,7 @@ import React from "react"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 import db from "../../utils/db"
-import { Layout } from "../../components/Layout"
+import Layout from "../../components/Layout"
 import {
   Grid,
   Divider,
@@ -22,7 +22,9 @@ export default function ProductScreen({ product }) {
   const router = useRouter()
   const classes = useStyles()
   if (!product) return null
+
   const addToCartHandler = async () => {
+    dispatch({ type: "OPEN_LOADER" })
     const { data } = await axios.get(`/api/products/${product._id}`)
     const existItem = state.cart.cartItems.find((x) => x._id === product._id)
     const quantity = existItem ? existItem.quantity + 1 : 1
@@ -30,6 +32,7 @@ export default function ProductScreen({ product }) {
       return window.alert("Sorry. Product is out of stock...")
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } })
     router.push("/cart")
+    dispatch({ type: "CLOSE_LOADER" })
   }
   return (
     <Layout title={product.name} description={product.description}>
@@ -109,7 +112,7 @@ export default function ProductScreen({ product }) {
                 </Grid>
               </ListItem>
               <ListItem>
-                <NextLink href="/" passHref>
+                <NextLink href="/product/all" passHref>
                   <Button style={{ width: "100%" }} color="primary">
                     BACK TO PRODUCTS
                   </Button>
