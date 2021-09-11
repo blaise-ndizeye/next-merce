@@ -1,6 +1,6 @@
 import React from "react"
 import Head from "next/head"
-import { Container, ThemeProvider } from "@material-ui/core"
+import { Container, ThemeProvider, Slide } from "@material-ui/core"
 import { createTheme } from "@material-ui/core/styles"
 import { CssBaseline } from "@material-ui/core"
 import { purple, red } from "@material-ui/core/colors"
@@ -61,7 +61,9 @@ export const Layout = ({ children, title, description }) => {
         <CssBaseline />
         <NavBar />
         <Loader />
-        <Container className={classes.main}>{children}</Container>
+        <Slide direction="down" in={true} timeout={1000}>
+          <Container className={classes.main}>{children}</Container>
+        </Slide>
         <Footer />
       </ThemeProvider>
     </>

@@ -13,6 +13,7 @@ import {
   ListItem,
   Link,
   CircularProgress,
+  Divider,
 } from "@material-ui/core"
 import { Store } from "../utils/Store"
 import useStyles from "../utils/styles"
@@ -73,13 +74,14 @@ export default function Footer() {
             >
               <Typography
                 component="p"
-                color="secondary"
+                color="inherit"
                 className={classes.footerFormTitle}
               >
                 {state.userInfo ? state.userInfo.name + ", for" : "For"} any
                 idea or any other comment on this platform please submit a
-                comment by filling the form below
+                comment by filling the form below:
               </Typography>
+              <Divider />
               <List>
                 <ListItem>
                   <Controller
@@ -188,38 +190,49 @@ export default function Footer() {
           <Grid item xs={12} md={3}>
             <List>
               <ListItem>
+                <Typography component="p" color="inherit">
+                  <i>
+                    By this platform you can find products of any kind in short
+                    time and if you don't understand well how the platform works
+                    please visit the <strong>About page</strong>.
+                  </i>
+                </Typography>
+              </ListItem>
+              <Divider />
+              <ListItem>
                 <NextLink href="/cart" passHref>
                   {state.cart.cartItems.length > 0 ? (
                     <Badge
                       color="secondary"
                       badgeContent={state.cart.cartItems.length}
                     >
-                      <Link>Cart</Link>
+                      <Link variant="body2">Cart &nbsp;</Link>
                     </Badge>
                   ) : (
-                    <Link>Cart</Link>
+                    <Link variant="body2">Cart</Link>
                   )}
                 </NextLink>
               </ListItem>
               <ListItem>
                 <NextLink href="/about" passHref>
-                  <Link>About</Link>
+                  <Link variant="body2">About</Link>
                 </NextLink>
               </ListItem>
               {state.userInfo ? (
                 <>
                   <ListItem>
                     <NextLink href="/profile" passHref>
-                      <Link>Profile</Link>
+                      <Link variant="body2">Profile</Link>
                     </NextLink>
                   </ListItem>
                   <ListItem>
                     <NextLink href="/order-history" passHref>
-                      <Link>Order History</Link>
+                      <Link variant="body2">Order History</Link>
                     </NextLink>
                   </ListItem>
                   <ListItem>
                     <Link
+                      variant="body2"
                       className={classes.muiLink}
                       onClick={() => dispatch({ type: "USER_LOGOUT" })}
                     >
@@ -231,33 +244,27 @@ export default function Footer() {
                 <>
                   <ListItem>
                     <NextLink href="/login" passHref>
-                      <Link>Login</Link>
+                      <Link variant="body2">Login</Link>
                     </NextLink>
                   </ListItem>
                   <ListItem>
                     <NextLink href="/register" passHref>
-                      <Link>Register</Link>
+                      <Link variant="body2">Register</Link>
                     </NextLink>
                   </ListItem>
                 </>
               )}
               <ListItem>
-                <Typography component="p" color="secondary">
-                  <i>
-                    By this platform you can find products of any kind in short
-                    time and if you don't understand well how the platform works
-                    please visit the <strong>About page</strong>
-                  </i>
-                </Typography>
-              </ListItem>
-              <ListItem>
                 <NextLink href="/" passHref>
-                  <Link className={classes.title}>Next Commerce</Link>
+                  <Link variant="body2" className={classes.title}>
+                    Next Commerce
+                  </Link>
                 </NextLink>
               </ListItem>
             </List>
           </Grid>
         </Grid>
+        <Divider />
         <p>All rights reserved &copy; copyrigth Next Commerce</p>
       </Card>
     </footer>

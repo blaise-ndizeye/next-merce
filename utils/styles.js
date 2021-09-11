@@ -143,6 +143,32 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     color: "#fff",
   },
+  homeCardTitle: {
+    fontSize: 40,
+    color: "white",
+  },
+  homeCardCover: {
+    backgroundImage: "url(/images/homeCardImage.jpg)",
+    backgroundPosition: "center",
+    padding: "35px 25px",
+  },
+  homeCardText: {
+    color: "white",
+  },
+  tagLine: {
+    fontSize: 12,
+    textTransform: "uppercase",
+    textAlign: "center",
+    marginTop: 7,
+    marginBottom: 7,
+  },
+  anotherPageLink: {
+    fontSize: 20,
+    textTransform: "uppercase",
+    textAlign: "center",
+    marginTop: 7,
+    marginBottom: 7,
+  },
 }))
 
 export default useStyles
