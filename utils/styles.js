@@ -25,8 +25,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 12,
     marginBottom: 12,
   },
+  footerFormTitle: {
+    fontSize: "1.2rem",
+    marginTop: 10,
+    marginBottom: 10,
+    textAlign: "center",
+  },
   cardImg: {
     height: "236px",
+  },
+  muiLink: {
+    cursor: "pointer",
   },
   section: {
     marginTop: 10,
@@ -43,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
   },
   title: {
+    marginTop: 12,
+    marginBottom: 10,
     textAlign: "center",
     fontSize: "1.5rem",
   },

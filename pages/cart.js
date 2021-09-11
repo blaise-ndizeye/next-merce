@@ -21,11 +21,13 @@ import {
   List,
   ListItem,
 } from "@material-ui/core"
+import useStyles from "../utils/styles"
 import { Layout } from "../components/Layout"
 import { Store } from "../utils/Store"
 
 function Cart() {
   const router = useRouter()
+  const classes = useStyles()
   const { state, dispatch } = React.useContext(Store)
 
   const checkoutHandler = () => {
@@ -54,7 +56,7 @@ function Cart() {
 
   return (
     <Layout title="Shopping Cart">
-      <h1 style={{ textAlign: "center" }}>Shopping Cart</h1>
+      <Typography className={classes.title}>Shopping Cart</Typography>
       {state.cart.cartItems.length === 0 ? (
         <div
           style={{

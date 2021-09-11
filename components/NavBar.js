@@ -216,7 +216,14 @@ export default function NavBar() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <NextLink href="/" passHref forwardRef>
-              <IconButton aria-label="home" color="inherit">
+              <IconButton
+                className={clsx(
+                  classes.navBtn,
+                  router.pathname === "/" && classes.active
+                )}
+                aria-label="home"
+                color="inherit"
+              >
                 <HomeIcon />
               </IconButton>
             </NextLink>
