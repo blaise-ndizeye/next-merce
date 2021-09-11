@@ -206,28 +206,48 @@ export default function Footer() {
                       color="secondary"
                       badgeContent={state.cart.cartItems.length}
                     >
-                      <Link variant="body2">Cart &nbsp;</Link>
+                      <Link variant="body2">
+                        <Typography style={{ textAlign: "center" }}>
+                          Cart &nbsp;
+                        </Typography>
+                      </Link>
                     </Badge>
                   ) : (
-                    <Link variant="body2">Cart</Link>
+                    <Link variant="body2">
+                      <Typography style={{ textAlign: "center" }}>
+                        Cart &nbsp;
+                      </Typography>
+                    </Link>
                   )}
                 </NextLink>
               </ListItem>
               <ListItem>
                 <NextLink href="/about" passHref>
-                  <Link variant="body2">About</Link>
+                  <Link variant="body2">
+                    <Typography style={{ textAlign: "center" }}>
+                      About &nbsp;
+                    </Typography>
+                  </Link>
                 </NextLink>
               </ListItem>
               {state.userInfo ? (
                 <>
                   <ListItem>
                     <NextLink href="/profile" passHref>
-                      <Link variant="body2">Profile</Link>
+                      <Link variant="body2">
+                        <Typography style={{ textAlign: "center" }}>
+                          Profile &nbsp;
+                        </Typography>
+                      </Link>
                     </NextLink>
                   </ListItem>
                   <ListItem>
                     <NextLink href="/order-history" passHref>
-                      <Link variant="body2">Order History</Link>
+                      <Link variant="body2">
+                        <Typography style={{ textAlign: "center" }}>
+                          Order history &nbsp;
+                        </Typography>
+                      </Link>
                     </NextLink>
                   </ListItem>
                   <ListItem>
@@ -236,7 +256,9 @@ export default function Footer() {
                       className={classes.muiLink}
                       onClick={() => dispatch({ type: "USER_LOGOUT" })}
                     >
-                      Logout
+                      <Typography style={{ textAlign: "center" }}>
+                        Logout &nbsp;
+                      </Typography>
                     </Link>
                   </ListItem>
                 </>
@@ -244,12 +266,20 @@ export default function Footer() {
                 <>
                   <ListItem>
                     <NextLink href="/login" passHref>
-                      <Link variant="body2">Login</Link>
+                      <Link variant="body2">
+                        <Typography style={{ textAlign: "center" }}>
+                          Login &nbsp;
+                        </Typography>
+                      </Link>
                     </NextLink>
                   </ListItem>
                   <ListItem>
                     <NextLink href="/register" passHref>
-                      <Link variant="body2">Register</Link>
+                      <Link variant="body2">
+                        <Typography style={{ textAlign: "center" }}>
+                          Register &nbsp;
+                        </Typography>
+                      </Link>
                     </NextLink>
                   </ListItem>
                 </>
@@ -257,7 +287,9 @@ export default function Footer() {
               <ListItem>
                 <NextLink href="/" passHref>
                   <Link variant="body2" className={classes.title}>
-                    Next Commerce
+                    <Typography style={{ textAlign: "center" }}>
+                      Next Commerce &nbsp;
+                    </Typography>
                   </Link>
                 </NextLink>
               </ListItem>

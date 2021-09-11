@@ -1,12 +1,11 @@
 import React from "react"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
-import Image from "next/image"
 import db from "../../utils/db"
 import { Layout } from "../../components/Layout"
 import {
   Grid,
-  Link,
+  Divider,
   List,
   ListItem,
   Typography,
@@ -34,22 +33,30 @@ export default function ProductScreen({ product }) {
   }
   return (
     <Layout title={product.name} description={product.description}>
-      <div className={classes.section}>
-        <NextLink href="/" passHref>
-          <Link>
-            <Typography>BACK TO PRODUCTS</Typography>
-          </Link>
-        </NextLink>
-      </div>
-      <Grid container spacing={1}>
+      <Typography className={classes.title}>Product #{product._id}</Typography>
+      <Divider />
+      <Grid className={classes.section} container spacing={1}>
         <Grid item md={6} sm={12}>
-          <Image
-            src={product?.image}
-            alt={product.name}
-            width={640}
-            height={640}
-            layout="responsive"
-          ></Image>
+          <div
+            style={{
+              position: "relative",
+              paddingTop: "56.25%",
+            }}
+          >
+            <img
+              src={product.image}
+              alt={product.name}
+              style={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                width: "100%",
+                height: 300,
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+            />
+          </div>
         </Grid>
         <Grid item md={3} xs={12}>
           <List>
@@ -102,8 +109,15 @@ export default function ProductScreen({ product }) {
                 </Grid>
               </ListItem>
               <ListItem>
+                <NextLink href="/" passHref>
+                  <Button style={{ width: "100%" }} color="primary">
+                    BACK TO PRODUCTS
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem>
                 <Button
-                  fullwidth="true"
+                  fullwidth
                   type="button"
                   variant="contained"
                   color="primary"

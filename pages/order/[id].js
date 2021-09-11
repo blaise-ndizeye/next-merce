@@ -165,7 +165,7 @@ function Order({ params }) {
 
   return (
     <Layout title={`Order ${orderId}`}>
-      <Typography className={classes.title}>Order {orderId}</Typography>
+      <Typography className={classes.title}>Order #{orderId}</Typography>
       {loading ? (
         <LinearProgress color="secondary" />
       ) : error ? (
