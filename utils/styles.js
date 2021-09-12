@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#f4f4f4",
   },
   active: {
-    color: "red",
+    color: "lightblue",
   },
   title: {
     marginTop: 12,
@@ -168,6 +168,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginTop: 7,
     marginBottom: 7,
+  },
+  displayFlex: {
+    display: "flex",
+    flex: 1,
+    flexDirection: "space-between",
   },
 }))
 

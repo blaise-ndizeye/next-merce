@@ -15,6 +15,7 @@ import {
   CircularProgress,
   Divider,
 } from "@material-ui/core"
+import NotificationsIcon from "@material-ui/icons/Notifications"
 import { Store } from "../utils/Store"
 import useStyles from "../utils/styles"
 
@@ -64,6 +65,15 @@ export default function Footer() {
 
   return (
     <footer className={classes.footer}>
+      <Divider />
+      <Typography color="error" className={classes.footerFormTitle}>
+        <strong style={{ color: "lightblue" }}>
+          <NotificationsIcon /> PayPal
+        </strong>{" "}
+        is the only payment system implemented now other alternatives are still
+        under development!
+      </Typography>
+      <Divider />
       <Card>
         <Grid container justifyContent="center" alignContent="center">
           <Grid item xs={12} md={9}>
@@ -194,7 +204,8 @@ export default function Footer() {
                   <i>
                     By this platform you can find products of any kind in short
                     time and if you don't understand well how the platform works
-                    please visit the <strong>About page</strong>.
+                    please visit the{" "}
+                    <strong className={classes.active}>About page</strong>.
                   </i>
                 </Typography>
               </ListItem>

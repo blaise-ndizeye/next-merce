@@ -57,6 +57,7 @@ export default function ProductScreen({ product }) {
                 height: 300,
                 objectFit: "cover",
                 objectPosition: "center",
+                borderRadius: 10,
               }}
             />
           </div>
