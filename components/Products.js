@@ -49,32 +49,34 @@ function Products({ products, title }) {
         ))}
       </Grid>
       <div>
-        <Divider style={{ marginTop: 10, marginBottom: 10 }} />
         {productsToRender.length > 0 ? (
-          <div className={classes.displayFlex}>
-            <Button
-              color="primary"
-              size="large"
-              variant="outlined"
-              onClick={() =>
-                changePage(
-                  pageLength > 9 && pageLength > 0 ? pageLength - 9 : 0,
-                  "prev"
-                )
-              }
-            >
-              Prev
-            </Button>
-            <div style={{ flexGrow: 1 }} />
-            <Button
-              color="primary"
-              size="large"
-              variant="outlined"
-              onClick={() => changePage(pageLength, "next")}
-            >
-              Next
-            </Button>
-          </div>
+          <>
+            <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+            <div className={classes.displayFlex}>
+              <Button
+                color="primary"
+                size="large"
+                variant="outlined"
+                onClick={() =>
+                  changePage(
+                    pageLength > 9 && pageLength > 0 ? pageLength - 9 : 0,
+                    "prev"
+                  )
+                }
+              >
+                Prev
+              </Button>
+              <div style={{ flexGrow: 1 }} />
+              <Button
+                color="primary"
+                size="large"
+                variant="outlined"
+                onClick={() => changePage(pageLength, "next")}
+              >
+                Next
+              </Button>
+            </div>
+          </>
         ) : (
           <Typography className={classes.error}>
             No more products found!!

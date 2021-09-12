@@ -18,6 +18,7 @@ import {
 import NotificationsIcon from "@material-ui/icons/Notifications"
 import { Store } from "../utils/Store"
 import useStyles from "../utils/styles"
+import LogoutDialog from "./LogoutDialog"
 
 export default function Footer() {
   const classes = useStyles()
@@ -261,17 +262,10 @@ export default function Footer() {
                       </Link>
                     </NextLink>
                   </ListItem>
-                  <ListItem>
-                    <Link
-                      variant="body2"
-                      className={classes.muiLink}
-                      onClick={() => dispatch({ type: "USER_LOGOUT" })}
-                    >
-                      <Typography style={{ textAlign: "center" }}>
-                        Logout &nbsp;
-                      </Typography>
-                    </Link>
-                  </ListItem>
+                  <LogoutDialog
+                    type="listItem"
+                    logoutClickHandler={() => dispatch({ type: "USER_LOGOUT" })}
+                  />
                 </>
               ) : (
                 <>

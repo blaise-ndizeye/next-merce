@@ -21,15 +21,6 @@ function Home(props) {
         </Typography>
         <Divider />
         <HomeCard products={products} />
-        <Typography className={classes.title}>
-          Products (
-          <i>
-            <small>
-              If you don't see the one you are looking for please search...
-            </small>
-          </i>
-          )
-        </Typography>
         <Divider style={{ marginBottom: 10 }} />
         <Slide direction="down" in={true}>
           <Grid

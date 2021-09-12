@@ -25,8 +25,8 @@ import HomeIcon from "@material-ui/icons/Home"
 import Brightness4Icon from "@material-ui/icons/Brightness4"
 import Brightness7Icon from "@material-ui/icons/Brightness7"
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
-import LockIcon from "@material-ui/icons/Lock"
 import NavSearch from "./NavSearch"
+import LogoutDialog from "./LogoutDialog"
 
 function NavBar() {
   const router = useRouter()
@@ -37,10 +37,6 @@ function NavBar() {
 
   const isMenuOpen = Boolean(anchorEl)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
-
-  const loginMenuClickHandler = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null)
@@ -167,12 +163,10 @@ function NavBar() {
             </IconButton>
             <p>Order History</p>
           </MenuItem>
-          <MenuItem onClick={logoutClickHandler}>
-            <IconButton aria-label="Logout" color="inherit">
-              <LockIcon />
-            </IconButton>
-            <p>Logout</p>
-          </MenuItem>
+          <LogoutDialog
+            type="menuItem"
+            logoutClickHandler={logoutClickHandler}
+          />
         </div>
       ) : (
         <div key={Math.random() * 100}>
@@ -314,13 +308,10 @@ function NavBar() {
                     <HistoryIcon />
                   </IconButton>
                 </NextLink>
-                <IconButton
-                  onClick={logoutClickHandler}
-                  aria-label="Logout"
-                  color="inherit"
-                >
-                  <LockIcon />
-                </IconButton>
+                <LogoutDialog
+                  type="icon"
+                  logoutClickHandler={logoutClickHandler}
+                />
                 <NextLink href="/profile" passHref forwardRef>
                   <IconButton
                     edge="end"
