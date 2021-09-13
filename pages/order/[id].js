@@ -9,6 +9,7 @@ import {
   Button,
   Typography,
   Grid,
+  Divider,
   TableContainer,
   Table,
   TableHead,
@@ -27,6 +28,7 @@ import { Store } from "../../utils/Store"
 import useStyles from "../../utils/styles"
 import { getError } from "../../utils/error"
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js"
+import ErrorCard from "../../components/ErrorCard"
 
 function reducer(state, action) {
   switch (action.type) {
@@ -55,7 +57,7 @@ function Order({ params }) {
   const classes = useStyles()
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
-  const { state } = React.useContext(Store)
+  const { state, dispatch: globalDispatch } = React.useContext(Store)
   const { userInfo } = state
 
   const [{ loading, error, order, successPay }, dispatch] = React.useReducer(
@@ -85,6 +87,7 @@ function Order({ params }) {
     if (!userInfo) return router.push("/login")
     const fetchOrder = async () => {
       try {
+        globalDispatch({ type: "OPEN_LOADER" })
         dispatch({ type: "FETCH_REQUEST" })
         const { data } = await axios.get(`/api/orders/${orderId}`, {
           headers: {
@@ -92,7 +95,9 @@ function Order({ params }) {
           },
         })
         dispatch({ type: "FETCH_SUCCESS", payload: data })
+        globalDispatch({ type: "CLOSE_LOADER" })
       } catch (err) {
+        globalDispatch({ type: "CLOSE_LOADER" })
         dispatch({ type: "FETCH_FAIL", payload: getError(err) })
       }
     }
@@ -120,9 +125,7 @@ function Order({ params }) {
   }, [order, successPay])
 
   const goToHomeHandler = async () => {
-    dispatch({ type: "OPEN_LOADER" })
     await router.push("/")
-    dispatch({ type: "CLOSE_LOADER" })
   }
 
   const createOrder = (data, actions) => {
@@ -141,6 +144,7 @@ function Order({ params }) {
     return actions.order.capture().then(async (details) => {
       try {
         dispatch({ type: "PAY_REQUEST" })
+        globalDispatch({ type: "OPEN_LOADER" })
         const { data } = await axios.put(
           `/api/orders/${order._id}/pay`,
           details,
@@ -151,9 +155,11 @@ function Order({ params }) {
           }
         )
         dispatch({ type: "PAY_SUCCESS", payload: data })
+        globalDispatch({ type: "CLOSE_LOADER" })
         enqueueSnackbar("Order is paid", { variant: "success" })
       } catch (err) {
         dispatch({ type: "PAY_FAIL", payload: getError(err) })
+        globalDispatch({ type: "CLOSE_LOADER" })
         enqueueSnackbar(getError(err), { variant: "error" })
       }
     })
@@ -165,11 +171,20 @@ function Order({ params }) {
 
   return (
     <Layout title={`Order ${orderId}`}>
-      <Typography className={classes.title}>Order #{orderId}</Typography>
+      <Typography className={classes.productTitle}>
+        Order: <b className={classes.keyword}>{orderId}</b> &nbsp;&nbsp;
+      </Typography>
+      <Divider style={{ marginBottom: 10 }} />
       {loading ? (
-        <LinearProgress color="secondary" />
+        <div />
       ) : error ? (
-        <Typography className={classes.error}>{error}</Typography>
+        <ErrorCard
+          title={error}
+          keyword="Error"
+          description="It seems that an error is bordering you from paying refresh the page if not check your network connectivity otherwise report the problem using the form in the footer"
+          redirectLink="/order-history"
+          redirectName="Go to Order history"
+        />
       ) : (
         <Grid container spacing={1}>
           <Grid item md={9} xs={12}>
