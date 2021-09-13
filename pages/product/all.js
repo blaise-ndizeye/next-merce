@@ -28,7 +28,8 @@ export default function ProductScreen(props) {
       <Products
         products={products}
         type="all"
-        title="All Products (#For quick search please click in the searchbox above)"
+        title="All Products on market"
+        keyword="For quick search please click in the search box above"
       />
     </Layout>
   )

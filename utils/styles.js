@@ -190,6 +190,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     marginBottom: 10,
   },
+  productTitle: {
+    fontSize: "1.2rem",
+    padding: 10,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  keyword: {
+    color: "lightblue",
+    fontWeight: "bold",
+    textTransform: "uppercase",
+  },
 }))
 
 export default useStyles
