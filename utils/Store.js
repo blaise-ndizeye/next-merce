@@ -20,6 +20,9 @@ const initialState = {
   userInfo: Cookies.get("userInfo")
     ? JSON.parse(Cookies.get("userInfo"))
     : null,
+  searchProductResult: Cookies.get("searchProductResult")
+    ? JSON.parse(Cookies.get("searchProductResult"))
+    : [],
 }
 
 const reducer = (state, action) => {
@@ -74,6 +77,18 @@ const reducer = (state, action) => {
       return {
         ...state,
         appLoader: false,
+      }
+    case "SEARCH_PRODUCT_RESULT":
+      Cookies.set("searchProductResult", JSON.stringify(action.payload))
+      return {
+        ...state,
+        searchProductResult: action.payload,
+      }
+    case "EMPTY_PRODUCT_RESULT":
+      Cookies.remove("searchProductResult")
+      return {
+        ...state,
+        searchProductResult: [],
       }
     case "CART_CLEAR":
       Cookies.remove("cartItems")

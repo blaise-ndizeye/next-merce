@@ -8,10 +8,21 @@ const handler = nc()
 handler.get(async (req, res) => {
   try {
     await db.connect()
-    const product = await Product.findById(req.query.id)
+    const { search } = req.query
+    // await db.products.createIndex({
+    //   name: "text",
+    //   description: "text",
+    //   price: "text",
+    //   brand: "text",
+    //   category: "text",
+    // })
+    const products = await Product.find({ $text: { $search: search } }).sort({
+      _id: 1,
+    })
     await db.disconnect()
-    res.send(product)
+    res.send(products)
   } catch (err) {
+    console.error(err)
     res.status(500).send(getError(err))
   }
 })

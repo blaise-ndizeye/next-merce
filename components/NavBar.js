@@ -66,26 +66,6 @@ function NavBar() {
   }
 
   const menuId = "primary-search-account-menu"
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={loginMenuCloseHandler}
-    >
-      <MenuItem onClick={(e) => loginMenuCloseHandler(e, "/profile")}>
-        Profile
-      </MenuItem>
-      <MenuItem onClick={(e) => loginMenuCloseHandler(e, "/order-history")}>
-        Order History
-      </MenuItem>
-      <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
-    </Menu>
-  )
-
   const mobileMenuId = "primary-search-account-menu-mobile"
   const renderMobileMenu = (
     <Menu
@@ -342,7 +322,6 @@ function NavBar() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
     </div>
   )
 }

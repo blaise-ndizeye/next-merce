@@ -67,7 +67,7 @@ function Cart() {
           }}
         >
           Cart is empty.{" "}
-          <NextLink href="/">
+          <NextLink href="/product/all">
             <Button color="primary" size="large">
               Go Shopping
             </Button>
@@ -154,7 +154,7 @@ function Cart() {
                   </Typography>
                 </ListItem>
                 <ListItem>
-                  <NextLink href="/">
+                  <NextLink href="/product/all">
                     <Button color="primary" fullWidth>
                       Continue Shopping
                     </Button>

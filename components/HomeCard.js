@@ -17,11 +17,7 @@ export default function HomeCard(props) {
   return (
     <Card className={classes.homeCardCover}>
       <CardContent className={classes.homeCardTextContainer}>
-        <Typography
-          className={classes.homeCardTitle}
-          gutterButtom
-          component="h1"
-        >
+        <Typography className={classes.homeCardTitle} component="h1">
           Hello{userInfo ? ` ${userInfo.name}` : ""}, welcome to Next Commerce
         </Typography>
         <Typography component="h5" className={classes.homeCardText}>

@@ -8,7 +8,7 @@ import ProductCard from "./ProductCard"
 import { Store } from "../utils/Store"
 import { getError } from "../utils/error"
 
-function Products({ products, title }) {
+function Products({ products, title, type }) {
   const classes = useStyles()
   const [pageLength, setPageLength] = React.useState(9)
   const [paginatedProducts, setPaginatedProducts] = React.useState([])
@@ -48,41 +48,43 @@ function Products({ products, title }) {
           </Grid>
         ))}
       </Grid>
-      <div>
-        {productsToRender.length > 0 ? (
-          <>
-            <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-            <div className={classes.displayFlex}>
-              <Button
-                color="primary"
-                size="large"
-                variant="outlined"
-                onClick={() =>
-                  changePage(
-                    pageLength > 9 && pageLength > 0 ? pageLength - 9 : 0,
-                    "prev"
-                  )
-                }
-              >
-                Prev
-              </Button>
-              <div style={{ flexGrow: 1 }} />
-              <Button
-                color="primary"
-                size="large"
-                variant="outlined"
-                onClick={() => changePage(pageLength, "next")}
-              >
-                Next
-              </Button>
-            </div>
-          </>
-        ) : (
-          <Typography className={classes.error}>
-            No more products found!!
-          </Typography>
-        )}
-      </div>
+      {type === "all" && (
+        <div>
+          {productsToRender.length > 0 ? (
+            <>
+              <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+              <div className={classes.displayFlex}>
+                <Button
+                  color="primary"
+                  size="large"
+                  variant="outlined"
+                  onClick={() =>
+                    changePage(
+                      pageLength > 9 && pageLength > 0 ? pageLength - 9 : 0,
+                      "prev"
+                    )
+                  }
+                >
+                  Prev
+                </Button>
+                <div style={{ flexGrow: 1 }} />
+                <Button
+                  color="primary"
+                  size="large"
+                  variant="outlined"
+                  onClick={() => changePage(pageLength, "next")}
+                >
+                  Next
+                </Button>
+              </div>
+            </>
+          ) : (
+            <Typography className={classes.error}>
+              No more products found!!
+            </Typography>
+          )}
+        </div>
+      )}
     </div>
   )
 }

@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema(
   },
   { timestamps: true }
 )
-
+productSchema.index({ "$**": "text" })
 const Product =
   mongoose.models.Product || mongoose.model("Product", productSchema)
 

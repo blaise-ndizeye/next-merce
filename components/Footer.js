@@ -67,12 +67,14 @@ export default function Footer() {
   return (
     <footer className={classes.footer}>
       <Divider />
-      <Typography color="error" className={classes.footerFormTitle}>
-        <strong style={{ color: "lightblue" }}>
-          <NotificationsIcon /> PayPal
-        </strong>{" "}
-        is the only payment system implemented now other alternatives are still
-        under development!
+      <Typography color="primary" className={classes.footerFormTitle}>
+        <small>
+          <strong style={{ color: "lightblue" }}>
+            <NotificationsIcon /> PayPal
+          </strong>{" "}
+          is the only payment system implemented now other alternatives are
+          still under development!
+        </small>
       </Typography>
       <Divider />
       <Card>

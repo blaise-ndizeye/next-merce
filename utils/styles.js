@@ -174,6 +174,22 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     flexDirection: "space-between",
   },
+  errorCard: {
+    maxWidth: 400,
+    textAlign: "center",
+    padding: "20px 20px",
+    margin: "auto",
+    marginTop: 15,
+  },
+  errorCardTitle: {
+    fontSize: "1.4rem",
+    fontWeight: "bold",
+  },
+  errorCardText: {
+    fontSize: "0.9rem",
+    marginTop: 10,
+    marginBottom: 10,
+  },
 }))
 
 export default useStyles
