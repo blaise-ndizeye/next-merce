@@ -23,7 +23,9 @@ import {
 } from "@material-ui/core"
 import useStyles from "../utils/styles"
 import Layout from "../components/Layout"
+import ErrorCard from "../components/ErrorCard"
 import { Store } from "../utils/Store"
+import SearchScreenTitle from "../components/SearchScreenTitle"
 
 function Cart() {
   const router = useRouter()
@@ -56,23 +58,22 @@ function Cart() {
 
   return (
     <Layout title="Shopping Cart">
-      <Typography className={classes.title}>Shopping Cart</Typography>
+      <SearchScreenTitle
+        title="Cart:"
+        keyword="Products you want to buy"
+        dataLength={state.cart.cartItems.length}
+        showLink={true}
+        link="/product/all"
+        linkName="Find More..."
+      />
       {state.cart.cartItems.length === 0 ? (
-        <div
-          style={{
-            textAlign: "center",
-            justifyContent: "center",
-            fontSize: "1.45rem",
-            alignItems: "center",
-          }}
-        >
-          Cart is empty.{" "}
-          <NextLink href="/product/all">
-            <Button color="primary" size="large">
-              Go Shopping
-            </Button>
-          </NextLink>
-        </div>
+        <ErrorCard
+          title="No more products found:"
+          keyword="In cart"
+          description="No product added in your basket please navigate to products page to add more by clicking the button below"
+          redirectLink="/product/all"
+          redirectName="Go Shopping"
+        />
       ) : (
         <Grid container spacing={1}>
           <Grid item md={9} xs={12}>
