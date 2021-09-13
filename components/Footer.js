@@ -66,7 +66,6 @@ export default function Footer() {
 
   return (
     <footer className={classes.footer}>
-      <Divider />
       <Typography color="primary" className={classes.footerFormTitle}>
         <small>
           <strong style={{ color: "lightblue" }}>
