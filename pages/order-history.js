@@ -25,6 +25,8 @@ import { Store } from "../utils/Store"
 import { getError } from "../utils/error"
 import Layout from "../components/Layout"
 import useStyles from "../utils/styles"
+import SearchScreenTitle from "../components/SearchScreenTitle"
+import ErrorCard from "../components/ErrorCard"
 
 function OrderHistory() {
   const [orders, setOrders] = React.useState([])
@@ -59,94 +61,78 @@ function OrderHistory() {
 
   return (
     <Layout title="Order History">
-      <Grid container spacing={1}>
-        <Grid item md={3} xs={12}>
-          <Card className={classes.section}>
-            <List>
-              <NextLink href="/profile" passHref>
-                <ListItem button component="a">
-                  <ListItemText primary="User Profile" />
-                </ListItem>
-              </NextLink>
-              <NextLink href="/order-history" passHref>
-                <ListItem selected button component="a">
-                  <ListItemText primary="Order history" />
-                </ListItem>
-              </NextLink>
-            </List>
-          </Card>
-        </Grid>
-        <Grid item md={9} xs={12}>
-          <Card className={classes.section}>
-            <List>
-              <ListItem>
-                <Typography className={classes.title}>Order History</Typography>
-              </ListItem>
-              <ListItem>
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>DATE</TableCell>
-                        <TableCell>TOTAL</TableCell>
-                        <TableCell>PAID</TableCell>
-                        <TableCell>DELIVERED</TableCell>
-                        <TableCell>ACTION</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {orders.map((order) => (
-                        <TableRow key={order._id}>
-                          <TableCell>{order._id.substring(20, 24)}</TableCell>
-                          <TableCell>
-                            {moment(order.createdAt).format("LLLL")}
-                          </TableCell>
-                          <TableCell>${order.totalPrice}</TableCell>
-                          <TableCell>
-                            {order.isPaid ? (
-                              <p style={{ color: "green" }}>
-                                Paid at&nbsp;
-                                {moment(order.paidAt).format("LLLL")}
-                              </p>
-                            ) : (
-                              <p style={{ color: "red" }}>not paid</p>
-                            )}
-                          </TableCell>
-                          <TableCell>
-                            {order.isDelivered ? (
-                              <p style={{ color: "green" }}>
-                                Delivered at&nbsp;
-                                {moment(order.deliveredAt).format("LLLL")}
-                              </p>
-                            ) : (
-                              <p style={{ color: "red" }}>not delivered</p>
-                            )}
-                          </TableCell>
-                          <TableCell>
-                            <NextLink href={`/order/${order._id}`} passHref>
-                              <Button variant="contained" color="secondary">
-                                Details
-                              </Button>
-                            </NextLink>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </ListItem>
-              <ListItem>
-                {orders.length === 0 && (
-                  <Typography className={classes.error}>
-                    No order history found
-                  </Typography>
-                )}
-              </ListItem>
-            </List>
-          </Card>
-        </Grid>
-      </Grid>
+      <SearchScreenTitle
+        title="Order History:"
+        keyword="All orders, paid and unpaid"
+        dataLength={orders.length}
+        showLink={false}
+      />
+
+      <List>
+        <ListItem>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>DATE</TableCell>
+                  <TableCell>TOTAL</TableCell>
+                  <TableCell>PAID</TableCell>
+                  <TableCell>DELIVERED</TableCell>
+                  <TableCell>ACTION</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {orders.map((order) => (
+                  <TableRow key={order._id}>
+                    <TableCell>{order._id.substring(20, 24)}</TableCell>
+                    <TableCell>
+                      {moment(order.createdAt).format("LLLL")}
+                    </TableCell>
+                    <TableCell>${order.totalPrice}</TableCell>
+                    <TableCell>
+                      {order.isPaid ? (
+                        <p style={{ color: "green" }}>
+                          Paid at&nbsp;
+                          {moment(order.paidAt).format("LLLL")}
+                        </p>
+                      ) : (
+                        <p style={{ color: "red" }}>not paid</p>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {order.isDelivered ? (
+                        <p style={{ color: "green" }}>
+                          Delivered at&nbsp;
+                          {moment(order.deliveredAt).format("LLLL")}
+                        </p>
+                      ) : (
+                        <p style={{ color: "red" }}>not delivered</p>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <NextLink href={`/order/${order._id}`} passHref>
+                        <Button variant="contained" color="secondary">
+                          Details
+                        </Button>
+                      </NextLink>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </ListItem>
+      </List>
+      {orders.length === 0 && (
+        <ErrorCard
+          title="No order history found: "
+          keyword="Buy to place one"
+          description="It seems that you haven't performed any action of buying please click the button below to buy a poduct and have something in order history"
+          redirectLink="/product/all"
+          redirectName="Go Shopping"
+        />
+      )}
     </Layout>
   )
 }

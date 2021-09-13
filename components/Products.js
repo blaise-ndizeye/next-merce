@@ -108,8 +108,8 @@ function Products({ products, title, type, keyword }) {
             />
           ) : (
             <ErrorCard
-              title="Site is loading data"
-              keyword="Loading data ..."
+              title="Site is loading data for you: "
+              keyword="Please wait"
               description="Wait until the page finish to load data if not found we recommend refreshing the page or report the problem in the comment section"
               redirectLink="/"
               redirectName="Go to Home"
