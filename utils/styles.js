@@ -2,6 +2,16 @@ import { alpha, makeStyles } from "@material-ui/core/styles"
 import { pink } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme) => ({
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
   navbar: {
     backgroundColor: "rgb(76, 22, 83)",
     "& a": {
@@ -163,8 +173,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 7,
   },
   anotherPageLink: {
-    fontSize: 20,
-    textTransform: "uppercase",
     textAlign: "center",
     marginTop: 7,
     marginBottom: 7,

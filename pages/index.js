@@ -1,7 +1,7 @@
 import React from "react"
 import NextLink from "next/link"
 import dynamic from "next/dynamic"
-import { Grid, Typography, Slide, Divider, Link } from "@material-ui/core"
+import { Grid, Typography, Slide, Divider, Button } from "@material-ui/core"
 import useStyles from "../utils/styles"
 import Layout from "../components/Layout"
 import db from "../utils/db"
@@ -38,13 +38,15 @@ function Home(props) {
         </Slide>
         <Divider style={{ marginTop: 10 }} />
         <NextLink href="/product/all" passHref>
-          <Link>
-            <Typography className={classes.anotherPageLink}>
-              FIND MORE PRODUCTS...
-            </Typography>
-          </Link>
+          <Button
+            className={classes.anotherPageLink}
+            color="primary"
+            variant="contained"
+            fullWidth
+          >
+            FIND MORE PRODUCTS...
+          </Button>
         </NextLink>
-        <Divider />
       </div>
     </Layout>
   )

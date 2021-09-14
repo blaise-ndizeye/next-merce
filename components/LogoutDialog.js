@@ -49,15 +49,9 @@ export default function LogoutDialog(props) {
       )}
       {props.type === "listItem" && (
         <ListItem>
-          <Link
-            variant="body2"
-            className={classes.muiLink}
-            onClick={handleToggleDialog}
-          >
-            <Typography style={{ textAlign: "center" }}>
-              Logout &nbsp;
-            </Typography>
-          </Link>
+          <Button onClick={handleToggleDialog} color="primary" fullWidth>
+            Logout
+          </Button>
         </ListItem>
       )}
       <Dialog

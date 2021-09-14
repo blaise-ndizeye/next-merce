@@ -5,7 +5,16 @@ import { useSnackbar } from "notistack"
 import { useForm, Controller } from "react-hook-form"
 import { useRouter } from "next/router"
 import TextField from "@material-ui/core/TextField"
-import { Typography, List, ListItem, Button, Link } from "@material-ui/core"
+import {
+  Avatar,
+  Typography,
+  List,
+  ListItem,
+  Button,
+  Link,
+  Grid,
+} from "@material-ui/core"
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import Layout from "../components/Layout"
 import useStyles from "../utils/styles"
 import { Store } from "../utils/Store"
@@ -48,7 +57,14 @@ export default function Login() {
         className={classes.form}
         autoComplete="off"
       >
-        <Typography className={classes.title}>Login</Typography>
+        <div className={classes.paper}>
+          <Avatar style={{ textAlign: "center" }} className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5" className={classes.title}>
+            Login
+          </Typography>
+        </div>
         <List>
           <ListItem>
             <Controller
@@ -114,13 +130,22 @@ export default function Login() {
             </Button>
           </ListItem>
           <ListItem>
-            Don't have an account? &nbsp;
-            <NextLink
-              href={`/register?redirect=${router.query.redirect || "/"}`}
-              passHref
-            >
-              <Link>Register</Link>
-            </NextLink>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                Don't have an account? &nbsp;
+                <NextLink
+                  href={`/register?redirect=${router.query.redirect || "/"}`}
+                  passHref
+                >
+                  <Link>Register</Link>
+                </NextLink>
+              </Grid>
+            </Grid>
           </ListItem>
         </List>
       </form>
