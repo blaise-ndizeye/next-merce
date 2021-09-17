@@ -7,7 +7,7 @@ import Products from "../../components/Products"
 import { getError } from "../../utils/error"
 
 export default function ProductScreen(props) {
-  const { dispatch } = React.useContext(Store)
+  const { dispatch, state } = React.useContext(Store)
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const [products, setProducts] = React.useState([])
 
@@ -22,7 +22,8 @@ export default function ProductScreen(props) {
       dispatch({ type: "CLOSE_LOADER" })
       enqueueSnackbar(getError(err), { variant: "error" })
     }
-  }, [])
+  }, [state.reloadData])
+
   return (
     <Layout title="All products" description="Product list in Next-Commerce">
       <Products

@@ -23,6 +23,7 @@ const initialState = {
   searchProductResult: Cookies.get("searchProductResult")
     ? JSON.parse(Cookies.get("searchProductResult"))
     : [],
+  reloadData: false,
 }
 
 const reducer = (state, action) => {
@@ -93,6 +94,8 @@ const reducer = (state, action) => {
     case "CART_CLEAR":
       Cookies.remove("cartItems")
       return { ...state, cart: { ...state.cart, cartItems: [] } }
+    case "RELOAD_DATA":
+      return { ...state, reloadData: !state.reloadData }
     case "USER_LOGIN":
       Cookies.set("userInfo", JSON.stringify(action.payload))
       return { ...state, userInfo: action.payload }

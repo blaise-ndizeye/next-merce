@@ -8,10 +8,15 @@ import db from "../utils/db"
 import Product from "../models/Product"
 import ProductCard from "../components/ProductCard"
 import HomeCard from "../components/HomeCard"
+import { Store } from "../utils/Store"
 
 function Home(props) {
   const { products } = props
   const classes = useStyles()
+  const { state } = React.useContext(Store)
+
+  React.useEffect(async () => {}, [state.reloadData])
+
   return (
     <Layout>
       <div>
@@ -31,7 +36,12 @@ function Home(props) {
           >
             {products.map((product) => (
               <Grid item md={4} sm={6} xs={12} key={product.name}>
-                <ProductCard product={product} />
+                <ProductCard
+                  hideActions={
+                    state.userInfo && state.userInfo.isAdmin ? true : false
+                  }
+                  product={product}
+                />
               </Grid>
             ))}
           </Grid>
@@ -44,7 +54,9 @@ function Home(props) {
             variant="contained"
             fullWidth
           >
-            FIND MORE PRODUCTS...
+            {state.userInfo && state.userInfo.isAdmin
+              ? "Manage your products"
+              : "Find more products"}
           </Button>
         </NextLink>
       </div>

@@ -53,14 +53,16 @@ function Products({ products, title, type, keyword }) {
           linkName="Find More..."
         />
       ) : (
-        <Typography className={classes.productTitle}>
-          <b className={classes.keyword}>{title}</b> &nbsp;&nbsp;
-          <NotificationsIcon />
-          &nbsp;{keyword}
-        </Typography>
+        <>
+          <Typography className={classes.productTitle}>
+            <b className={classes.keyword}>{title}</b> &nbsp;&nbsp;
+            <NotificationsIcon />
+            &nbsp;{keyword}
+          </Typography>
+          <Divider style={{ marginBottom: 10 }} />
+        </>
       )}
 
-      <Divider style={{ marginBottom: 10 }} />
       <Grid container spacing={3} justifyContent="center" alignContent="center">
         {productsToRender.map((product) => (
           <Grid item md={4} sm={6} xs={12} key={product.name}>

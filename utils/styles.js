@@ -209,6 +209,15 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     textTransform: "uppercase",
   },
+  cardPriceWrapper: {
+    backgroundColor: pink[700],
+    textAlign: "center",
+    borderRadius: "50%",
+  },
+  cardPrice: {
+    color: "white",
+    padding: 10,
+  },
 }))
 
 export default useStyles

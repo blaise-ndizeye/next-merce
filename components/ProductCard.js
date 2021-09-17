@@ -1,21 +1,26 @@
 import React from "react"
 import NextLink from "next/link"
 import {
+  Avatar,
   Button,
   Card,
+  CardHeader,
   CardActionArea,
   CardContent,
   CardMedia,
   CardActions,
+  Grid,
   Typography,
 } from "@material-ui/core"
+import { Rating } from "@material-ui/lab"
 import axios from "axios"
 import { useSnackbar } from "notistack"
 import useStyles from "../utils/styles"
 import { Store } from "../utils/Store"
 import { useRouter } from "next/router"
+import DeleteProductDialog from "/components/DeleteProductDialog"
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, hideActions }) {
   const classes = useStyles()
   const { dispatch, state } = React.useContext(Store)
   const router = useRouter()
@@ -40,6 +45,16 @@ export default function ProductCard({ product }) {
 
   return (
     <Card>
+      <CardHeader
+        title={product.name}
+        component="h2"
+        avatar={
+          <Avatar className={classes.pink}>
+            {product.brand.charAt(0).toUpperCase()}
+          </Avatar>
+        }
+        subheader={product.brand}
+      />
       <NextLink href={`/product/${product.slug}`} passHref>
         <CardActionArea>
           <CardMedia
@@ -51,18 +66,44 @@ export default function ProductCard({ product }) {
         </CardActionArea>
       </NextLink>
       <CardContent>
-        <Typography>{product.name}</Typography>
+        <Grid container spacing={1}>
+          <Grid item xs={6}>
+            <Rating value={product.rating} />
+          </Grid>
+          <Grid item xs={6}>
+            <Card className={classes.cardPriceWrapper}>
+              <Typography className={classes.cardPrice}>
+                <strong>Price:</strong> &nbsp; &nbsp;${product.price}
+              </Typography>
+            </Card>
+          </Grid>
+        </Grid>
       </CardContent>
-      <CardActions>
-        <Typography>${product.price}</Typography>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => addToCartHandler(product)}
-        >
-          Add to cart
-        </Button>
-      </CardActions>
+      {!hideActions && (
+        <CardActions>
+          {state.userInfo && state.userInfo.isAdmin ? (
+            <>
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => addToCartHandler(product)}
+              >
+                Edit the product
+              </Button>
+              <DeleteProductDialog type="card" product={product} />
+            </>
+          ) : (
+            <Button
+              size="small"
+              color="primary"
+              type="card"
+              onClick={() => addToCartHandler(product)}
+            >
+              Add to cart
+            </Button>
+          )}
+        </CardActions>
+      )}
     </Card>
   )
 }
