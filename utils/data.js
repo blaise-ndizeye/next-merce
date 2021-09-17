@@ -19,7 +19,7 @@ const data = {
     {
       name: "Free shirt",
       slug: "free-shirt",
-      category: "shirts",
+      category: "Shirt",
       image: "/images/shirt1.jpg",
       price: 70,
       brand: "Nike",
@@ -31,7 +31,7 @@ const data = {
     {
       name: "Fit Shirt",
       slug: "fit-shirt",
-      category: "shirts",
+      category: "Shirt",
       image: "/images/shirt2.jpg",
       price: 80,
       brand: "Nike",
@@ -43,7 +43,7 @@ const data = {
     {
       name: "Slim shirt",
       slug: "slim-shirt",
-      category: "shirts",
+      category: "Shirt",
       image: "/images/shirt3.jpg",
       price: 70,
       brand: "Raymond",
@@ -55,7 +55,7 @@ const data = {
     {
       name: "Golf Pants",
       slug: "golf-pants",
-      category: "Pants",
+      category: "Pant",
       image: "/images/pants1.jpg",
       price: 90,
       brand: "Oliver",
@@ -67,7 +67,7 @@ const data = {
     {
       name: "Fit Pants",
       slug: "fit-pants",
-      category: "Pants",
+      category: "Pant",
       image: "/images/pants2.jpg",
       price: 95,
       brand: "Zara",
@@ -79,7 +79,7 @@ const data = {
     {
       name: "Classic Pants",
       slug: "classic-pants",
-      category: "Pants",
+      category: "Pant",
       image: "/images/pants3.jpg",
       price: 75,
       brand: "Casely",
@@ -91,7 +91,7 @@ const data = {
     {
       name: "Sport Pants",
       slug: "sport-pants",
-      category: "Pants",
+      category: "Pant",
       image: "/images/pants4.jpg",
       price: 75,
       brand: "Adidas",
@@ -103,7 +103,7 @@ const data = {
     {
       name: "Posh Pants",
       slug: "posh-pants",
-      category: "Pants",
+      category: "Pant",
       image: "/images/pants5.jpg",
       price: 16,
       brand: "Adidas",
@@ -115,7 +115,7 @@ const data = {
     {
       name: "Motocross Sport Pants",
       slug: "motocross-pants",
-      category: "Pants",
+      category: "Pant",
       image: "/images/pants6.jpg",
       price: 20,
       brand: "Ferrari",

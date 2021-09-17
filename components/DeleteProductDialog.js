@@ -1,18 +1,22 @@
 import React from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
+import { ListItem } from "@material-ui/core"
 import Button from "@material-ui/core/Button"
 import Dialog from "@material-ui/core/Dialog"
 import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
 import DialogTitle from "@material-ui/core/DialogTitle"
+import DeleteIcon from "@material-ui/icons/Delete"
 import { useSnackbar } from "notistack"
 import { Store } from "../utils/Store"
+import useStyles from "/utils/styles"
 import { getError } from "../utils/error"
 
 export default function DeleteProductDialog({ product, type }) {
   const router = useRouter()
+  const classes = useStyles()
   const [open, setOpen] = React.useState(false)
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const { dispatch, state } = React.useContext(Store)
@@ -56,9 +60,29 @@ export default function DeleteProductDialog({ product, type }) {
   return (
     <>
       {type === "card" && (
-        <Button style={{ color: "red" }} size="small" onClick={handleClickOpen}>
+        <Button
+          startIcon={<DeleteIcon />}
+          className={classes.cardDeleteButton}
+          size="small"
+          onClick={handleClickOpen}
+        >
           Delete the product
         </Button>
+      )}
+      {type === "details" && (
+        <ListItem>
+          <Button
+            fullwidth
+            type="button"
+            startIcon={<DeleteIcon />}
+            variant="contained"
+            className={classes.cardDeleteButton}
+            style={{ width: "100%" }}
+            onClick={handleClickOpen}
+          >
+            Delete the product
+          </Button>
+        </ListItem>
       )}
       <Dialog
         open={open}
@@ -76,12 +100,13 @@ export default function DeleteProductDialog({ product, type }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary">
+          <Button variant="contained" onClick={handleClose} color="secondary">
             Disagree
           </Button>
           <Button
             onClick={() => deleteProductHandler(product._id)}
             color="primary"
+            variant="contained"
             autoFocus
           >
             Agree

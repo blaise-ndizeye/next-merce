@@ -8,7 +8,7 @@ const handler = nc()
 
 handler.use(isAuth)
 
-handler.post(async (req, res) => {
+handler.put(async (req, res) => {
   try {
     await db.connect()
     const { newProduct } = req.body
@@ -35,11 +35,13 @@ handler.post(async (req, res) => {
       !numReviews
     )
       return res.status(400).send({ message: "All fields are required" })
-    const product = await Product.findById(productId)
+    const product = await Product.findOne({ _id: productId })
     if (!product)
       return res.status(400).send({ message: "Product doesn't exist" })
     if (!req.user.isAdmin)
-      return res.status(401).send({ message: "Operation not allowed" })
+      return res
+        .status(401)
+        .send({ message: "Access denied: Operation not allowed" })
     await Product.updateOne(
       { _id: product.id },
       {
@@ -49,8 +51,9 @@ handler.post(async (req, res) => {
       }
     )
     await db.disconnect()
-    res.status(200)
+    res.send(200)
   } catch (err) {
+    console.error(err)
     res.status(500).send(getError(err))
   }
 })

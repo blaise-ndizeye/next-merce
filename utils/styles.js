@@ -1,5 +1,5 @@
 import { alpha, makeStyles } from "@material-ui/core/styles"
-import { pink } from "@material-ui/core/colors"
+import { pink, red } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -210,13 +210,22 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
   },
   cardPriceWrapper: {
-    backgroundColor: pink[700],
     textAlign: "center",
-    borderRadius: "50%",
   },
   cardPrice: {
-    color: "white",
+    color: pink[300],
     padding: 10,
+  },
+  cardAvatar: {
+    backgroundColor: pink[700],
+    color: "white",
+  },
+  cardDeleteButton: {
+    color: "white",
+    backgroundColor: red[500],
+    "&:hover": {
+      backgroundColor: red[200],
+    },
   },
 }))
 

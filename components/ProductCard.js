@@ -19,6 +19,7 @@ import useStyles from "../utils/styles"
 import { Store } from "../utils/Store"
 import { useRouter } from "next/router"
 import DeleteProductDialog from "/components/DeleteProductDialog"
+import EditProductDialog from "./EditProductDialog"
 
 export default function ProductCard({ product, hideActions }) {
   const classes = useStyles()
@@ -49,7 +50,7 @@ export default function ProductCard({ product, hideActions }) {
         title={product.name}
         component="h2"
         avatar={
-          <Avatar className={classes.pink}>
+          <Avatar className={classes.cardAvatar}>
             {product.brand.charAt(0).toUpperCase()}
           </Avatar>
         }
@@ -82,16 +83,14 @@ export default function ProductCard({ product, hideActions }) {
       {!hideActions && (
         <CardActions>
           {state.userInfo && state.userInfo.isAdmin ? (
-            <>
-              <Button
-                size="small"
-                color="primary"
-                onClick={() => addToCartHandler(product)}
-              >
-                Edit the product
-              </Button>
-              <DeleteProductDialog type="card" product={product} />
-            </>
+            <Grid container>
+              <Grid item xs={6}>
+                <EditProductDialog product={product} />
+              </Grid>
+              <Grid item xs={6}>
+                <DeleteProductDialog type="card" product={product} />
+              </Grid>
+            </Grid>
           ) : (
             <Button
               size="small"

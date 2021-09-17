@@ -12,10 +12,13 @@ import {
   Card,
   Button,
 } from "@material-ui/core"
+import { Rating } from "@material-ui/lab"
 import axios from "axios"
 import useStyles from "../../utils/styles"
 import Product from "../../models/Product"
 import { Store } from "../../utils/Store"
+import EditProductDialog from "../../components/EditProductDialog"
+import DeleteProductDialog from "../../components/DeleteProductDialog"
 
 export default function ProductScreen({ product }) {
   const { dispatch, state } = React.useContext(Store)
@@ -78,8 +81,11 @@ export default function ProductScreen({ product }) {
             <ListItem>
               Rating:{" "}
               <Typography>
-                &nbsp; {product.rating} stars ({product.numReviews} reviews)
+                &nbsp; <Rating value={product.rating} />
               </Typography>
+            </ListItem>
+            <ListItem>
+              Reviews: <Typography>&nbsp; {product.numReviews}</Typography>
             </ListItem>
             <ListItem>
               Description:
@@ -119,18 +125,25 @@ export default function ProductScreen({ product }) {
                   </Button>
                 </NextLink>
               </ListItem>
-              <ListItem>
-                <Button
-                  fullwidth
-                  type="button"
-                  variant="contained"
-                  color="primary"
-                  style={{ width: "100%" }}
-                  onClick={addToCartHandler}
-                >
-                  Add to cart
-                </Button>
-              </ListItem>
+              {state.userInfo && state.userInfo.isAdmin ? (
+                <>
+                  <EditProductDialog type="details" product={product} />
+                  <DeleteProductDialog type="details" product={product} />
+                </>
+              ) : (
+                <ListItem>
+                  <Button
+                    fullwidth
+                    type="button"
+                    variant="contained"
+                    color="primary"
+                    style={{ width: "100%" }}
+                    onClick={addToCartHandler}
+                  >
+                    Add to cart
+                  </Button>
+                </ListItem>
+              )}
             </List>
           </Card>
         </Grid>
