@@ -243,6 +243,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     padding: 5,
   },
+  linkBtn: {
+    color: purple[900],
+    backgroundColor: purple[50],
+    "&:hover": {
+      backgroundColor: purple[100],
+    },
+  },
 }))
 
 export default useStyles

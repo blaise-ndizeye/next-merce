@@ -24,7 +24,12 @@ export default function ErrorCard(props) {
           {props.danger ? (
             <DeleteAccountDialog />
           ) : (
-            <Button style={{ marginTop: 10 }} color="primary">
+            <Button
+              style={{ marginTop: 10 }}
+              color="primary"
+              variant="contained"
+              fullWidth
+            >
               {props.redirectName}
             </Button>
           )}

@@ -1,17 +1,22 @@
 import React from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
+import { ListItem } from "@material-ui/core"
 import Button from "@material-ui/core/Button"
 import Dialog from "@material-ui/core/Dialog"
 import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
 import DialogTitle from "@material-ui/core/DialogTitle"
+import DeleteIcon from "@material-ui/icons/Delete"
 import { useSnackbar } from "notistack"
 import { Store } from "../utils/Store"
+import useStyles from "/utils/styles"
+import { getError } from "../utils/error"
 
-export default function DeleteAccountDialog() {
+export default function ConfirmDeliveryDialog({ order }) {
   const router = useRouter()
+  const classes = useStyles()
   const [open, setOpen] = React.useState(false)
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const { dispatch, state } = React.useContext(Store)
@@ -24,22 +29,22 @@ export default function DeleteAccountDialog() {
     setOpen(false)
   }
 
-  const deleteAccountHandler = async () => {
+  const confirmDeliveryHandler = async (orderId) => {
     closeSnackbar()
     try {
       dispatch({ type: "OPEN_LOADER" })
       handleClose()
-      await axios.post(
-        "/api/users/delete",
-        { userId: state.userInfo._id },
+      await axios.put(
+        `/api/orders/${orderId}/deliver`,
+        {},
         {
           headers: {
             authorization: `Bearer ${state.userInfo.token}`,
           },
         }
       )
-      dispatch({ type: "USER_LOGOUT" })
-      router.push("/")
+      enqueueSnackbar("Delivery confirmed successfully", { variant: "success" })
+      router.push(`/order/${order._id}`)
       dispatch({ type: "CLOSE_LOADER" })
     } catch (err) {
       dispatch({ type: "CLOSE_LOADER" })
@@ -48,14 +53,8 @@ export default function DeleteAccountDialog() {
   }
 
   return (
-    <div>
-      <Button
-        style={{ marginTop: 10 }}
-        color="primary"
-        onClick={handleClickOpen}
-        variant="contained"
-        fullWidth
-      >
+    <>
+      <Button onClick={handleClickOpen} color="primary">
         Confirm
       </Button>
       <Dialog
@@ -65,13 +64,12 @@ export default function DeleteAccountDialog() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Are you sure you want to delete your account?"}
+          {`Are you sure you want to confirm the delivery of product: ${order._id}?`}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Once you delete your account all data will be lost and you will not
-            be able to log in again unless you create a new account. The
-            decision is up to you
+            Once the delivery of the product(s) mentioned in the order is
+            confirmed you will be able to delete the order
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -79,15 +77,15 @@ export default function DeleteAccountDialog() {
             Disagree
           </Button>
           <Button
-            variant="contained"
-            onClick={deleteAccountHandler}
+            onClick={() => confirmDeliveryHandler(order._id)}
             color="primary"
+            variant="contained"
             autoFocus
           >
             Agree
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   )
 }

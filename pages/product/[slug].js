@@ -120,11 +120,13 @@ export default function ProductScreen({ product }) {
                 </Grid>
               </ListItem>
               <ListItem>
-                <NextLink href="/product/all" passHref>
-                  <Button style={{ width: "100%" }} color="primary">
-                    BACK TO PRODUCTS
-                  </Button>
-                </NextLink>
+                <Button
+                  onClick={() => window.history.back()}
+                  className={classes.linkBtn}
+                  style={{ width: "100%" }}
+                >
+                  Go back
+                </Button>
               </ListItem>
               {state.userInfo && state.userInfo.isAdmin ? (
                 <>

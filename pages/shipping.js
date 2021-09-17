@@ -25,6 +25,7 @@ export default function Shipping() {
     if (!state.userInfo) {
       router.push("/login?redirect=/shipping")
     }
+    if (state.userInfo && state.userInfo.isAdmin) return router.push("/")
     if (state.appLoader) dispatch({ type: "CLOSE_LOADER" })
     setValue("fullName", shippingAddress.fullName)
     setValue("address", shippingAddress.address)

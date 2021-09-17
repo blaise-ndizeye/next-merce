@@ -6,19 +6,14 @@ import NextLink from "next/link"
 import { useRouter } from "next/router"
 import {
   Button,
-  Typography,
-  Grid,
   TableContainer,
   Table,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
-  Card,
   List,
   ListItem,
-  ListItemText,
-  LinearProgress,
 } from "@material-ui/core"
 import { useSnackbar } from "notistack"
 import { Store } from "../utils/Store"
@@ -27,6 +22,7 @@ import Layout from "../components/Layout"
 import useStyles from "../utils/styles"
 import SearchScreenTitle from "../components/SearchScreenTitle"
 import ErrorCard from "../components/ErrorCard"
+import ConfirmDeliveryDialog from "../components/ConfirmDeliveryDialog"
 
 function OrderHistory() {
   const [orders, setOrders] = React.useState([])
@@ -111,11 +107,14 @@ function OrderHistory() {
                       )}
                     </TableCell>
                     <TableCell>
-                      <NextLink href={`/order/${order._id}`} passHref>
-                        <Button variant="contained" color="secondary">
-                          Details
-                        </Button>
-                      </NextLink>
+                      <>
+                        <NextLink href={`/order/${order._id}`} passHref>
+                          <Button color="secondary">Details</Button>
+                        </NextLink>
+                        {!order.isDelivered && userInfo.isAdmin && (
+                          <ConfirmDeliveryDialog order={order} />
+                        )}
+                      </>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -127,10 +126,18 @@ function OrderHistory() {
       {orders.length === 0 && (
         <ErrorCard
           title="No order history found: "
-          keyword="Buy to place one"
-          description="It seems that you haven't performed any action of buying please click the button below to buy a poduct and have something in order history"
-          redirectLink="/product/all"
-          redirectName="Go Shopping"
+          keyword={
+            userInfo && userInfo.isAdmin ? "Nothing here" : "Buy to place one"
+          }
+          description={
+            userInfo && userInfo.isAdmin
+              ? "It seems that no order being paid yet, wait until some products are bought by the buyers on market to start manage your orders"
+              : "It seems that you haven't performed any action of buying please click the button below to buy a poduct and have something in order history"
+          }
+          redirectLink={userInfo && userInfo.isAdmin ? "/" : "/product/all"}
+          redirectName={
+            userInfo && userInfo.isAdmin ? "Go home" : "Go Shopping"
+          }
         />
       )}
     </Layout>

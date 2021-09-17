@@ -202,9 +202,13 @@ function Order({ params }) {
                 </ListItem>
                 <ListItem>
                   Status:{" "}
-                  {isDelivered
-                    ? `Delivered at ${moment(deliveredAt).format("LLLL")}`
-                    : "not delivered"}
+                  {isDelivered ? (
+                    <p style={{ color: "green" }}>
+                      &nbsp;Delivered at {moment(deliveredAt).format("LLLL")}
+                    </p>
+                  ) : (
+                    <p style={{ color: "red" }}>&nbsp;not delivered</p>
+                  )}
                 </ListItem>
               </List>
             </Card>
@@ -218,9 +222,13 @@ function Order({ params }) {
                 <ListItem>{paymentMethod}</ListItem>
                 <ListItem>
                   Status:{" "}
-                  {isPaid
-                    ? `Paid at ${moment(paidAt).format("LLLL")}`
-                    : "not paid"}
+                  {isPaid ? (
+                    <p style={{ color: "green" }}>
+                      &nbsp;Paid at {moment(paidAt).format("LLLL")}
+                    </p>
+                  ) : (
+                    <p style={{ color: "red" }}>&nbsp;not paid</p>
+                  )}
                 </ListItem>
               </List>
             </Card>
@@ -330,8 +338,23 @@ function Order({ params }) {
                   </Grid>
                 </ListItem>
                 <ListItem>
-                  <Button onClick={goToHomeHandler} fullWidth color="primary">
+                  <Button
+                    className={classes.linkBtn}
+                    onClick={goToHomeHandler}
+                    fullWidth
+                    color="primary"
+                  >
                     Go to home
+                  </Button>
+                </ListItem>
+                <ListItem>
+                  <Button
+                    onClick={() => window.history.back()}
+                    fullWidth
+                    color="primary"
+                    className={classes.linkBtn}
+                  >
+                    Go back
                   </Button>
                 </ListItem>
                 {!isPaid && (
