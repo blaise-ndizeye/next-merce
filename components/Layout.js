@@ -37,10 +37,10 @@ function Layout({ children, title, description }) {
     palette: {
       type: state.darkMode ? "dark" : "light",
       primary: {
-        main: purple[400],
+        main: purple[700],
       },
       secondary: {
-        main: red[100],
+        main: red[200],
       },
     },
   })

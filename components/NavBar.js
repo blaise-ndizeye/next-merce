@@ -102,21 +102,25 @@ function NavBar() {
         </MenuItem>
       </NextLink>
       <NextLink href="/cart" passHref forwardRef>
-        <MenuItem>
-          <IconButton aria-label="Cart" color="inherit">
-            {state.cart.cartItems.length > 0 ? (
-              <Badge
-                color="secondary"
-                badgeContent={state.cart.cartItems.length}
-              >
+        {state.userInfo && state.userInfo.isAdmin ? (
+          ""
+        ) : (
+          <MenuItem>
+            <IconButton aria-label="Cart" color="inherit">
+              {state.cart.cartItems.length > 0 ? (
+                <Badge
+                  color="secondary"
+                  badgeContent={state.cart.cartItems.length}
+                >
+                  <ShoppingCartIcon />
+                </Badge>
+              ) : (
                 <ShoppingCartIcon />
-              </Badge>
-            ) : (
-              <ShoppingCartIcon />
-            )}
-          </IconButton>
-          <p>Cart</p>
-        </MenuItem>
+              )}
+            </IconButton>
+            <p>Cart</p>
+          </MenuItem>
+        )}
       </NextLink>
       <MenuItem onClick={darkModeChangeHandler}>
         <IconButton aria-label="Dark Ligth mode" color="inherit">
@@ -207,27 +211,31 @@ function NavBar() {
                 <HomeIcon />
               </IconButton>
             </NextLink>
-            <NextLink href="/cart" passHref forwardRef>
-              <IconButton
-                className={clsx(
-                  classes.navBtn,
-                  router.pathname === "/cart" && classes.active
-                )}
-                aria-label="Cart"
-                color="inherit"
-              >
-                {state.cart.cartItems.length > 0 ? (
-                  <Badge
-                    color="secondary"
-                    badgeContent={state.cart.cartItems.length}
-                  >
+            {state.userInfo && state.userInfo.isAdmin ? (
+              ""
+            ) : (
+              <NextLink href="/cart" passHref forwardRef>
+                <IconButton
+                  className={clsx(
+                    classes.navBtn,
+                    router.pathname === "/cart" && classes.active
+                  )}
+                  aria-label="Cart"
+                  color="inherit"
+                >
+                  {state.cart.cartItems.length > 0 ? (
+                    <Badge
+                      color="secondary"
+                      badgeContent={state.cart.cartItems.length}
+                    >
+                      <ShoppingCartIcon />
+                    </Badge>
+                  ) : (
                     <ShoppingCartIcon />
-                  </Badge>
-                ) : (
-                  <ShoppingCartIcon />
-                )}
-              </IconButton>
-            </NextLink>
+                  )}
+                </IconButton>
+              </NextLink>
+            )}
             <IconButton
               onClick={darkModeChangeHandler}
               aria-label="Dark Ligth mode"

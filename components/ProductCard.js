@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@material-ui/core"
 import { Rating } from "@material-ui/lab"
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
 import axios from "axios"
 import { useSnackbar } from "notistack"
 import useStyles from "../utils/styles"
@@ -92,14 +93,22 @@ export default function ProductCard({ product, hideActions }) {
               </Grid>
             </Grid>
           ) : (
-            <Button
-              size="small"
-              color="primary"
-              type="card"
-              onClick={() => addToCartHandler(product)}
-            >
-              Add to cart
-            </Button>
+            <Grid container>
+              <Grid item xs={12}>
+                <Button
+                  startIcon={<ShoppingCartIcon />}
+                  size="small"
+                  variant="contained"
+                  fullWidth
+                  color="primary"
+                  type="card"
+                  className={classes.cartAddButton}
+                  onClick={() => addToCartHandler(product)}
+                >
+                  Add to cart
+                </Button>
+              </Grid>
+            </Grid>
           )}
         </CardActions>
       )}

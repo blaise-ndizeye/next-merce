@@ -10,8 +10,6 @@ import LockIcon from "@material-ui/icons/Lock"
 import IconButton from "@material-ui/core/IconButton"
 import MenuItem from "@material-ui/core/MenuItem"
 import ListItem from "@material-ui/core/ListItem"
-import Link from "@material-ui/core/Link"
-import Typography from "@material-ui/core/Typography"
 import useStyles from "../utils/styles"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -49,7 +47,7 @@ export default function LogoutDialog(props) {
       )}
       {props.type === "listItem" && (
         <ListItem>
-          <Button onClick={handleToggleDialog} color="primary" fullWidth>
+          <Button onClick={handleToggleDialog} color="secondary" fullWidth>
             Logout
           </Button>
         </ListItem>
@@ -72,10 +70,14 @@ export default function LogoutDialog(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleToggleDialog} color="secondary">
+          <Button
+            variant="contained"
+            onClick={handleToggleDialog}
+            color="secondary"
+          >
             Disagree
           </Button>
-          <Button onClick={confirmHandler} color="primary">
+          <Button variant="contained" onClick={confirmHandler} color="primary">
             Agree
           </Button>
         </DialogActions>

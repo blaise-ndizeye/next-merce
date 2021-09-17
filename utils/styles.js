@@ -1,5 +1,5 @@
 import { alpha, makeStyles } from "@material-ui/core/styles"
-import { pink, red } from "@material-ui/core/colors"
+import { pink, red, purple } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -211,13 +211,14 @@ const useStyles = makeStyles((theme) => ({
   },
   cardPriceWrapper: {
     textAlign: "center",
+    backgroundColor: purple[50],
   },
   cardPrice: {
-    color: pink[300],
+    color: purple[900],
     padding: 10,
   },
   cardAvatar: {
-    backgroundColor: pink[700],
+    backgroundColor: purple[600],
     color: "white",
   },
   cardDeleteButton: {
@@ -226,6 +227,21 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: red[200],
     },
+  },
+  cartAddButton: {
+    color: "white",
+    backgroundColor: purple[700],
+    "&:hover": {
+      backgroundColor: purple[500],
+    },
+  },
+  footerSection: {
+    backgroundColor: "#3D4849",
+    color: "white",
+  },
+  footerParagraph: {
+    marginTop: 10,
+    padding: 5,
   },
 }))
 

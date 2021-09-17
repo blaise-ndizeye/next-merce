@@ -6,7 +6,7 @@ const categories = [
   "Food",
   "Television",
   "Computer",
-  "Wood Furniture",
+  "Others",
 ]
 
 export { categories }

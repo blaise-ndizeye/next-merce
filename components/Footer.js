@@ -15,10 +15,11 @@ import {
   CircularProgress,
   Divider,
 } from "@material-ui/core"
-import NotificationsIcon from "@material-ui/icons/Notifications"
+import { Alert } from "@material-ui/lab"
 import { Store } from "../utils/Store"
 import useStyles from "../utils/styles"
 import LogoutDialog from "./LogoutDialog"
+import { categories } from "/utils/constants"
 
 export default function Footer() {
   const classes = useStyles()
@@ -66,19 +67,43 @@ export default function Footer() {
 
   return (
     <footer className={classes.footer}>
-      <Typography color="primary" className={classes.footerFormTitle}>
-        <small>
-          <strong style={{ color: "lightblue" }}>
-            <NotificationsIcon /> PayPal
-          </strong>{" "}
-          is the only payment system implemented now other alternatives are
-          still under development!
-        </small>
-      </Typography>
+      <Alert severity="info">
+        PayPal is the only payment system implemented now other alternatives are
+        still under development!
+      </Alert>
       <Divider />
-      <Card>
-        <Grid container justifyContent="center" alignContent="center">
-          <Grid item xs={12} md={9}>
+      <Card className={classes.footerSection}>
+        <Grid
+          container
+          justifyContent="center"
+          alignContent="center"
+          spacing={2}
+        >
+          <Grid item xs={12} md={3}>
+            <Typography
+              component="p"
+              color="inherit"
+              className={classes.footerParagraph}
+            >
+              There are many categories of products in this e-commerce platform
+              if you want to find the product using the categories you can click
+              the links below:
+            </Typography>
+            <List>
+              <Grid container>
+                {categories.map((item, index) => (
+                  <Grid key={index} item xs={6}>
+                    <ListItem>
+                      <Button color="secondary" fullWidth>
+                        {item}
+                      </Button>
+                    </ListItem>
+                  </Grid>
+                ))}
+              </Grid>
+            </List>
+          </Grid>
+          <Grid item xs={12} md={3}>
             <form
               onSubmit={handleSubmit(submitHandler)}
               className={classes.form}
@@ -87,7 +112,7 @@ export default function Footer() {
               <Typography
                 component="p"
                 color="inherit"
-                className={classes.footerFormTitle}
+                className={classes.footerParagraph}
               >
                 {state.userInfo ? state.userInfo.name + ", for" : "For"} any
                 idea or any other comment on this platform please submit a
@@ -110,6 +135,7 @@ export default function Footer() {
                         variant="outlined"
                         id="name"
                         label="Name"
+                        color="secondary"
                         inputProps={{ type: "name" }}
                         error={Boolean(errors.name)}
                         helperText={
@@ -139,6 +165,7 @@ export default function Footer() {
                         variant="outlined"
                         id="email"
                         label="Email"
+                        color="secondary"
                         inputProps={{ type: "email" }}
                         error={Boolean(errors.email)}
                         helperText={
@@ -168,6 +195,7 @@ export default function Footer() {
                         variant="outlined"
                         id="comment"
                         label="Comment"
+                        color="secondary"
                         inputProps={{ type: "text" }}
                         error={Boolean(errors.comment)}
                         helperText={
@@ -187,7 +215,7 @@ export default function Footer() {
                     variant="contained"
                     type="submit"
                     fullWidth
-                    color="primary"
+                    color="secondary"
                   >
                     {loading ? (
                       <CircularProgress color="secondary" />
@@ -212,43 +240,56 @@ export default function Footer() {
                 </Typography>
               </ListItem>
               <Divider />
-              <ListItem>
-                <NextLink href="/cart" passHref>
-                  {state.cart.cartItems.length > 0 ? (
-                    <Badge
-                      color="secondary"
-                      badgeContent={state.cart.cartItems.length}
-                    >
-                      <Button color="primary" fullWidth>
-                        Cart
-                      </Button>
-                    </Badge>
+              <Grid container>
+                <Grid item xs={6}>
+                  {state.userInfo && state.userInfo.isAdmin ? (
+                    ""
                   ) : (
-                    <Button color="primary" fullWidth>
-                      Cart
-                    </Button>
+                    <ListItem>
+                      <NextLink href="/cart" passHref>
+                        {state.cart.cartItems.length > 0 ? (
+                          <Badge
+                            color="secondary"
+                            badgeContent={state.cart.cartItems.length}
+                          >
+                            <Button color="secondary" fullWidth>
+                              Cart
+                            </Button>
+                          </Badge>
+                        ) : (
+                          <Button color="secondary" fullWidth>
+                            Cart
+                          </Button>
+                        )}
+                      </NextLink>
+                    </ListItem>
                   )}
-                </NextLink>
-              </ListItem>
-              <ListItem>
-                <NextLink href="/about" passHref>
-                  <Button color="primary" fullWidth>
-                    About
-                  </Button>
-                </NextLink>
-              </ListItem>
+                </Grid>
+                <Grid
+                  item
+                  xs={state.userInfo && state.userInfo.isAdmin ? 12 : 6}
+                >
+                  <ListItem>
+                    <NextLink href="/about" passHref>
+                      <Button color="secondary" fullWidth>
+                        About
+                      </Button>
+                    </NextLink>
+                  </ListItem>
+                </Grid>
+              </Grid>
               {state.userInfo ? (
                 <>
                   <ListItem>
                     <NextLink href="/profile" passHref>
-                      <Button color="primary" fullWidth>
-                        About
+                      <Button color="secondary" fullWidth>
+                        Profile
                       </Button>
                     </NextLink>
                   </ListItem>
                   <ListItem>
                     <NextLink href="/order-history" passHref>
-                      <Button color="primary" fullWidth>
+                      <Button color="secondary" fullWidth>
                         Order History
                       </Button>
                     </NextLink>
@@ -262,14 +303,14 @@ export default function Footer() {
                 <>
                   <ListItem>
                     <NextLink href="/login" passHref>
-                      <Button color="primary" fullWidth>
+                      <Button color="secondary" fullWidth>
                         Login
                       </Button>
                     </NextLink>
                   </ListItem>
                   <ListItem>
                     <NextLink href="/register" passHref>
-                      <Button color="primary" fullWidth>
+                      <Button color="secondary" fullWidth>
                         Register
                       </Button>
                     </NextLink>
@@ -278,11 +319,50 @@ export default function Footer() {
               )}
               <ListItem>
                 <NextLink href="/" passHref>
-                  <Button color="primary" fullWidth>
+                  <Button color="secondary" fullWidth>
                     Home
                   </Button>
                 </NextLink>
               </ListItem>
+            </List>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Typography className={classes.footerParagraph}>
+              NEXT COMMERCE
+            </Typography>
+            <List>
+              <Grid container>
+                <Grid item xs={12}>
+                  <ListItem>Contact Us:</ListItem>
+                </Grid>
+                <Grid item xs={5}>
+                  <ListItem>Email:</ListItem>
+                </Grid>
+                <Grid item xs={7}>
+                  nextcommerce@gmail.com
+                </Grid>
+                <Grid item xs={6}>
+                  <ListItem>Phone:</ListItem>
+                </Grid>
+                <Grid item xs={6}>
+                  +250 7827 65738
+                </Grid>
+                <Grid item xs={12}>
+                  <ListItem>Developer:</ListItem>
+                </Grid>
+                <Grid item xs={6}>
+                  <ListItem>Email:</ListItem>
+                </Grid>
+                <Grid item xs={6}>
+                  blaiseonnet@gmail.com
+                </Grid>
+                <Grid item xs={6}>
+                  <ListItem>Phone:</ListItem>
+                </Grid>
+                <Grid item xs={6}>
+                  +250 7876 57134
+                </Grid>
+              </Grid>
             </List>
           </Grid>
         </Grid>

@@ -3,6 +3,7 @@ import NextLink from "next/link"
 import { useRouter } from "next/router"
 import db from "../../utils/db"
 import Layout from "../../components/Layout"
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
 import {
   Grid,
   Divider,
@@ -133,10 +134,12 @@ export default function ProductScreen({ product }) {
               ) : (
                 <ListItem>
                   <Button
+                    startIcon={<ShoppingCartIcon />}
                     fullwidth
                     type="button"
                     variant="contained"
                     color="primary"
+                    className={classes.cartAddButton}
                     style={{ width: "100%" }}
                     onClick={addToCartHandler}
                   >
