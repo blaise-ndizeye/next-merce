@@ -23,6 +23,7 @@ import useStyles from "../utils/styles"
 import SearchScreenTitle from "../components/SearchScreenTitle"
 import ErrorCard from "../components/ErrorCard"
 import ConfirmDeliveryDialog from "../components/ConfirmDeliveryDialog"
+import DeleteOrderDialog from "../components/DeleteOrderDialog"
 
 function OrderHistory() {
   const [orders, setOrders] = React.useState([])
@@ -53,7 +54,7 @@ function OrderHistory() {
     }
 
     fetchOrders()
-  }, [])
+  }, [state.reloadData])
 
   return (
     <Layout title="Order History">
@@ -79,45 +80,52 @@ function OrderHistory() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {orders.map((order) => (
-                  <TableRow key={order._id}>
-                    <TableCell>{order._id.substring(20, 24)}</TableCell>
-                    <TableCell>
-                      {moment(order.createdAt).format("LLLL")}
-                    </TableCell>
-                    <TableCell>${order.totalPrice}</TableCell>
-                    <TableCell>
-                      {order.isPaid ? (
-                        <p style={{ color: "green" }}>
-                          Paid at&nbsp;
-                          {moment(order.paidAt).format("LLLL")}
-                        </p>
-                      ) : (
-                        <p style={{ color: "red" }}>not paid</p>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {order.isDelivered ? (
-                        <p style={{ color: "green" }}>
-                          Delivered at&nbsp;
-                          {moment(order.deliveredAt).format("LLLL")}
-                        </p>
-                      ) : (
-                        <p style={{ color: "red" }}>not delivered</p>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <>
-                        <NextLink href={`/order/${order._id}`} passHref>
-                          <Button color="secondary">Details</Button>
-                        </NextLink>
-                        {!order.isDelivered && userInfo.isAdmin && (
-                          <ConfirmDeliveryDialog order={order} />
+                {userInfo &&
+                  orders.map((order) => (
+                    <TableRow key={order._id}>
+                      <TableCell>{order._id.substring(20, 24)}</TableCell>
+                      <TableCell>
+                        {moment(order.createdAt).format("LLLL")}
+                      </TableCell>
+                      <TableCell>${order.totalPrice}</TableCell>
+                      <TableCell>
+                        {order.isPaid ? (
+                          <p style={{ color: "green" }}>
+                            Paid at&nbsp;
+                            {moment(order.paidAt).format("LLLL")}
+                          </p>
+                        ) : (
+                          <p style={{ color: "red" }}>not paid</p>
                         )}
-                      </>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      </TableCell>
+                      <TableCell>
+                        {order.isDelivered ? (
+                          <p style={{ color: "green" }}>
+                            Delivered at&nbsp;
+                            {moment(order.deliveredAt).format("LLLL")}
+                          </p>
+                        ) : (
+                          <p style={{ color: "red" }}>not delivered</p>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <>
+                          <NextLink href={`/order/${order._id}`} passHref>
+                            <Button color="secondary">Details</Button>
+                          </NextLink>
+                          {!order.isDelivered && userInfo.isAdmin && (
+                            <ConfirmDeliveryDialog order={order} />
+                          )}
+                          {!order.isDelivered &&
+                            !order.isPaid &&
+                            userInfo &&
+                            !userInfo.isAdmin && (
+                              <DeleteOrderDialog order={order} />
+                            )}
+                        </>
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>
