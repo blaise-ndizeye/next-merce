@@ -76,7 +76,11 @@ export default function EditProductDialog({ product, type }) {
         }
       )
       setLoading(false)
-      if (type === "details") router.push(`/product/${product.slug}`)
+      if (type === "details") {
+        router.push(`/product/${product.slug}`)
+      } else {
+        router.push("/product/all")
+      }
       setOpen(false)
       dispatch({ type: "CLOSE_LOADER" })
       dispatch({ type: "RELOAD_DATA" })

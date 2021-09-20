@@ -8,8 +8,11 @@ const handler = nc()
 handler.post(async (req, res) => {
   try {
     await db.connect()
-    const { page } = req.body
-    const products = await Product.find().sort({ _id: 1 }).skip(page).limit(9)
+    const { page, limit, sort } = req.body
+    const products = await Product.find()
+      .sort({ _id: sort || 1 })
+      .skip(page)
+      .limit(limit || 9)
     await db.disconnect()
     res.send(products)
   } catch (err) {

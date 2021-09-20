@@ -1,10 +1,12 @@
 import React from "react"
-import Layout from "../../components/Layout"
+import Layout from "/components/Layout"
 import axios from "axios"
+import db from "/utils/db"
+import Product from "/models/Product"
 import { useSnackbar } from "notistack"
-import { Store } from "../../utils/Store"
-import Products from "../../components/Products"
-import { getError } from "../../utils/error"
+import { Store } from "/utils/Store"
+import Products from "/components/Products"
+import { getError } from "/utils/error"
 
 export default function ProductScreen(props) {
   const { dispatch, state } = React.useContext(Store)
@@ -13,13 +15,18 @@ export default function ProductScreen(props) {
 
   React.useEffect(async () => {
     closeSnackbar()
+    if (!props.products) return dispatch({ type: "OPEN_LOADER" })
+    setProducts(props.products)
+    dispatch({ type: "CLOSE_LOADER" })
+  }, [])
+
+  React.useEffect(async () => {
+    closeSnackbar()
     try {
-      dispatch({ type: "OPEN_LOADER" })
       const { data } = await axios.post("/api/products", { page: 0 })
+      if (data.length === 0) return null
       setProducts(data)
-      dispatch({ type: "CLOSE_LOADER" })
     } catch (err) {
-      dispatch({ type: "CLOSE_LOADER" })
       enqueueSnackbar(getError(err), { variant: "error" })
     }
   }, [state.reloadData])
@@ -34,4 +41,15 @@ export default function ProductScreen(props) {
       />
     </Layout>
   )
+}
+
+export async function getStaticProps() {
+  await db.connect()
+  const products = await Product.find().sort({ _id: 1 }).limit(9).lean()
+  await db.disconnect()
+  return {
+    props: {
+      products: products.map((product) => db.convertDocToObj(product)),
+    },
+  }
 }

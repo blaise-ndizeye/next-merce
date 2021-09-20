@@ -25,7 +25,7 @@ export default function ProductScreen({ product }) {
   const { dispatch, state } = React.useContext(Store)
   const router = useRouter()
   const classes = useStyles()
-  if (!product) return null
+  if (router.isFallback) return null
 
   const addToCartHandler = async () => {
     dispatch({ type: "OPEN_LOADER" })
@@ -157,7 +157,21 @@ export default function ProductScreen({ product }) {
   )
 }
 
-export async function getServerSideProps(ctx) {
+export async function getStaticPaths(ctx) {
+  await db.connect()
+  const products = await Product.find().lean()
+  await db.disconnect()
+  return {
+    paths: products.map((product) => ({
+      params: {
+        slug: product.slug,
+      },
+    })),
+    fallback: true,
+  }
+}
+
+export async function getStaticProps(ctx) {
   const { params } = ctx
   await db.connect()
   const product = await Product.findOne({ slug: params.slug }).lean()
@@ -166,5 +180,6 @@ export async function getServerSideProps(ctx) {
     props: {
       product: db.convertDocToObj(product),
     },
+    revalidate: 1,
   }
 }

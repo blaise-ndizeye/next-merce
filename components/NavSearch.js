@@ -37,6 +37,7 @@ export default function NavSearch() {
           root: classes.inputRoot,
           input: classes.inputInput,
         }}
+        name="search_for_product"
         value={text}
         inputProps={{ "aria-label": "search" }}
         onChange={(e) => setText(e.target.value)}

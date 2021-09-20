@@ -1,4 +1,5 @@
 import React from "react"
+import axios from "axios"
 import NextLink from "next/link"
 import dynamic from "next/dynamic"
 import { Grid, Typography, Slide, Divider, Button } from "@material-ui/core"
@@ -9,13 +10,35 @@ import Product from "../models/Product"
 import ProductCard from "../components/ProductCard"
 import HomeCard from "../components/HomeCard"
 import { Store } from "../utils/Store"
+import { useSnackbar } from "notistack"
+import { getError } from "/utils/error"
 
 function Home(props) {
-  const { products } = props
   const classes = useStyles()
-  const { state } = React.useContext(Store)
+  const [products, setProducts] = React.useState([])
+  const { dispatch, state } = React.useContext(Store)
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
-  React.useEffect(async () => {}, [state.reloadData])
+  React.useEffect(async () => {
+    closeSnackbar()
+    if (!props.products) return dispatch({ type: "OPEN_LOADER" })
+    setProducts(props.products)
+    dispatch({ type: "CLOSE_LOADER" })
+  }, [])
+
+  React.useEffect(async () => {
+    try {
+      const { data } = await axios.post("/api/products", {
+        page: 0,
+        limit: 6,
+        sort: -1,
+      })
+      if (data.length === 0) return null
+      setProducts(data)
+    } catch (err) {
+      enqueueSnackbar(getError(err), { variant: "error" })
+    }
+  }, [state.reloadData])
 
   return (
     <Layout>
@@ -47,7 +70,7 @@ function Home(props) {
           </Grid>
         </Slide>
         <Divider style={{ marginTop: 10 }} />
-        <NextLink href="/product/all" passHref>
+        <NextLink href={`/product/all`} passHref>
           <Button
             className={classes.anotherPageLink}
             color="primary"
@@ -66,7 +89,7 @@ function Home(props) {
 
 export default dynamic(() => Promise.resolve(Home), { ssr: false })
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   await db.connect()
   const products = await Product.find().sort({ _id: -1 }).limit(6).lean()
   await db.disconnect()

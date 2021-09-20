@@ -134,6 +134,7 @@ export default function Footer() {
                         fullWidth
                         variant="outlined"
                         id="name"
+                        name="name"
                         label="Name"
                         color="secondary"
                         inputProps={{ type: "name" }}
@@ -164,6 +165,7 @@ export default function Footer() {
                         fullWidth
                         variant="outlined"
                         id="email"
+                        name="email"
                         label="Email"
                         color="secondary"
                         inputProps={{ type: "email" }}
@@ -194,6 +196,7 @@ export default function Footer() {
                         fullWidth
                         variant="outlined"
                         id="comment"
+                        name="comment"
                         label="Comment"
                         color="secondary"
                         inputProps={{ type: "text" }}
@@ -217,11 +220,7 @@ export default function Footer() {
                     fullWidth
                     color="secondary"
                   >
-                    {loading ? (
-                      <CircularProgress color="secondary" />
-                    ) : (
-                      "Submit"
-                    )}
+                    {loading ? <CircularProgress color="primary" /> : "Submit"}
                   </Button>
                 </ListItem>
               </List>

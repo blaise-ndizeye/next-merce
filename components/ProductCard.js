@@ -70,7 +70,7 @@ export default function ProductCard({ product, hideActions }) {
       <CardContent>
         <Grid container spacing={1}>
           <Grid item xs={6}>
-            <Rating value={product.rating} />
+            <Rating name="ratingForProduct" value={+product.rating} />
           </Grid>
           <Grid item xs={6}>
             <Card className={classes.cardPriceWrapper}>
