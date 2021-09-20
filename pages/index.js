@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import NextLink from "next/link"
 import dynamic from "next/dynamic"
@@ -16,7 +17,8 @@ import { getError } from "/utils/error"
 function Home(props) {
   const classes = useStyles()
   const [products, setProducts] = React.useState([])
-  const { dispatch, state } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
   React.useEffect(async () => {

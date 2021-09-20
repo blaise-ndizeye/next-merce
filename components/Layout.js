@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector } from "react-redux"
 import Head from "next/head"
 import dynamic from "next/dynamic"
 import { Container, ThemeProvider, Slide } from "@material-ui/core"
@@ -20,7 +21,7 @@ Router.onRouteChangeComplete = () => NProgress.done()
 Router.onRouteChangeError = () => NProgress.done()
 
 function Layout({ children, title, description }) {
-  const { state } = React.useContext(Store)
+  const state = useSelector((state) => state)
   const theme = createTheme({
     typography: {
       h1: {

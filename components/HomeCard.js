@@ -1,4 +1,5 @@
 import React from "react"
+import { useDispatch, useSelector } from "react-redux"
 import NextLink from "next/link"
 import {
   Button,
@@ -12,7 +13,7 @@ import useStyles from "../utils/styles"
 
 export default function HomeCard(props) {
   const classes = useStyles()
-  const { state } = React.useContext(Store)
+  const state = useSelector((state) => state)
   const { userInfo } = state
   return (
     <Card className={classes.homeCardCover}>

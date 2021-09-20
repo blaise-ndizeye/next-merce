@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import Cookies from "js-cookie"
 import {
   FormControl,
@@ -22,7 +23,9 @@ export default function Payment() {
   const classes = useStyles()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const [paymentMethod, setPaymentMethod] = React.useState("")
-  const { state, dispatch } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
+
   React.useEffect(() => {
     if (!state.userInfo) return router.push("/")
     if (!state.cart.shippingAddress.address) return router.push("/shipping")

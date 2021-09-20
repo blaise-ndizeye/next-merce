@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import Layout from "/components/Layout"
 import axios from "axios"
 import db from "/utils/db"
@@ -9,7 +10,8 @@ import Products from "/components/Products"
 import { getError } from "/utils/error"
 
 export default function ProductScreen(props) {
-  const { dispatch, state } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const [products, setProducts] = React.useState([])
 

@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import Button from "@material-ui/core/Button"
 import {
@@ -28,7 +29,8 @@ export default function EditProductDialog({ product, type }) {
   const [open, setOpen] = React.useState(false)
   const router = useRouter()
   const classes = useStyles()
-  const { dispatch, state } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const [loading, setLoading] = React.useState(false)
   const [category, setCategory] = React.useState(product.category)

@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import dynamic from "next/dynamic"
 import NextLink from "next/link"
 import axios from "axios"
@@ -17,7 +18,8 @@ function Products({ products, title, type, keyword }) {
   const [pageLength, setPageLength] = React.useState(9)
   const [paginatedProducts, setPaginatedProducts] = React.useState([])
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
-  const { dispatch, state } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
   const productsToRender =
     paginatedProducts.length > 0 ? paginatedProducts : products
 

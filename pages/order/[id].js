@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import moment from "moment"
 import dynamic from "next/dynamic"
@@ -57,7 +58,8 @@ function Order({ params }) {
   const classes = useStyles()
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
-  const { state, dispatch: globalDispatch } = React.useContext(Store)
+  const globalDispatch = useDispatch()
+  const state = useSelector((state) => state)
   const { userInfo } = state
 
   const [{ loading, error, order, successPay }, dispatch] = React.useReducer(

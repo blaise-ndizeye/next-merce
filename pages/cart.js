@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import dynamic from "next/dynamic"
 import NextLink from "next/link"
@@ -30,7 +31,8 @@ import SearchScreenTitle from "../components/SearchScreenTitle"
 function Cart() {
   const router = useRouter()
   const classes = useStyles()
-  const { state, dispatch } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
 
   const checkoutHandler = () => {
     dispatch({ type: "OPEN_LOADER" })

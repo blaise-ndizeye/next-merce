@@ -33,6 +33,9 @@
     "react-dom": "17.0.2",
     "react-hook-form": "^7.12.2",
     "react-material-ui-carousel": "^2.2.7",
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1",
+    "redux-thunk": "^2.3.0",
     "streamifier": "^0.1.1"
   },
   "devDependencies": {

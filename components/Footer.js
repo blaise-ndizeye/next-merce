@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import NextLink from "next/link"
 import { useSnackbar } from "notistack"
 import { useForm, Controller } from "react-hook-form"
@@ -23,7 +24,8 @@ import { categories } from "/utils/constants"
 
 export default function Footer() {
   const classes = useStyles()
-  const { state, dispatch } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
   const [loading, setLoading] = React.useState(false)
 
   const {

@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import NextLink from "next/link"
 import Layout from "/components/Layout"
 import { Button, Card, Divider, Typography } from "@material-ui/core"
@@ -9,7 +10,8 @@ import ErrorCard from "../../../components/ErrorCard"
 import SearchScreenTitle from "../../../components/SearchScreenTitle"
 
 export default function SearchScreen(props) {
-  const { dispatch, state } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
   const classes = useStyles()
   const [products, setProducts] = React.useState([])
 

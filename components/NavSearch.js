@@ -1,4 +1,5 @@
 import React from "react"
+import { useDispatch } from "react-redux"
 import axios from "axios"
 import InputBase from "@material-ui/core/InputBase"
 import { useRouter } from "next/router"
@@ -11,7 +12,7 @@ export default function NavSearch() {
   const router = useRouter()
   const [text, setText] = React.useState("")
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
-  const { dispatch } = React.useContext(Store)
+  const dispatch = useDispatch()
   const classes = useStyles()
 
   const submitHandler = async (e) => {

@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 import db from "../../utils/db"
@@ -22,7 +23,8 @@ import EditProductDialog from "../../components/EditProductDialog"
 import DeleteProductDialog from "../../components/DeleteProductDialog"
 
 export default function ProductScreen({ product }) {
-  const { dispatch, state } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
   const router = useRouter()
   const classes = useStyles()
   if (router.isFallback) return null

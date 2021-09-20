@@ -1,7 +1,7 @@
-import { createContext, useReducer } from "react"
+import { createStore, applyMiddleware } from "redux"
+import { Provider } from "react-redux"
+import thunk from "redux-thunk"
 import Cookies from "js-cookie"
-
-export const Store = createContext()
 
 const initialState = {
   darkMode: Cookies.get("darkMode") === "ON" ? true : false,
@@ -112,8 +112,8 @@ const reducer = (state, action) => {
   }
 }
 
-export function StoreProvider(props) {
-  const [state, dispatch] = useReducer(reducer, initialState)
-  const value = { state, dispatch }
-  return <Store.Provider value={value}>{props.children}</Store.Provider>
+export const Store = createStore(reducer, initialState, applyMiddleware(thunk))
+
+export default function StoreProvider({ children }) {
+  return <Provider store={Store}>{children}</Provider>
 }

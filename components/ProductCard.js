@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import NextLink from "next/link"
 import {
   Avatar,
@@ -24,7 +25,8 @@ import EditProductDialog from "./EditProductDialog"
 
 export default function ProductCard({ product, hideActions }) {
   const classes = useStyles()
-  const { dispatch, state } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
   const router = useRouter()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 

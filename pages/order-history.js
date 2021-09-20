@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import moment from "moment"
 import dynamic from "next/dynamic"
@@ -27,7 +28,8 @@ import DeleteOrderDialog from "../components/DeleteOrderDialog"
 
 function OrderHistory() {
   const [orders, setOrders] = React.useState([])
-  const { state, dispatch } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
   const router = useRouter()
   const classes = useStyles()
   const { userInfo } = state

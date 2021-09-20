@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import { useRouter } from "next/router"
 import Button from "@material-ui/core/Button"
@@ -14,7 +15,8 @@ export default function DeleteAccountDialog() {
   const router = useRouter()
   const [open, setOpen] = React.useState(false)
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
-  const { dispatch, state } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
 
   const handleClickOpen = () => {
     setOpen(true)

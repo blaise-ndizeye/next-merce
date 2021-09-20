@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import dynamic from "next/dynamic"
 import NextLink from "next/link"
@@ -32,7 +33,8 @@ function PlaceOrder() {
   const classes = useStyles()
   const [loading, setLoading] = React.useState(false)
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
-  const { state, dispatch } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
   const {
     userInfo,
     cart: { cartItems, shippingAddress, paymentMethod },

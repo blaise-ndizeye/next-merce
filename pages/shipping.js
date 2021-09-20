@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import { useForm, Controller } from "react-hook-form"
 import { useRouter } from "next/router"
 import TextField from "@material-ui/core/TextField"
@@ -10,13 +11,15 @@ import CheckoutWizard from "../components/CheckoutWizard"
 
 export default function Shipping() {
   const router = useRouter()
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
+
   const {
     handleSubmit,
     control,
     formState: { errors },
     setValue,
   } = useForm()
-  const { dispatch, state } = React.useContext(Store)
   const {
     cart: { shippingAddress },
   } = state

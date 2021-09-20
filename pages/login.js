@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import NextLink from "next/link"
 import { useSnackbar } from "notistack"
@@ -28,7 +29,8 @@ export default function Login() {
     formState: { errors },
   } = useForm()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
-  const { dispatch, state } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
   const classes = useStyles()
   React.useEffect(() => {
     if (state.userInfo) {

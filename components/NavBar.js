@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 import clsx from "clsx"
 import dynamic from "next/dynamic"
 import Cookies from "js-cookie"
@@ -31,7 +32,8 @@ import LogoutDialog from "./LogoutDialog"
 function NavBar() {
   const router = useRouter()
   const classes = useStyles()
-  const { state, dispatch } = React.useContext(Store)
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state)
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null)
 
