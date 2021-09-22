@@ -133,7 +133,7 @@ function OrderHistory() {
           </TableContainer>
         </ListItem>
       </List>
-      {orders.length === 0 && (
+      {orders.length === 0 && !state.appLoader && (
         <ErrorCard
           title="No order history found: "
           keyword={

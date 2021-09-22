@@ -22,6 +22,7 @@ import { Store } from "../utils/Store"
 import { useRouter } from "next/router"
 import DeleteProductDialog from "/components/DeleteProductDialog"
 import EditProductDialog from "./EditProductDialog"
+import { getError } from "../utils/error"
 
 export default function ProductCard({ product, hideActions }) {
   const classes = useStyles()
@@ -32,19 +33,24 @@ export default function ProductCard({ product, hideActions }) {
 
   const addToCartHandler = async (product) => {
     closeSnackbar()
-    dispatch({ type: "OPEN_LOADER" })
-    const { data } = await axios.get(`/api/products/${product._id}`)
-    const existItem = state.cart.cartItems.find((x) => x._id === product._id)
-    const quantity = existItem ? existItem.quantity + 1 : 1
-    if (data.countInStock < quantity) {
+    try {
+      dispatch({ type: "OPEN_LOADER" })
+      const { data } = await axios.get(`/api/products/${product._id}`)
+      const existItem = state.cart.cartItems.find((x) => x._id === product._id)
+      const quantity = existItem ? existItem.quantity + 1 : 1
+      if (data.countInStock < quantity) {
+        dispatch({ type: "CLOSE_LOADER" })
+        return enqueueSnackbar("Sorry! Product is out of stock", {
+          variant: "error",
+        })
+      }
+      dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } })
+      router.push("/cart")
       dispatch({ type: "CLOSE_LOADER" })
-      return enqueueSnackbar("Sorry! Product is out of stock", {
-        variant: "error",
-      })
+    } catch (err) {
+      dispatch({ type: "CLOSE_LOADER" })
+      enqueueSnackbar(getError(err), { variant: "error" })
     }
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } })
-    router.push("/cart")
-    dispatch({ type: "CLOSE_LOADER" })
   }
 
   return (
@@ -59,7 +65,7 @@ export default function ProductCard({ product, hideActions }) {
         }
         subheader={product.brand}
       />
-      <NextLink href={`/product/${product.slug}`} passHref>
+      <NextLink href={`/product/${product._id}`} passHref>
         <CardActionArea>
           <CardMedia
             component="img"

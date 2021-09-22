@@ -21,6 +21,7 @@ import Product from "../../models/Product"
 import { Store } from "../../utils/Store"
 import EditProductDialog from "../../components/EditProductDialog"
 import DeleteProductDialog from "../../components/DeleteProductDialog"
+import { getError } from "../../utils/error"
 
 export default function ProductScreen({ product }) {
   const dispatch = useDispatch()
@@ -30,15 +31,22 @@ export default function ProductScreen({ product }) {
   if (router.isFallback) return null
 
   const addToCartHandler = async () => {
-    dispatch({ type: "OPEN_LOADER" })
-    const { data } = await axios.get(`/api/products/${product._id}`)
-    const existItem = state.cart.cartItems.find((x) => x._id === product._id)
-    const quantity = existItem ? existItem.quantity + 1 : 1
-    if (data.countInStock < quantity)
-      return window.alert("Sorry. Product is out of stock...")
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } })
-    router.push("/cart")
-    dispatch({ type: "CLOSE_LOADER" })
+    try {
+      dispatch({ type: "OPEN_LOADER" })
+      const { data } = await axios.get(`/api/products/${product._id}`)
+      const existItem = state.cart.cartItems.find((x) => x._id === product._id)
+      const quantity = existItem ? existItem.quantity + 1 : 1
+      if (data.countInStock < quantity)
+        return enqueueSnackbar("Sorry the product is out of stock", {
+          variant: "error",
+        })
+      dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } })
+      router.push("/cart")
+      dispatch({ type: "CLOSE_LOADER" })
+    } catch (err) {
+      dispatch({ type: "CLOSE_LOADER" })
+      enqueueSnackbar(getError(err), { variant: "error" })
+    }
   }
   return (
     <Layout title={product.name} description={product.description}>
@@ -166,7 +174,7 @@ export async function getStaticPaths(ctx) {
   return {
     paths: products.map((product) => ({
       params: {
-        slug: product.slug,
+        productId: product._id.toString(),
       },
     })),
     fallback: true,
@@ -176,7 +184,7 @@ export async function getStaticPaths(ctx) {
 export async function getStaticProps(ctx) {
   const { params } = ctx
   await db.connect()
-  const product = await Product.findOne({ slug: params.slug }).lean()
+  const product = await Product.findOne({ _id: params.productId }).lean()
   await db.disconnect()
   return {
     props: {

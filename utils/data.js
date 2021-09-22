@@ -18,7 +18,6 @@ const data = {
   products: [
     {
       name: "Free shirt",
-      slug: "free-shirt",
       category: "Shirt",
       image: "/images/shirt1.jpg",
       price: 70,
@@ -30,7 +29,6 @@ const data = {
     },
     {
       name: "Fit Shirt",
-      slug: "fit-shirt",
       category: "Shirt",
       image: "/images/shirt2.jpg",
       price: 80,
@@ -42,7 +40,6 @@ const data = {
     },
     {
       name: "Slim shirt",
-      slug: "slim-shirt",
       category: "Shirt",
       image: "/images/shirt3.jpg",
       price: 70,
@@ -54,7 +51,6 @@ const data = {
     },
     {
       name: "Golf Pants",
-      slug: "golf-pants",
       category: "Pant",
       image: "/images/pants1.jpg",
       price: 90,
@@ -66,7 +62,6 @@ const data = {
     },
     {
       name: "Fit Pants",
-      slug: "fit-pants",
       category: "Pant",
       image: "/images/pants2.jpg",
       price: 95,
@@ -78,7 +73,6 @@ const data = {
     },
     {
       name: "Classic Pants",
-      slug: "classic-pants",
       category: "Pant",
       image: "/images/pants3.jpg",
       price: 75,
@@ -90,7 +84,6 @@ const data = {
     },
     {
       name: "Sport Pants",
-      slug: "sport-pants",
       category: "Pant",
       image: "/images/pants4.jpg",
       price: 75,
@@ -102,7 +95,6 @@ const data = {
     },
     {
       name: "Posh Pants",
-      slug: "posh-pants",
       category: "Pant",
       image: "/images/pants5.jpg",
       price: 16,
@@ -114,7 +106,6 @@ const data = {
     },
     {
       name: "Motocross Sport Pants",
-      slug: "motocross-pants",
       category: "Pant",
       image: "/images/pants6.jpg",
       price: 20,
@@ -126,7 +117,6 @@ const data = {
     },
     {
       name: "Miami Shirt",
-      slug: "miami-shirt",
       category: "Shirt",
       image: "/images/shirt4.jpg",
       price: 9,
@@ -138,7 +128,6 @@ const data = {
     },
     {
       name: "Air Jordan",
-      slug: "air-jordan",
       category: "Shoes",
       image: "/images/air_jordan.jpg",
       price: 15,
@@ -150,7 +139,6 @@ const data = {
     },
     {
       name: "Air Jordan 4",
-      slug: "air_jordan4_cyan",
       category: "Shoes",
       image: "/images/air_jordan4_cyan.jpg",
       price: 12,
@@ -162,7 +150,6 @@ const data = {
     },
     {
       name: "Pink Air jordan 4",
-      slug: "air_jordan4_pink",
       category: "Shoes",
       image: "/images/air_jordan4_pink.jpg",
       price: 11,
@@ -174,7 +161,6 @@ const data = {
     },
     {
       name: "White Air Force",
-      slug: "air_force_greenwhite",
       category: "Shoes",
       image: "/images/airforce_greenwhite.jpg",
       price: 10,
@@ -187,7 +173,6 @@ const data = {
     },
     {
       name: "Black Dior Home Shoes",
-      slug: "black_dior_home",
       category: "Shoes",
       image: "/images/diorhome_black.jpg",
       price: 14,
@@ -200,7 +185,6 @@ const data = {
     },
     {
       name: "White Air Jordan 3",
-      slug: "white_air_jordan3",
       category: "Shoes",
       image: "/images/jordan3_white.jpg",
       price: 8,
@@ -213,7 +197,6 @@ const data = {
     },
     {
       name: "White Maqueen",
-      slug: "white_maqueen_smallblack",
       category: "Shoes",
       image: "/images/maqueen_white.jpg",
       price: 10,

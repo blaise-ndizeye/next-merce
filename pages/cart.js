@@ -1,5 +1,6 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
+import { useSnackbar } from "notistack"
 import axios from "axios"
 import dynamic from "next/dynamic"
 import NextLink from "next/link"
@@ -27,12 +28,14 @@ import Layout from "../components/Layout"
 import ErrorCard from "../components/ErrorCard"
 import { Store } from "../utils/Store"
 import SearchScreenTitle from "../components/SearchScreenTitle"
+import { getError } from "../utils/error"
 
 function Cart() {
   const router = useRouter()
   const classes = useStyles()
   const dispatch = useDispatch()
   const state = useSelector((state) => state)
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
   const checkoutHandler = () => {
     dispatch({ type: "OPEN_LOADER" })
@@ -42,16 +45,22 @@ function Cart() {
   }
 
   const updateCartHandler = async (item, quantity) => {
-    dispatch({ type: "OPEN_LOADER" })
-    const { data } = await axios.get(`/api/products/${item._id}`)
-    if (data.countInStock < quantity) {
+    closeSnackbar()
+    try {
+      dispatch({ type: "OPEN_LOADER" })
+      const { data } = await axios.get(`/api/products/${item._id}`)
+      if (data.countInStock < quantity) {
+        dispatch({ type: "CLOSE_LOADER" })
+        return enqueueSnackbar("Sorry! Product is out of stock", {
+          variant: "error",
+        })
+      }
+      dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } })
       dispatch({ type: "CLOSE_LOADER" })
-      return enqueueSnackbar("Sorry! Product is out of stock", {
-        variant: "error",
-      })
+    } catch (err) {
+      dispatch({ type: "CLOSE_LOADER" })
+      enqueueSnackbar(getError(err), { variant: "error" })
     }
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } })
-    dispatch({ type: "CLOSE_LOADER" })
   }
 
   const removeItemHandler = (item) => {

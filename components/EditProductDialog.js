@@ -79,7 +79,7 @@ export default function EditProductDialog({ product, type }) {
       )
       setLoading(false)
       if (type === "details") {
-        router.push(`/product/${product.slug}`)
+        router.push(`/product/${product._id}`)
       } else {
         router.push("/product/all")
       }
