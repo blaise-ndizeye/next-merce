@@ -9,10 +9,12 @@ handler.post(async (req, res) => {
   try {
     await db.connect()
     const { page, limit, sort } = req.body
-    const products = await Product.find()
-      .sort({ _id: sort || 1 })
-      .skip(page)
-      .limit(limit || 9)
+    const products = req.body
+      ? await Product.find()
+          .sort({ _id: sort || 1 })
+          .skip(page)
+          .limit(limit || 9)
+      : await Product.find()
     await db.disconnect()
     res.send(products)
   } catch (err) {

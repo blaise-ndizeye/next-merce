@@ -5,7 +5,6 @@ import axios from "axios"
 import db from "/utils/db"
 import Product from "/models/Product"
 import { useSnackbar } from "notistack"
-import { Store } from "/utils/Store"
 import Products from "/components/Products"
 import { getError } from "/utils/error"
 
@@ -25,7 +24,7 @@ export default function ProductScreen(props) {
   React.useEffect(async () => {
     closeSnackbar()
     try {
-      const { data } = await axios.post("/api/products", { page: 0 })
+      const { data } = await axios.post("/api/products")
       if (data.length === 0) return null
       setProducts(data)
     } catch (err) {

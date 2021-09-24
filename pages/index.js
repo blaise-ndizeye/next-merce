@@ -10,7 +10,6 @@ import db from "../utils/db"
 import Product from "../models/Product"
 import ProductCard from "../components/ProductCard"
 import HomeCard from "../components/HomeCard"
-import { Store } from "../utils/Store"
 import { useSnackbar } from "notistack"
 import { getError } from "/utils/error"
 
