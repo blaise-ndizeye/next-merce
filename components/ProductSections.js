@@ -10,6 +10,7 @@ import Box from "@material-ui/core/Box"
 import { categories } from "../utils/constants"
 import ProductCard from "../components/ProductCard"
 import ErrorCard from "../components/ErrorCard"
+import useStyles from "../utils/styles"
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -67,13 +68,6 @@ function ProductInCategory({ category, products }) {
   )
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    width: "100%",
-  },
-}))
-
 export default function ProductSections(props) {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
@@ -83,7 +77,7 @@ export default function ProductSections(props) {
   }
 
   return (
-    <div className={classes.root}>
+    <div className={classes.tabRoot}>
       <AppBar position="static" color="default">
         <Tabs
           value={value}

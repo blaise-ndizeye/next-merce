@@ -24,14 +24,28 @@ function Products({ products, title, type, keyword }) {
   return (
     <div>
       {type !== "all" ? (
-        <SearchScreenTitle
-          title={title}
-          keyword={keyword}
-          dataLength={products.length}
-          showLink={true}
-          link="/product/all"
-          linkName="Find More..."
-        />
+        <>
+          <SearchScreenTitle
+            title={title}
+            keyword={keyword}
+            dataLength={products.length}
+            showLink={true}
+            link="/product/all"
+            linkName="Find More..."
+          />
+          <Grid
+            container
+            spacing={3}
+            justifyContent="center"
+            alignContent="center"
+          >
+            {products.map((product) => (
+              <Grid item md={4} sm={6} xs={12} key={product.name}>
+                <ProductCard product={product} />
+              </Grid>
+            ))}
+          </Grid>
+        </>
       ) : (
         <>
           <Typography className={classes.productTitle}>
@@ -40,9 +54,9 @@ function Products({ products, title, type, keyword }) {
             &nbsp;{keyword}
           </Typography>
           <Divider style={{ marginBottom: 10 }} />
+          <ProductSections products={products} />
         </>
       )}
-      <ProductSections products={products} />
     </div>
   )
 }

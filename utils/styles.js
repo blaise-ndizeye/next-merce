@@ -250,6 +250,10 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: purple[100],
     },
   },
+  tabRoot: {
+    flexGrow: 1,
+    width: "100%",
+  },
 }))
 
 export default useStyles
