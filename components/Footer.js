@@ -1,6 +1,8 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
+import axios from "axios"
 import NextLink from "next/link"
+import { useRouter } from "next/router"
 import { useSnackbar } from "notistack"
 import { useForm, Controller } from "react-hook-form"
 import {
@@ -21,9 +23,11 @@ import { Store } from "../utils/Store"
 import useStyles from "../utils/styles"
 import LogoutDialog from "./LogoutDialog"
 import { categories } from "/utils/constants"
+import { getError } from "../utils/error"
 
 export default function Footer() {
   const classes = useStyles()
+  const router = useRouter()
   const dispatch = useDispatch()
   const state = useSelector((state) => state)
   const [loading, setLoading] = React.useState(false)
@@ -53,6 +57,22 @@ export default function Footer() {
         })
       }, 2000)
     } catch (err) {
+      enqueueSnackbar(getError(err), { variant: "error" })
+    }
+  }
+
+  const handleSearchCategory = async (category) => {
+    closeSnackbar()
+    try {
+      dispatch({ type: "OPEN_LOADER" })
+      const { data } = await axios.get(
+        `/api/products/search?search=${category}`
+      )
+      dispatch({ type: "SEARCH_PRODUCT_RESULT", payload: data })
+      router.push(`/search/product/${category}`)
+      dispatch({ type: "CLOSE_LOADER" })
+    } catch (err) {
+      dispatch({ type: "CLOSE_LOADER" })
       enqueueSnackbar(getError(err), { variant: "error" })
     }
   }
@@ -87,16 +107,22 @@ export default function Footer() {
               color="inherit"
               className={classes.footerParagraph}
             >
-              There are many categories of products in this e-commerce platform
-              if you want to find the product using the categories you can click
-              the links below:
+              <i>
+                There are many categories of products in this e-commerce
+                platform if you want to find the product using the categories
+                you can click the links below:
+              </i>
             </Typography>
             <List>
               <Grid container>
                 {categories.map((item, index) => (
                   <Grid key={index} item xs={6}>
                     <ListItem>
-                      <Button color="secondary" fullWidth>
+                      <Button
+                        onClick={() => handleSearchCategory(item)}
+                        color="secondary"
+                        fullWidth
+                      >
                         {item}
                       </Button>
                     </ListItem>
@@ -116,9 +142,11 @@ export default function Footer() {
                 color="inherit"
                 className={classes.footerParagraph}
               >
-                {state.userInfo ? state.userInfo.name + ", for" : "For"} any
-                idea or any other comment on this platform please submit a
-                comment by filling the form below:
+                <i>
+                  {state.userInfo ? state.userInfo.name + ", for" : "For"} any
+                  idea or any other comment on this platform please submit a
+                  comment by filling the form below:
+                </i>
               </Typography>
               <Divider />
               <List>
