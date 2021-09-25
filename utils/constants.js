@@ -9,4 +9,6 @@ const categories = [
   "Others",
 ]
 
-export { categories }
+const imageLoader = (image) => image
+
+export { categories, imageLoader }

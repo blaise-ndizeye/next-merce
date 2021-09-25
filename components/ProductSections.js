@@ -58,7 +58,13 @@ function ProductInCategory({ category, products }) {
       />
     )
   return (
-    <Grid container spacing={3} justifyContent="center" alignContent="center">
+    <Grid
+      container
+      spacing={3}
+      justifyContent="center"
+      alignContent="center"
+      style={{ marginTop: 10 }}
+    >
       {productsToRender.map((product) => (
         <Grid item md={4} sm={6} xs={12} key={product.name}>
           <ProductCard product={product} />

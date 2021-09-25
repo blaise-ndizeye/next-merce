@@ -1,6 +1,7 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 import NextLink from "next/link"
+import NextImage from "next/image"
 import { useRouter } from "next/router"
 import db from "../../utils/db"
 import Layout from "../../components/Layout"
@@ -18,7 +19,7 @@ import { Rating } from "@material-ui/lab"
 import axios from "axios"
 import useStyles from "../../utils/styles"
 import Product from "../../models/Product"
-import { Store } from "../../utils/Store"
+import { imageLoader } from "/utils/constants"
 import EditProductDialog from "../../components/EditProductDialog"
 import DeleteProductDialog from "../../components/DeleteProductDialog"
 import { getError } from "../../utils/error"
@@ -50,33 +51,23 @@ export default function ProductScreen({ product }) {
   }
   return (
     <Layout title={product.name} description={product.description}>
-      <Typography className={classes.title}>Product #{product._id}</Typography>
+      <Typography className={classes.title}>
+        Product <strong style={{ color: "lightblue" }}>#{product._id}</strong>
+      </Typography>
       <Divider />
       <Grid className={classes.section} container spacing={1}>
-        <Grid item md={6} sm={12}>
-          <div
-            style={{
-              position: "relative",
-              paddingTop: "56.25%",
-            }}
-          >
-            <img
-              src={product.image}
-              alt={product.name}
-              style={{
-                position: "absolute",
-                left: 0,
-                top: 0,
-                width: "100%",
-                height: 300,
-                objectFit: "cover",
-                objectPosition: "center",
-                borderRadius: 10,
-              }}
-            />
-          </div>
+        <Grid item md={4} sm={6} xs={12}>
+          <NextImage
+            src={product.image}
+            width={400}
+            height={400}
+            alt={product.name}
+            className={classes.nextImage}
+            layout="responsive"
+            loader={() => imageLoader(product.image)}
+          />
         </Grid>
-        <Grid item md={3} xs={12}>
+        <Grid item md={5} sm={6} xs={12}>
           <List>
             <ListItem>
               <Typography component="h1" variant="h1">
@@ -84,23 +75,54 @@ export default function ProductScreen({ product }) {
               </Typography>
             </ListItem>
             <ListItem>
-              Category: <Typography>&nbsp; {product.category}</Typography>
+              <Grid container>
+                <Grid item xs={6}>
+                  Category:
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography>{product.category}</Typography>
+                </Grid>
+              </Grid>
             </ListItem>
             <ListItem>
-              Brand: <Typography>&nbsp; {product.brand}</Typography>
+              <Grid container>
+                <Grid item xs={6}>
+                  Brand:
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography>{product.brand}</Typography>
+                </Grid>
+              </Grid>
             </ListItem>
             <ListItem>
-              Rating:{" "}
-              <Typography>
-                &nbsp; <Rating value={product.rating} />
-              </Typography>
+              <Grid container>
+                <Grid item xs={6}>
+                  Rating:
+                </Grid>
+                <Grid item xs={6}>
+                  <Rating value={+product.rating} name="ratingForProduct" />
+                </Grid>
+              </Grid>
             </ListItem>
             <ListItem>
-              Reviews: <Typography>&nbsp; {product.numReviews}</Typography>
+              <Grid container>
+                <Grid item xs={6}>
+                  Reviews:
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography>{product.numReviews}</Typography>
+                </Grid>
+              </Grid>
             </ListItem>
             <ListItem>
-              Description:
-              <Typography>&nbsp; {product.description}</Typography>
+              <Grid container>
+                <Grid item xs={6}>
+                  Description:
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography>{product.description}</Typography>
+                </Grid>
+              </Grid>
             </ListItem>
           </List>
         </Grid>

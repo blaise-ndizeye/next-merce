@@ -1,6 +1,7 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 import NextLink from "next/link"
+import NextImage from "next/image"
 import {
   Avatar,
   Button,
@@ -18,7 +19,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
 import axios from "axios"
 import { useSnackbar } from "notistack"
 import useStyles from "../utils/styles"
-import { Store } from "../utils/Store"
+import { imageLoader } from "/utils/constants"
 import { useRouter } from "next/router"
 import DeleteProductDialog from "/components/DeleteProductDialog"
 import EditProductDialog from "./EditProductDialog"
@@ -67,12 +68,14 @@ export default function ProductCard({ product, hideActions }) {
       />
       <NextLink href={`/product/${product._id}`} passHref>
         <CardActionArea>
-          <CardMedia
-            component="img"
-            image={product.image}
-            title={product.name}
-            className={classes.cardImg}
-          ></CardMedia>
+          <NextImage
+            src={product.image}
+            width={400}
+            height={400}
+            alt={product.name}
+            layout="responsive"
+            loader={() => imageLoader(product.image)}
+          />
         </CardActionArea>
       </NextLink>
       <CardContent>

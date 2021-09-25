@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardImg: {
     height: "236px",
+    width: "100%",
   },
   muiLink: {
     cursor: "pointer",
@@ -253,6 +254,9 @@ const useStyles = makeStyles((theme) => ({
   tabRoot: {
     flexGrow: 1,
     width: "100%",
+  },
+  nextImage: {
+    borderRadius: 10,
   },
 }))
 
