@@ -9,6 +9,7 @@ import useStyles from "../utils/styles"
 import { Store } from "../utils/Store"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
+import Tooltip from "@material-ui/core/Tooltip"
 import Link from "@material-ui/core/Link"
 import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
@@ -202,118 +203,134 @@ function NavBar() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <NextLink href="/" passHref forwardRef>
-              <IconButton
-                className={clsx(
-                  classes.navBtn,
-                  router.pathname === "/" && classes.active
-                )}
-                aria-label="home"
-                color="inherit"
-              >
-                <HomeIcon />
-              </IconButton>
+              <Tooltip title="Home">
+                <IconButton
+                  className={clsx(
+                    classes.navBtn,
+                    router.pathname === "/" && classes.active
+                  )}
+                  aria-label="home"
+                  color="inherit"
+                >
+                  <HomeIcon />
+                </IconButton>
+              </Tooltip>
             </NextLink>
             {state.userInfo && state.userInfo.isAdmin ? (
               ""
             ) : (
               <NextLink href="/cart" passHref forwardRef>
+                <Tooltip title="Cart">
+                  <IconButton
+                    className={clsx(
+                      classes.navBtn,
+                      router.pathname === "/cart" && classes.active
+                    )}
+                    aria-label="Cart"
+                    color="inherit"
+                  >
+                    {state.cart.cartItems.length > 0 ? (
+                      <Badge
+                        color="secondary"
+                        badgeContent={state.cart.cartItems.length}
+                      >
+                        <ShoppingCartIcon />
+                      </Badge>
+                    ) : (
+                      <ShoppingCartIcon />
+                    )}
+                  </IconButton>
+                </Tooltip>
+              </NextLink>
+            )}
+            <Tooltip title="Light/dark mode">
+              <IconButton
+                onClick={darkModeChangeHandler}
+                aria-label="Dark Ligth mode"
+                color="inherit"
+              >
+                {!state.darkMode ? <Brightness4Icon /> : <Brightness7Icon />}
+              </IconButton>
+            </Tooltip>
+            <NextLink href="/about" passHref forwardRef>
+              <Tooltip title="About">
                 <IconButton
                   className={clsx(
                     classes.navBtn,
-                    router.pathname === "/cart" && classes.active
+                    router.pathname === "/about" && classes.active
                   )}
-                  aria-label="Cart"
+                  aria-label="About"
                   color="inherit"
                 >
-                  {state.cart.cartItems.length > 0 ? (
-                    <Badge
-                      color="secondary"
-                      badgeContent={state.cart.cartItems.length}
-                    >
-                      <ShoppingCartIcon />
-                    </Badge>
-                  ) : (
-                    <ShoppingCartIcon />
-                  )}
+                  <InfoIcon />
                 </IconButton>
-              </NextLink>
-            )}
-            <IconButton
-              onClick={darkModeChangeHandler}
-              aria-label="Dark Ligth mode"
-              color="inherit"
-            >
-              {!state.darkMode ? <Brightness4Icon /> : <Brightness7Icon />}
-            </IconButton>
-            <NextLink href="/about" passHref forwardRef>
-              <IconButton
-                className={clsx(
-                  classes.navBtn,
-                  router.pathname === "/about" && classes.active
-                )}
-                aria-label="About"
-                color="inherit"
-              >
-                <InfoIcon />
-              </IconButton>
+              </Tooltip>
             </NextLink>
             {!state.userInfo ? (
               <div key={Math.random() * 100}>
                 <NextLink href="/login" passHref forwardRef>
-                  <IconButton
-                    className={clsx(
-                      classes.navBtn,
-                      router.pathname === "/login" && classes.active
-                    )}
-                    aria-label="Login"
-                    color="inherit"
-                  >
-                    <ExitToAppIcon />
-                  </IconButton>
+                  <Tooltip title="Login">
+                    <IconButton
+                      className={clsx(
+                        classes.navBtn,
+                        router.pathname === "/login" && classes.active
+                      )}
+                      aria-label="Login"
+                      color="inherit"
+                    >
+                      <ExitToAppIcon />
+                    </IconButton>
+                  </Tooltip>
                 </NextLink>
                 <NextLink href="/register" passHref forwardRef>
-                  <IconButton
-                    className={clsx(
-                      classes.navBtn,
-                      router.pathname === "/register" && classes.active
-                    )}
-                    aria-label="Register"
-                    color="inherit"
-                  >
-                    <PersonAddIcon />
-                  </IconButton>
+                  <Tooltip title="Register">
+                    <IconButton
+                      className={clsx(
+                        classes.navBtn,
+                        router.pathname === "/register" && classes.active
+                      )}
+                      aria-label="Register"
+                      color="inherit"
+                    >
+                      <PersonAddIcon />
+                    </IconButton>
+                  </Tooltip>
                 </NextLink>
               </div>
             ) : (
               <div key={Math.random() * 100}>
                 <NextLink href="/order-history" passHref forwardRef>
-                  <IconButton
-                    className={clsx(
-                      classes.navBtn,
-                      router.pathname === "/order-history" && classes.active
-                    )}
-                    aria-label="History"
-                    color="inherit"
-                  >
-                    <HistoryIcon />
-                  </IconButton>
+                  <Tooltip title="Order history">
+                    <IconButton
+                      className={clsx(
+                        classes.navBtn,
+                        router.pathname === "/order-history" && classes.active
+                      )}
+                      aria-label="History"
+                      color="inherit"
+                    >
+                      <HistoryIcon />
+                    </IconButton>
+                  </Tooltip>
                 </NextLink>
                 <LogoutDialog
                   type="icon"
                   logoutClickHandler={logoutClickHandler}
                 />
                 <NextLink href="/profile" passHref forwardRef>
-                  <IconButton
-                    edge="end"
-                    aria-label="account of current user"
-                    aria-controls={menuId}
-                    aria-haspopup="true"
-                    color="inherit"
-                  >
-                    <Avatar className={classes.pink}>
-                      {state.userInfo.name.charAt(0).toUpperCase()}
-                    </Avatar>
-                  </IconButton>
+                  <Tooltip title="Profile">
+                    <IconButton
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls={menuId}
+                      aria-haspopup="true"
+                      color="inherit"
+                    >
+                      <Avatar className={classes.pink}>
+                        {state.userInfo.name.charAt(0).toUpperCase()}
+                      </Avatar>
+                    </IconButton>
+                  </Tooltip>
                 </NextLink>
               </div>
             )}

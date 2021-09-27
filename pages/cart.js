@@ -167,7 +167,7 @@ function Cart() {
                 </ListItem>
                 <ListItem>
                   <NextLink href="/product/all">
-                    <Button color="primary" fullWidth>
+                    <Button className={classes.cartContinueBtn} fullWidth>
                       Continue Shopping
                     </Button>
                   </NextLink>

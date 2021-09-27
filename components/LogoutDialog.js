@@ -10,6 +10,7 @@ import LockIcon from "@material-ui/icons/Lock"
 import IconButton from "@material-ui/core/IconButton"
 import MenuItem from "@material-ui/core/MenuItem"
 import ListItem from "@material-ui/core/ListItem"
+import Tooltip from "@material-ui/core/Tooltip"
 import useStyles from "../utils/styles"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -29,13 +30,15 @@ export default function LogoutDialog(props) {
   return (
     <>
       {props.type === "icon" && (
-        <IconButton
-          onClick={handleToggleDialog}
-          aria-label="Logout"
-          color="inherit"
-        >
-          <LockIcon />
-        </IconButton>
+        <Tooltip title="Logout">
+          <IconButton
+            onClick={handleToggleDialog}
+            aria-label="Logout"
+            color="inherit"
+          >
+            <LockIcon />
+          </IconButton>
+        </Tooltip>
       )}
       {props.type === "menuItem" && (
         <MenuItem onClick={handleToggleDialog}>

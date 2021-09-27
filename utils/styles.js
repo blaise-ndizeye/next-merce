@@ -268,6 +268,13 @@ const useStyles = makeStyles((theme) => ({
   nextImage: {
     borderRadius: 10,
   },
+  cartContinueBtn: {
+    color: purple[900],
+    backgroundColor: purple[50],
+    "&:hover": {
+      backgroundColor: purple[100],
+    },
+  },
 }))
 
 export default useStyles

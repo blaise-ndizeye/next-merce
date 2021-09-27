@@ -22,18 +22,37 @@ export default function HomeCard(props) {
           Hello{userInfo ? ` ${userInfo.name}` : ""}, welcome to Next Commerce
         </Typography>
         <Typography component="h5" className={classes.homeCardText}>
-          For this e-commerce platform find the product you want at any anytime
-          and get it for short time, if you don't know how to use it we
-          recommend reading the contents in the about screen or by clicking the
-          button below
+          E-commerce platform for purchasing the products you want at any
+          anytime and get it for short time, and also there are other many
+          services you can connect with your account which are under development
+          otherwise if you don't know how to use it we recommend reading the
+          contents in the about screen or by clicking the button below
         </Typography>
       </CardContent>
       <CardActions>
-        <NextLink href="/about" passHref>
-          <Button size="large" color="primary" className={classes.homeCardBtn}>
-            Read More...
-          </Button>
-        </NextLink>
+        {state.userInfo ? (
+          <NextLink href="/about" passHref>
+            <Button
+              size="large"
+              color="primary"
+              variant="contained"
+              className={classes.homeCardBtn}
+            >
+              Read More...
+            </Button>
+          </NextLink>
+        ) : (
+          <NextLink href="/login" passHref>
+            <Button
+              size="large"
+              color="primary"
+              variant="contained"
+              className={classes.homeCardBtn}
+            >
+              Get started
+            </Button>
+          </NextLink>
+        )}
       </CardActions>
     </Card>
   )
