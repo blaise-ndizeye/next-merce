@@ -6,4 +6,7 @@ module.exports = {
   env: {
     ROOT: __dirname,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
