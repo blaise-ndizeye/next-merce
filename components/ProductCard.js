@@ -96,10 +96,10 @@ export default function ProductCard({ product, hideActions }) {
         <CardActions>
           {state.userInfo && state.userInfo.isAdmin ? (
             <Grid container>
-              <Grid item xs={6}>
+              <Grid item xs={6} align="left">
                 <EditProductDialog product={product} />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={6} align="right">
                 <DeleteProductDialog type="card" product={product} />
               </Grid>
             </Grid>

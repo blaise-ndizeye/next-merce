@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector } from "react-redux"
 import PropTypes from "prop-types"
 import { Grid } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
@@ -11,6 +12,7 @@ import { categories } from "../utils/constants"
 import ProductCard from "../components/ProductCard"
 import ErrorCard from "../components/ErrorCard"
 import useStyles from "../utils/styles"
+import AddProductBtn from "./AddProductBtn"
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -43,7 +45,7 @@ function a11yProps(index) {
   }
 }
 
-function ProductInCategory({ category, products }) {
+function ProductInCategory({ category, products, state }) {
   const productsToRender = products.filter(
     (product) => product.category == category
   )
@@ -52,9 +54,13 @@ function ProductInCategory({ category, products }) {
       <ErrorCard
         title="No products found with category: "
         keyword={category}
-        description="Wait until the products are published to the market to buy produts with that category"
+        description={
+          state.userInfo && state.userInfo.isAdmin
+            ? "There is no poduct with this category found if you want to manage the product of this category please add to the market by clicking the button above"
+            : "Wait until the products are published to the market to buy produts with that category"
+        }
         redirectLink="/"
-        redirectName="Go to Home"
+        redirectName="Go to home"
       />
     )
   return (
@@ -76,6 +82,7 @@ function ProductInCategory({ category, products }) {
 
 export default function ProductSections(props) {
   const classes = useStyles()
+  const state = useSelector((state) => state)
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event, newValue) => {
@@ -85,6 +92,15 @@ export default function ProductSections(props) {
   return (
     <div className={classes.tabRoot}>
       <AppBar position="static" color="default">
+        {state.userInfo && state.userInfo.isAdmin && (
+          <div style={{ display: "flex" }}>
+            <Typography component="h2" className={classes.toolbarTitle}>
+              _categories_
+            </Typography>
+            <div className={classes.grow} />
+            <AddProductBtn />
+          </div>
+        )}
         <Tabs
           value={value}
           onChange={handleChange}
@@ -101,7 +117,11 @@ export default function ProductSections(props) {
       </AppBar>
       {categories.map((item, index) => (
         <TabPanel key={index} value={value} index={index}>
-          <ProductInCategory category={item} products={props.products} />
+          <ProductInCategory
+            category={item}
+            products={props.products}
+            state={state}
+          />
         </TabPanel>
       ))}
     </div>

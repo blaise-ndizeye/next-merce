@@ -3,15 +3,16 @@ import Product from "../../../models/Product"
 import db from "../../../utils/db"
 import { isAuth } from "../../../utils/auth"
 import { getError } from "../../../utils/error"
+import formidableMiddleware from "../../../utils/formidableHandler"
 
 const handler = nc()
 
 handler.use(isAuth)
+handler.use(formidableMiddleware)
 
 handler.put(async (req, res) => {
   try {
     await db.connect()
-    const { newProduct } = req.body
     const {
       productId,
       name,
@@ -22,7 +23,7 @@ handler.put(async (req, res) => {
       description,
       rating,
       numReviews,
-    } = newProduct
+    } = req.body
 
     if (
       !name ||
@@ -35,18 +36,22 @@ handler.put(async (req, res) => {
       !numReviews
     )
       return res.status(400).send({ message: "All fields are required" })
+
     const product = await Product.findOne({ _id: productId })
     if (!product)
       return res.status(400).send({ message: "Product doesn't exist" })
+
     if (!req.user.isAdmin)
       return res
         .status(401)
         .send({ message: "Access denied: Operation not allowed" })
+
     await Product.updateOne(
       { _id: product.id },
       {
         $set: {
-          ...newProduct,
+          ...req.body,
+          image: req.body.image ? req.body.image : product.image,
         },
       }
     )
@@ -58,4 +63,9 @@ handler.put(async (req, res) => {
   }
 })
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
 export default handler

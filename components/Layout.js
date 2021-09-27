@@ -49,7 +49,7 @@ function Layout({ children, title, description }) {
   return (
     <>
       <Head>
-        <title>{title ? `${title}-Next Commerce` : "Next Commerce"}</title>
+        <title>{title ? `${title} | Next Commerce` : "Next Commerce"}</title>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
@@ -63,7 +63,7 @@ function Layout({ children, title, description }) {
         <CssBaseline />
         <NavBar />
         <Loader />
-        <Slide direction="down" in={true} timeout={1000}>
+        <Slide direction="up" in={true} timeout={1000}>
           <Container className={classes.main}>{children}</Container>
         </Slide>
         <Footer />

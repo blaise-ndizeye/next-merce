@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import NextLink from "next/link"
 import dynamic from "next/dynamic"
-import { Grid, Typography, Slide, Divider, Button } from "@material-ui/core"
+import { Grid, Typography, Divider, Button } from "@material-ui/core"
+import SettingsIcon from "@material-ui/icons/Settings"
+import FindInPageIcon from "@material-ui/icons/FindInPage"
 import useStyles from "../utils/styles"
 import Layout from "../components/Layout"
 import db from "../utils/db"
@@ -51,29 +53,34 @@ function Home(props) {
         <Divider />
         <HomeCard products={products} />
         <Divider style={{ marginBottom: 10 }} />
-        <Slide direction="down" in={true}>
-          <Grid
-            container
-            spacing={3}
-            justifyContent="center"
-            alignContent="center"
-          >
-            {products.map((product) => (
-              <Grid item md={4} sm={6} xs={12} key={product.name}>
-                <ProductCard
-                  hideActions={
-                    state.userInfo && state.userInfo.isAdmin ? true : false
-                  }
-                  product={product}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Slide>
+        <Grid
+          container
+          spacing={3}
+          justifyContent="center"
+          alignContent="center"
+        >
+          {products.map((product) => (
+            <Grid item md={4} sm={6} xs={12} key={product.name}>
+              <ProductCard
+                hideActions={
+                  state.userInfo && state.userInfo.isAdmin ? true : false
+                }
+                product={product}
+              />
+            </Grid>
+          ))}
+        </Grid>
         <Divider style={{ marginTop: 10 }} />
         <NextLink href={`/product/all`} passHref>
           <Button
             className={classes.anotherPageLink}
+            startIcon={
+              state.userInfo && state.userInfo.isAdmin ? (
+                <SettingsIcon />
+              ) : (
+                <FindInPageIcon />
+              )
+            }
             color="primary"
             variant="contained"
             fullWidth

@@ -18,7 +18,6 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import Layout from "../components/Layout"
 import useStyles from "../utils/styles"
-import { Store } from "../utils/Store"
 import { getError } from "../utils/error"
 
 export default function Login() {

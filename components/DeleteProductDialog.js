@@ -68,7 +68,7 @@ export default function DeleteProductDialog({ product, type }) {
           size="small"
           onClick={handleClickOpen}
         >
-          Delete the product
+          Delete product
         </Button>
       )}
       {type === "details" && (

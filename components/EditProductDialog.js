@@ -1,5 +1,6 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
+import NextImage from "next/image"
 import axios from "axios"
 import Button from "@material-ui/core/Button"
 import {
@@ -9,6 +10,7 @@ import {
   FormControl,
   CircularProgress,
   ListItem,
+  Grid,
 } from "@material-ui/core"
 import { useRouter } from "next/router"
 import TextField from "@material-ui/core/TextField"
@@ -20,7 +22,6 @@ import DialogTitle from "@material-ui/core/DialogTitle"
 import EditIcon from "@material-ui/icons/Edit"
 import { useSnackbar } from "notistack"
 import { categories } from "../utils/constants"
-import { Store } from "../utils/Store"
 import useStyles from "/utils/styles"
 import { getError } from "../utils/error"
 import { Alert } from "@material-ui/lab"
@@ -33,6 +34,8 @@ export default function EditProductDialog({ product, type }) {
   const state = useSelector((state) => state)
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const [loading, setLoading] = React.useState(false)
+  const [image, setImage] = React.useState(null)
+  const [previewImage, setPreviewImage] = React.useState(product.image)
   const [category, setCategory] = React.useState(product.category)
   const [brand, setBrand] = React.useState(product.brand)
   const [price, setPrice] = React.useState(product.price)
@@ -41,6 +44,11 @@ export default function EditProductDialog({ product, type }) {
   const [countInStock, setCountInStock] = React.useState(product.countInStock)
   const [description, setDescription] = React.useState(product.description)
   const [name, setName] = React.useState(product.name)
+
+  const selectImage = (e) => {
+    setImage(e.target.files[0])
+    setPreviewImage(URL.createObjectURL(e.target.files[0]))
+  }
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -55,28 +63,25 @@ export default function EditProductDialog({ product, type }) {
     closeSnackbar()
     try {
       dispatch({ type: "OPEN_LOADER" })
+
+      const formData = new FormData()
+      if (image) formData.append("image", image, image.name)
+      formData.append("productId", product._id)
+      formData.append("name", name)
+      formData.append("brand", brand)
+      formData.append("category", category)
+      formData.append("price", price)
+      formData.append("countInStock", countInStock)
+      formData.append("numReviews", reviews)
+      formData.append("rating", rating)
+      formData.append("description", description)
+
       setLoading(true)
-      await axios.put(
-        "/api/products/edit",
-        {
-          newProduct: {
-            productId: product._id,
-            brand,
-            name,
-            numReviews: reviews,
-            description,
-            countInStock,
-            rating,
-            price,
-            category,
-          },
+      await axios.put("/api/products/edit", formData, {
+        headers: {
+          authorization: `Bearer ${state.userInfo.token}`,
         },
-        {
-          headers: {
-            authorization: `Bearer ${state.userInfo.token}`,
-          },
-        }
-      )
+      })
       setLoading(false)
       if (type === "details") {
         router.push(`/product/${product._id}`)
@@ -134,22 +139,50 @@ export default function EditProductDialog({ product, type }) {
           Edit product:{" "}
           <strong style={{ color: "lightblue" }}>{product._id}</strong>
         </DialogTitle>
-        <form onSubmit={submitHandler} autoComplete="off">
+        <form
+          onSubmit={submitHandler}
+          className={classes.form}
+          autoComplete="off"
+        >
           <DialogContent>
             <DialogContentText>
               To edit your product, we recommend you to fill all fields you are
               about to edit if not let the field as it is
             </DialogContentText>
             {loading && (
-              <Alert severity="info">
+              <Alert style={{ marginBottom: 10 }} severity="info">
                 Please wait until the product is updated...
               </Alert>
             )}
+            <Grid container>
+              <Grid item xs={12} align="center">
+                <img
+                  src={previewImage}
+                  width={300}
+                  height={300}
+                  alt="preview image"
+                  className={classes.nextImage}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="image"
+                  margin="dense"
+                  variant="outlined"
+                  type="file"
+                  accept="image/*"
+                  onChange={selectImage}
+                  fullWidth
+                  required
+                />
+              </Grid>
+            </Grid>
             <TextField
               autoFocus
-              margin="dense"
               id="name"
+              margin="dense"
               label="Name"
+              variant="outlined"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -164,6 +197,7 @@ export default function EditProductDialog({ product, type }) {
                 margin="dense"
                 name="category"
                 label="Category"
+                variant="outlined"
                 onChange={(e) => setCategory(e.target.value)}
                 value={category}
                 required
@@ -181,6 +215,7 @@ export default function EditProductDialog({ product, type }) {
               id="price"
               label="Price"
               type="number"
+              variant="outlined"
               onChange={(e) => setPrice(e.target.value)}
               value={price}
               fullWidth
@@ -191,6 +226,7 @@ export default function EditProductDialog({ product, type }) {
               margin="dense"
               id="brand"
               label="Brand"
+              variant="outlined"
               type="text"
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
@@ -202,6 +238,7 @@ export default function EditProductDialog({ product, type }) {
               margin="dense"
               id="rating"
               label="Rating"
+              variant="outlined"
               type="number"
               value={rating}
               fullWidth
@@ -212,6 +249,7 @@ export default function EditProductDialog({ product, type }) {
               autoFocus
               margin="dense"
               id="reviews"
+              variant="outlined"
               label="Reviews"
               type="number"
               value={reviews}
@@ -224,6 +262,7 @@ export default function EditProductDialog({ product, type }) {
               margin="dense"
               id="countInStock"
               label="Count in Stock"
+              variant="outlined"
               type="number"
               value={countInStock}
               onChange={(e) => setCountInStock(e.target.value)}
@@ -235,6 +274,7 @@ export default function EditProductDialog({ product, type }) {
               margin="dense"
               id="description"
               label="Description"
+              variant="outlined"
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -243,26 +283,30 @@ export default function EditProductDialog({ product, type }) {
             />
           </DialogContent>
           <DialogActions>
-            <Button
-              disabled={loading ? true : false}
-              variant="contained"
-              onClick={handleClose}
-              color="secondary"
-            >
-              Cancel
-            </Button>
-            {loading ? (
-              <CircularProgress color="primary" />
-            ) : (
-              <Button
-                type="submit"
-                variant="contained"
-                onClick={submitHandler}
-                color="primary"
-              >
-                Submit
-              </Button>
-            )}
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Button
+                  disabled={loading ? true : false}
+                  variant="contained"
+                  onClick={handleClose}
+                  color="secondary"
+                  fullWidth
+                >
+                  Cancel
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  onClick={submitHandler}
+                  color="primary"
+                  fullWidth
+                >
+                  {loading ? "Updating..." : "Submit"}
+                </Button>
+              </Grid>
+            </Grid>
           </DialogActions>
         </form>
       </Dialog>

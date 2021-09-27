@@ -27,6 +27,15 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
+  toolbarTitle: {
+    padding: 10,
+    fontSize: "1.3rem",
+    fontWeight: "bold",
+    color: purple[600],
+    textTransform: "uppercase",
+    marginLeft: 10,
+    marginTop: 10,
+  },
   main: {
     minHeight: "80vh",
   },
@@ -72,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxWidth: 800,
     margin: "0 auto",
+    marginTop: 12,
   },
   bgTransparent: {
     backgroundColor: "transparent",
