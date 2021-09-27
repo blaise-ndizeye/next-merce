@@ -95,7 +95,7 @@ export default function ProductSections(props) {
         {state.userInfo && state.userInfo.isAdmin && (
           <div style={{ display: "flex" }}>
             <Typography component="h2" className={classes.toolbarTitle}>
-              _categories_
+              Categories
             </Typography>
             <div className={classes.grow} />
             <AddProductBtn />
