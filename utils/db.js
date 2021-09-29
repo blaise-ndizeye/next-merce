@@ -1,5 +1,7 @@
 import mongoose from "mongoose"
 
+const mongodbURL = process.env.MONGO_URL
+
 const connection = {}
 
 const connect = async () => {
@@ -10,7 +12,7 @@ const connect = async () => {
       return console.log("Use previous connection")
     await mongoose.disconnect()
   }
-  const db = await mongoose.connect(process.env.MONGO_URL, {
+  const db = await mongoose.connect(mongodbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
