@@ -1,5 +1,6 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
+import dynamic from "next/dynamic"
 import axios from "axios"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
@@ -25,7 +26,7 @@ import LogoutDialog from "./LogoutDialog"
 import { categories } from "/utils/constants"
 import { getError } from "../utils/error"
 
-export default function Footer() {
+ function Footer() {
   const classes = useStyles()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -401,3 +402,5 @@ export default function Footer() {
     </footer>
   )
 }
+
+export default dynamic(() => Promise.resolve(Footer), { ssr: false })

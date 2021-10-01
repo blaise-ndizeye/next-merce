@@ -1,5 +1,6 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
+import dynamic from "next/dynamic"
 import NextLink from "next/link"
 import NextImage from "next/image"
 import {
@@ -25,7 +26,7 @@ import DeleteProductDialog from "/components/DeleteProductDialog"
 import EditProductDialog from "./EditProductDialog"
 import { getError } from "../utils/error"
 
-export default function ProductCard({ product, hideActions }) {
+ function ProductCard({ product, hideActions }) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const state = useSelector((state) => state)
@@ -126,3 +127,5 @@ export default function ProductCard({ product, hideActions }) {
     </Card>
   )
 }
+
+export default dynamic(() => Promise.resolve(ProductCard), { ssr: false })

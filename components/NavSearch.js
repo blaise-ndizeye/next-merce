@@ -1,5 +1,6 @@
 import React from "react"
 import { useDispatch } from "react-redux"
+import dynamic from "next/dynamic"
 import axios from "axios"
 import InputBase from "@material-ui/core/InputBase"
 import { useRouter } from "next/router"
@@ -8,7 +9,7 @@ import { getError } from "../utils/error"
 import { useSnackbar } from "notistack"
 import { Store } from "../utils/Store"
 
-export default function NavSearch() {
+ function NavSearch() {
   const router = useRouter()
   const [text, setText] = React.useState("")
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
@@ -46,3 +47,5 @@ export default function NavSearch() {
     </form>
   )
 }
+
+export default dynamic(() => Promise.resolve(NavSearch), { ssr: false })

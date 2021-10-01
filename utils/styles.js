@@ -1,10 +1,10 @@
 import { alpha, makeStyles } from "@material-ui/core/styles"
-import { pink, red, purple } from "@material-ui/core/colors"
+import { pink, red, purple, grey } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: pink[100],
   },
   paper: {
     marginTop: theme.spacing(8),
@@ -109,10 +109,10 @@ const useStyles = makeStyles((theme) => ({
   },
   search: {
     position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    borderRadius: 10,
+    backgroundColor: alpha(grey[200], 0.15),
     "&:hover": {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(grey[300], 0.25),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,

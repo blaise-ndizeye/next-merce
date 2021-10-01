@@ -11,6 +11,7 @@ import Layout from "../components/Layout"
 import db from "../utils/db"
 import Product from "../models/Product"
 import ProductCard from "../components/ProductCard"
+import SkeletonList from "../components/SkeletonList"
 import HomeCard from "../components/HomeCard"
 import { useSnackbar } from "notistack"
 import { getError } from "/utils/error"
@@ -59,16 +60,20 @@ function Home(props) {
           justifyContent="center"
           alignContent="center"
         >
-          {products.map((product) => (
-            <Grid item md={4} sm={6} xs={12} key={product.name}>
-              <ProductCard
-                hideActions={
-                  state.userInfo && state.userInfo.isAdmin ? true : false
-                }
-                product={product}
-              />
-            </Grid>
-          ))}
+          {products.length > 0 ? (
+            products.map((product) => (
+              <Grid item md={4} sm={6} xs={12} key={product.name}>
+                <ProductCard
+                  hideActions={
+                    state.userInfo && state.userInfo.isAdmin ? true : false
+                  }
+                  product={product}
+                />
+              </Grid>
+            ))
+          ) : (
+            <SkeletonList />
+          )}
         </Grid>
         <Divider style={{ marginTop: 10 }} />
         <NextLink href={`/product/all`} passHref>
