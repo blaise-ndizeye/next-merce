@@ -62,10 +62,10 @@ function Layout({ children, title, description }) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <NavBar />
-        <Loader />
         <Slide direction="up" in={true} timeout={1000}>
           <Container className={classes.main}>{children}</Container>
         </Slide>
+        <Loader />
         <Footer />
       </ThemeProvider>
     </>

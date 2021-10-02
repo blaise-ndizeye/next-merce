@@ -1,5 +1,6 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
+import dynamic from "next/dynamic"
 import Cookies from "js-cookie"
 import {
   FormControl,
@@ -18,7 +19,7 @@ import Layout from "../components/Layout"
 import { Store } from "../utils/Store"
 import useStyles from "../utils/styles"
 
-export default function Payment() {
+function Payment() {
   const router = useRouter()
   const classes = useStyles()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
@@ -103,3 +104,5 @@ export default function Payment() {
     </Layout>
   )
 }
+
+export default dynamic(() => Promise.resolve(Payment), { ssr: false })

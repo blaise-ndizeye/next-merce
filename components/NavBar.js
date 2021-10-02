@@ -2,11 +2,9 @@ import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 import clsx from "clsx"
 import dynamic from "next/dynamic"
-import Cookies from "js-cookie"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 import useStyles from "../utils/styles"
-import { Store } from "../utils/Store"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import Tooltip from "@material-ui/core/Tooltip"
@@ -27,6 +25,7 @@ import HomeIcon from "@material-ui/icons/Home"
 import Brightness4Icon from "@material-ui/icons/Brightness4"
 import Brightness7Icon from "@material-ui/icons/Brightness7"
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
+import { pink } from "@material-ui/core/colors"
 import NavSearch from "./NavSearch"
 import LogoutDialog from "./LogoutDialog"
 
@@ -51,8 +50,6 @@ function NavBar() {
 
   const darkModeChangeHandler = () => {
     dispatch({ type: state.darkMode ? "DARK_MODE_OFF" : "DARK_MODE_ON" })
-    const newDarkMode = !state.darkMode
-    Cookies.set("darkMode", newDarkMode ? "ON" : "OFF")
   }
 
   const loginMenuCloseHandler = (e, redirect) => {
@@ -89,7 +86,12 @@ function NavBar() {
             aria-haspopup="true"
             color="inherit"
           >
-            <Avatar className={classes.pink}>
+            <Avatar
+              style={{
+                backgroundColor: pink[100],
+                color: "white",
+              }}
+            >
               {state.userInfo.name.charAt(0).toUpperCase()}
             </Avatar>
           </IconButton>
@@ -195,9 +197,6 @@ function NavBar() {
             </Link>
           </NextLink>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
             <NavSearch />
           </div>
           <div className={classes.grow} />
@@ -326,7 +325,12 @@ function NavBar() {
                       aria-haspopup="true"
                       color="inherit"
                     >
-                      <Avatar className={classes.pink}>
+                      <Avatar
+                        style={{
+                          backgroundColor: pink[100],
+                          color: "white",
+                        }}
+                      >
                         {state.userInfo.name.charAt(0).toUpperCase()}
                       </Avatar>
                     </IconButton>

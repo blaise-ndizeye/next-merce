@@ -1,15 +1,18 @@
 import React from "react"
 import { useDispatch } from "react-redux"
 import dynamic from "next/dynamic"
+import clsx from "clsx"
 import axios from "axios"
 import InputBase from "@material-ui/core/InputBase"
+import TextField from "@material-ui/core/TextField"
+import { purple } from "@material-ui/core/colors"
 import { useRouter } from "next/router"
 import useStyles from "../utils/styles"
 import { getError } from "../utils/error"
 import { useSnackbar } from "notistack"
 import { Store } from "../utils/Store"
 
- function NavSearch() {
+function NavSearch() {
   const router = useRouter()
   const [text, setText] = React.useState("")
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
@@ -33,16 +36,23 @@ import { Store } from "../utils/Store"
   }
   return (
     <form onSubmit={submitHandler} autoComplete="off">
-      <InputBase
+      <TextField
         placeholder="Search for product…"
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
         name="search_for_product"
+        variant="outlined"
         value={text}
-        inputProps={{ "aria-label": "search" }}
+        classes={clsx(classes.inputRoot, classes.inputInput)}
+        inputProps={{
+          "aria-label": "search",
+          style: {
+            color: "white",
+            backgroundColor: purple[500],
+            padding: 10,
+            borderRadius: 5,
+          },
+        }}
         onChange={(e) => setText(e.target.value)}
+        required
       />
     </form>
   )

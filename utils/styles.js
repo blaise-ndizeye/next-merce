@@ -1,11 +1,7 @@
-import { alpha, makeStyles } from "@material-ui/core/styles"
-import { pink, red, purple, grey } from "@material-ui/core/colors"
+import { makeStyles } from "@material-ui/core/styles"
+import { pink, red, purple } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: pink[100],
-  },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
@@ -107,43 +103,6 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
     },
   },
-  search: {
-    position: "relative",
-    borderRadius: 10,
-    backgroundColor: alpha(grey[200], 0.15),
-    "&:hover": {
-      backgroundColor: alpha(grey[300], 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  inputRoot: {
-    color: "inherit",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
@@ -159,10 +118,6 @@ const useStyles = makeStyles((theme) => ({
   pink: {
     color: "#f4f4f4",
     backgroundColor: pink[100],
-  },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: "#fff",
   },
   homeCardTitle: {
     fontSize: 40,
@@ -220,18 +175,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     textTransform: "uppercase",
   },
-  cardPriceWrapper: {
-    textAlign: "center",
-    backgroundColor: purple[50],
-  },
-  cardPrice: {
-    color: purple[900],
-    padding: 10,
-  },
-  cardAvatar: {
-    backgroundColor: purple[600],
-    color: "white",
-  },
   cardDeleteButton: {
     color: "white",
     backgroundColor: red[500],
@@ -245,10 +188,6 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: purple[500],
     },
-  },
-  footerSection: {
-    backgroundColor: "#3D4849",
-    color: "white",
   },
   footerParagraph: {
     marginTop: 10,
@@ -273,6 +212,39 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: purple[50],
     "&:hover": {
       backgroundColor: purple[100],
+    },
+  },
+  search: {
+    borderRadius: 10,
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: "100%",
+    color: "white",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(3),
+      width: "auto",
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputRoot: {
+    color: "inherit",
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
     },
   },
 }))

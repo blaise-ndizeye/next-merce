@@ -26,7 +26,7 @@ import LogoutDialog from "./LogoutDialog"
 import { categories } from "/utils/constants"
 import { getError } from "../utils/error"
 
- function Footer() {
+function Footer() {
   const classes = useStyles()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -95,7 +95,7 @@ import { getError } from "../utils/error"
         still under development!
       </Alert>
       <Divider />
-      <Card className={classes.footerSection}>
+      <Card style={{ backgroundColor: "#3D4849", color: "white" }}>
         <Grid
           container
           justifyContent="center"

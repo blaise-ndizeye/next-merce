@@ -15,6 +15,7 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core"
+import { pink, red, purple, grey } from "@material-ui/core/colors"
 import { Rating } from "@material-ui/lab"
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
 import axios from "axios"
@@ -26,7 +27,7 @@ import DeleteProductDialog from "/components/DeleteProductDialog"
 import EditProductDialog from "./EditProductDialog"
 import { getError } from "../utils/error"
 
- function ProductCard({ product, hideActions }) {
+function ProductCard({ product, hideActions }) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const state = useSelector((state) => state)
@@ -61,7 +62,7 @@ import { getError } from "../utils/error"
         title={product.name}
         component="h2"
         avatar={
-          <Avatar className={classes.cardAvatar}>
+          <Avatar style={{ backgroundColor: purple[600], color: "white" }}>
             {product.brand.charAt(0).toUpperCase()}
           </Avatar>
         }
@@ -85,8 +86,8 @@ import { getError } from "../utils/error"
             <Rating name="ratingForProduct" value={+product.rating} />
           </Grid>
           <Grid item xs={6}>
-            <Card className={classes.cardPriceWrapper}>
-              <Typography className={classes.cardPrice}>
+            <Card style={{ textAlign: "center", backgroundColor: purple[50] }}>
+              <Typography style={{ color: purple[900], padding: 10 }}>
                 <strong>Price:</strong> &nbsp; &nbsp;${product.price}
               </Typography>
             </Card>

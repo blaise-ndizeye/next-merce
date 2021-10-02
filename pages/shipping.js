@@ -1,6 +1,7 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useForm, Controller } from "react-hook-form"
+import dynamic from "next/dynamic"
 import { useRouter } from "next/router"
 import TextField from "@material-ui/core/TextField"
 import { Typography, List, ListItem, Button } from "@material-ui/core"
@@ -9,7 +10,7 @@ import useStyles from "../utils/styles"
 import { Store } from "../utils/Store"
 import CheckoutWizard from "../components/CheckoutWizard"
 
-export default function Shipping() {
+function Shipping() {
   const router = useRouter()
   const dispatch = useDispatch()
   const state = useSelector((state) => state)
@@ -213,3 +214,5 @@ export default function Shipping() {
     </Layout>
   )
 }
+
+export default dynamic(() => Promise.resolve(Shipping), { ssr: false })

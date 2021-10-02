@@ -13,6 +13,7 @@ import {
   Avatar,
   Typography,
 } from "@material-ui/core"
+import { pink } from "@material-ui/core/colors"
 import { useRouter } from "next/router"
 import { useSnackbar } from "notistack"
 import { categories } from "/utils/constants"
@@ -82,7 +83,14 @@ function AddProductPage() {
   return (
     <Layout title="Add product">
       <div className={classes.paper}>
-        <Avatar style={{ textAlign: "center" }} className={classes.avatar}>
+        <Avatar
+          style={{
+            textAlign: "center",
+            margin: 3,
+            backgroundColor: pink[100],
+            color: "white",
+          }}
+        >
           <AddIcon />
         </Avatar>
         <Typography component="h2" variant="h5" className={classes.title}>

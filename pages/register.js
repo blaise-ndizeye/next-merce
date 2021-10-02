@@ -1,6 +1,7 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
+import dynamic from "next/dynamic"
 import NextLink from "next/link"
 import { useSnackbar } from "notistack"
 import { useForm, Controller } from "react-hook-form"
@@ -14,13 +15,14 @@ import {
   Button,
   Link,
 } from "@material-ui/core"
+import { pink } from "@material-ui/core/colors"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import Layout from "../components/Layout"
 import useStyles from "../utils/styles"
 import { Store } from "../utils/Store"
 import { getError } from "../utils/error"
 
-export default function Register() {
+function Register() {
   const router = useRouter()
   const dispatch = useDispatch()
   const state = useSelector((state) => state)
@@ -66,7 +68,14 @@ export default function Register() {
         autoComplete="off"
       >
         <div className={classes.paper}>
-          <Avatar style={{ textAlign: "center" }} className={classes.avatar}>
+          <Avatar
+            style={{
+              textAlign: "center",
+              margin: 3,
+              backgroundColor: pink[100],
+              color: "white",
+            }}
+          >
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5" className={classes.title}>
@@ -209,3 +218,5 @@ export default function Register() {
     </Layout>
   )
 }
+
+export default dynamic(() => Promise.resolve(Register), { ssr: false })

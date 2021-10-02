@@ -15,6 +15,7 @@ import {
   Card,
   Button,
 } from "@material-ui/core"
+import { purple } from "@material-ui/core/colors"
 import { Rating } from "@material-ui/lab"
 import axios from "axios"
 import useStyles from "../../utils/styles"
@@ -51,7 +52,14 @@ export default function ProductScreen({ product }) {
   }
   return (
     <Layout title={product.name} description={product.description}>
-      <Typography className={classes.title}>
+      <Typography
+        style={{
+          marginTop: 12,
+          marginBottom: 10,
+          textAlign: "center",
+          fontSize: "1.5rem",
+        }}
+      >
         Product <strong style={{ color: "lightblue" }}>#{product._id}</strong>
       </Typography>
       <Divider />
@@ -155,7 +163,11 @@ export default function ProductScreen({ product }) {
                 <Button
                   onClick={() => window.history.back()}
                   className={classes.linkBtn}
-                  style={{ width: "100%" }}
+                  style={{
+                    width: "100%",
+                    color: purple[900],
+                    backgroundColor: purple[50],
+                  }}
                 >
                   Go back
                 </Button>

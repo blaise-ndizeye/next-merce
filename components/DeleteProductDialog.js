@@ -11,7 +11,7 @@ import DialogContentText from "@material-ui/core/DialogContentText"
 import DialogTitle from "@material-ui/core/DialogTitle"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { useSnackbar } from "notistack"
-import { Store } from "../utils/Store"
+import { red } from "@material-ui/core/colors"
 import useStyles from "/utils/styles"
 import { getError } from "../utils/error"
 
@@ -79,7 +79,7 @@ export default function DeleteProductDialog({ product, type }) {
             startIcon={<DeleteIcon />}
             variant="contained"
             className={classes.cardDeleteButton}
-            style={{ width: "100%" }}
+            style={{ width: "100%", color: "white", backgroundColor: red[500] }}
             onClick={handleClickOpen}
           >
             Delete the product

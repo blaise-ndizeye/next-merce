@@ -29,11 +29,13 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "DARK_MODE_ON":
+      Cookies.set("darkMode", "ON")
       return {
         ...state,
         darkMode: true,
       }
     case "DARK_MODE_OFF":
+      Cookies.set("darkMode", "OFF")
       return {
         ...state,
         darkMode: false,

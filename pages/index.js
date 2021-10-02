@@ -99,7 +99,6 @@ function Home(props) {
     </Layout>
   )
 }
-
 export default dynamic(() => Promise.resolve(Home), { ssr: false })
 
 export async function getStaticProps() {
