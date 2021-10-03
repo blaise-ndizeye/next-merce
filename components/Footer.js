@@ -1,5 +1,6 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
+import NextImage from "next/image"
 import dynamic from "next/dynamic"
 import axios from "axios"
 import NextLink from "next/link"
@@ -357,9 +358,22 @@ function Footer() {
             </List>
           </Grid>
           <Grid item xs={12} md={3}>
-            <Typography className={classes.footerParagraph}>
+            <Typography
+              component="h1"
+              variant="h1"
+              className={classes.footerParagraph}
+            >
               NEXT COMMERCE
             </Typography>
+            <NextImage
+              src="/next-commerce.jpg"
+              width={100}
+              height={100}
+              alt="Next Commerce"
+              placeholder="blur"
+              blurDataURL="/images/homeCardImage.jpg"
+              className={classes.sellingImage}
+            />
             <List>
               <Grid container>
                 <Grid item xs={12}>

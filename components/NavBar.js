@@ -1,6 +1,7 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 import clsx from "clsx"
+import NextImage from "next/image"
 import dynamic from "next/dynamic"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
@@ -186,16 +187,22 @@ function NavBar() {
         <Toolbar>
           <NextLink href="/" passHref forwardRef>
             <Link>
-              <Typography
-                className={clsx(classes.navTitle, classes.homeCardText)}
-                variant="h6"
-                component="h1"
-                noWrap
-              >
-                Next Commerce
-              </Typography>
+              <NextImage
+                src="/next-commerce.jpg"
+                width={50}
+                height={50}
+                alt="Next Commerce"
+                placeholder="blur"
+                blurDataURL="/images/homeCardImage.jpg"
+                className={clsx(
+                  classes.navTitle,
+                  classes.homeCardText,
+                  classes.sellingImage
+                )}
+              />
             </Link>
           </NextLink>
+          <div style={{ padding: 2 }} />
           <div className={classes.search}>
             <NavSearch />
           </div>

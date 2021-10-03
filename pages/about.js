@@ -140,7 +140,7 @@ export default function About() {
             alt="Buying from cart"
             width={150}
             height={150}
-            className={classes.nextImage}
+            className={classes.sellingImage}
             placeholder="blur"
             blurDataURL="/images/homeCardImage.jpg"
           />
