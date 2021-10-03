@@ -76,7 +76,8 @@ function ProductCard({ product, hideActions }) {
             height={400}
             alt={product.name}
             layout="responsive"
-            loader={() => imageLoader(product.image)}
+            placeholder="blur"
+            blurDataURL="/images/homeCardImage.jpg"
           />
         </CardActionArea>
       </NextLink>

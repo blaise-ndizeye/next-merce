@@ -50,6 +50,7 @@ function Layout({ children, title, description }) {
     <>
       <Head>
         <title>{title ? `${title} | Next Commerce` : "Next Commerce"}</title>
+        <link rel="icon" href="/next-commerce.jpg" type="image/*" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"

@@ -72,7 +72,8 @@ export default function ProductScreen({ product }) {
             alt={product.name}
             className={classes.nextImage}
             layout="responsive"
-            loader={() => imageLoader(product.image)}
+            placeholder="blur"
+            blurDataURL="/images/homeCardImage.jpg"
           />
         </Grid>
         <Grid item md={5} sm={6} xs={12}>

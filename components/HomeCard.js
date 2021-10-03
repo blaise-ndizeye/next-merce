@@ -8,6 +8,7 @@ import {
   CardContent,
   Typography,
 } from "@material-ui/core"
+import ArrowFowardIcon from "@material-ui/icons/ArrowForward"
 import { Store } from "../utils/Store"
 import useStyles from "../utils/styles"
 
@@ -33,17 +34,19 @@ export default function HomeCard(props) {
         {state.userInfo ? (
           <NextLink href="/about" passHref>
             <Button
+              endIcon={<ArrowFowardIcon />}
               size="large"
               color="primary"
               variant="contained"
               className={classes.homeCardBtn}
             >
-              Read More...
+              Read More
             </Button>
           </NextLink>
         ) : (
           <NextLink href="/login" passHref>
             <Button
+              endIcon={<ArrowFowardIcon />}
               size="large"
               color="primary"
               variant="contained"

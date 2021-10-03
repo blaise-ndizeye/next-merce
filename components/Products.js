@@ -12,6 +12,7 @@ import ProductSections from "/components/ProductSections"
 import { getError } from "../utils/error"
 import ErrorCard from "./ErrorCard"
 import SearchScreenTitle from "./SearchScreenTitle"
+import HomeSellingCard from "./HomeSellingCard"
 
 function Products({ products, title, type, keyword }) {
   const classes = useStyles()
@@ -54,6 +55,7 @@ function Products({ products, title, type, keyword }) {
             &nbsp;{keyword}
           </Typography>
           <Divider style={{ marginBottom: 10 }} />
+          <HomeSellingCard />
           <ProductSections products={products} />
         </>
       )}

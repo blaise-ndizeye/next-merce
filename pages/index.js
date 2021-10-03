@@ -15,6 +15,7 @@ import SkeletonList from "../components/SkeletonList"
 import HomeCard from "../components/HomeCard"
 import { useSnackbar } from "notistack"
 import { getError } from "/utils/error"
+import HomeSellingCard from "../components/HomeSellingCard"
 
 function Home(props) {
   const classes = useStyles()
@@ -54,6 +55,7 @@ function Home(props) {
         <Divider />
         <HomeCard products={products} />
         <Divider style={{ marginBottom: 10 }} />
+        <HomeSellingCard />
         <Grid
           container
           spacing={3}

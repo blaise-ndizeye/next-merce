@@ -229,11 +229,7 @@ function PlaceOrder() {
                   fullWidth
                   onClick={placeOrderHandler}
                 >
-                  {loading ? (
-                    <CircularProgress color="secondary" />
-                  ) : (
-                    "Place Order"
-                  )}
+                  Place Order
                 </Button>
               </ListItem>
             </List>

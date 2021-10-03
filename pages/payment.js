@@ -69,17 +69,17 @@ function Payment() {
                 <FormControlLabel
                   label="Stripe"
                   value="Stripe"
-                  control={<Radio color="primary" />}
+                  control={<Radio disabled color="primary" />}
                 />
                 <FormControlLabel
                   label="MTN"
                   value="MTN"
-                  control={<Radio color="primary" />}
+                  control={<Radio disabled color="primary" />}
                 />
                 <FormControlLabel
                   label="Cash"
                   value="Cash"
-                  control={<Radio color="primary" />}
+                  control={<Radio disabled color="primary" />}
                 />
               </RadioGroup>
             </FormControl>
