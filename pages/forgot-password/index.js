@@ -109,14 +109,20 @@ function ForgotPassword() {
           </ListItem>
           <ListItem>
             <Grid container>
-              <Grid item xs>
-                <NextLink href="/login" passHref>
+              <Grid item sm={6} xs={12}>
+                <NextLink
+                  href={`/login?redirect=${router.query.redirect || "/"}`}
+                  passHref
+                >
                   <Link>Return back to login page?</Link>
                 </NextLink>
               </Grid>
-              <Grid item>
+              <Grid item sm={6} xs={12}>
                 Don't have an account? &nbsp;
-                <NextLink href="/register" passHref>
+                <NextLink
+                  href={`/register?redirect=${router.query.redirect || "/"}`}
+                  passHref
+                >
                   <Link>Register</Link>
                 </NextLink>
               </Grid>

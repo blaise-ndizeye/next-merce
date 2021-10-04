@@ -141,12 +141,12 @@ function Login() {
           </ListItem>
           <ListItem>
             <Grid container>
-              <Grid item xs>
+              <Grid item sm={6} xs={12}>
                 <NextLink href="/forgot-password" passHref>
                   <Link>Forgot Password?</Link>
                 </NextLink>
               </Grid>
-              <Grid item>
+              <Grid item sm={6} xs={12}>
                 Don't have an account? &nbsp;
                 <NextLink
                   href={`/register?redirect=${router.query.redirect || "/"}`}

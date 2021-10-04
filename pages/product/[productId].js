@@ -20,7 +20,6 @@ import { Rating } from "@material-ui/lab"
 import axios from "axios"
 import useStyles from "../../utils/styles"
 import Product from "../../models/Product"
-import { imageLoader } from "/utils/constants"
 import EditProductDialog from "../../components/EditProductDialog"
 import DeleteProductDialog from "../../components/DeleteProductDialog"
 import { getError } from "../../utils/error"
@@ -30,7 +29,11 @@ function ProductScreen({ product }) {
   const state = useSelector((state) => state)
   const router = useRouter()
   const classes = useStyles()
-  if (router.isFallback) return null
+
+  React.useEffect(() => {
+    if (router.isFallback) return dispatch({ type: "OPEN_LOADER" })
+    dispatch({ type: "CLOSE_LOADER" })
+  }, [])
 
   const addToCartHandler = async () => {
     try {
