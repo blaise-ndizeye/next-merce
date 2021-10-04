@@ -25,7 +25,7 @@ import EditProductDialog from "../../components/EditProductDialog"
 import DeleteProductDialog from "../../components/DeleteProductDialog"
 import { getError } from "../../utils/error"
 
-export default function ProductScreen({ product }) {
+function ProductScreen({ product }) {
   const dispatch = useDispatch()
   const state = useSelector((state) => state)
   const router = useRouter()
@@ -201,6 +201,8 @@ export default function ProductScreen({ product }) {
     </Layout>
   )
 }
+
+export default dynamic(() => Promise.resolve(ProductScreen), { ssr: false })
 
 export async function getStaticPaths(ctx) {
   await db.connect()

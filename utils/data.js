@@ -31,7 +31,7 @@ const data = {
       name: "A black red cowboy pant",
       category: "Pant",
       image: "/images/pants1.jpg",
-      price: 90,
+      price: 15000,
       brand: "Oliver",
       rating: 4.5,
       numReviews: 10,
