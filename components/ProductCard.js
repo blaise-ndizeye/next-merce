@@ -89,7 +89,7 @@ function ProductCard({ product, hideActions }) {
           <Grid item xs={6}>
             <Card style={{ textAlign: "center", backgroundColor: purple[50] }}>
               <Typography style={{ color: purple[900], padding: 10 }}>
-                <strong>Price:</strong> &nbsp; &nbsp;${product.price}
+                <strong>Price:</strong> &nbsp; &nbsp;FRW {product.price}
               </Typography>
             </Card>
           </Grid>

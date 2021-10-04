@@ -62,7 +62,7 @@ export default function ProductScreen({ product }) {
       >
         Product <strong style={{ color: "lightblue" }}>#{product._id}</strong>
       </Typography>
-      <Divider />
+      <Divider style={{ marginBottom: 10 }} />
       <Grid className={classes.section} container spacing={1}>
         <Grid item md={4} sm={6} xs={12}>
           <NextImage
@@ -144,7 +144,7 @@ export default function ProductScreen({ product }) {
                     <Typography>Price</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography>${product.price}</Typography>
+                    <Typography>FRW {product.price}</Typography>
                   </Grid>
                 </Grid>
               </ListItem>

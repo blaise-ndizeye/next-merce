@@ -58,7 +58,15 @@ function Layout({ children, title, description }) {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-        {description && <meta name="description" content={description} />}
+        {description ? (
+          <meta name="description" content={description} />
+        ) : (
+          <meta
+            name="description"
+            content="E-commerce platform for selling and buying the products you want at any
+          anytime and get it for short time. The concept is expressing your desires by buying what you want."
+          />
+        )}
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />

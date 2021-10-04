@@ -18,11 +18,11 @@ import {
 } from "@material-ui/core"
 import { pink } from "@material-ui/core/colors"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
-import Layout from "../components/Layout"
-import useStyles from "../utils/styles"
-import { getError } from "../utils/error"
+import Layout from "../../components/Layout"
+import useStyles from "../../utils/styles"
+import { getError } from "../../utils/error"
 
-function Login() {
+function ForgotPassword() {
   const router = useRouter()
   const {
     handleSubmit,
@@ -33,28 +33,25 @@ function Login() {
   const dispatch = useDispatch()
   const state = useSelector((state) => state)
   const classes = useStyles()
-  React.useEffect(() => {
-    if (state.userInfo) {
-      router.push("/")
-    }
-  }, [])
 
-  const submitHandler = async ({ email, password }) => {
+  const submitHandler = async ({ email }) => {
     closeSnackbar()
     try {
       dispatch({ type: "OPEN_LOADER" })
-      const { data } = await axios.post("/api/users/login", { email, password })
-      dispatch({ type: "USER_LOGIN", payload: data })
-      router.push(router.query.redirect || "/")
+      const { data } = await axios.post("/api/forgot-password", { email })
+      router.push("/login")
       dispatch({ type: "CLOSE_LOADER" })
-      enqueueSnackbar("Successfully logged in", { variant: "success" })
+      enqueueSnackbar(
+        "Please check your email to reset your account password",
+        { variant: "success" }
+      )
     } catch (err) {
       dispatch({ type: "CLOSE_LOADER" })
       enqueueSnackbar(getError(err), { variant: "error" })
     }
   }
   return (
-    <Layout title="Login">
+    <Layout title="Forgot Password?">
       <form
         onSubmit={handleSubmit(submitHandler)}
         className={classes.form}
@@ -72,7 +69,7 @@ function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5" className={classes.title}>
-            Login
+            Forgot Password?
           </Typography>
         </div>
         <List>
@@ -90,7 +87,7 @@ function Login() {
                   fullWidth
                   variant="outlined"
                   id="email"
-                  label="Email"
+                  label="Please Enter your Email"
                   inputProps={{ type: "email" }}
                   error={Boolean(errors.email)}
                   helperText={
@@ -106,52 +103,20 @@ function Login() {
             />
           </ListItem>
           <ListItem>
-            <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: true,
-                minLength: 6,
-              }}
-              render={({ field }) => (
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  id="password"
-                  label="Password"
-                  inputProps={{ type: "password" }}
-                  error={Boolean(errors.password)}
-                  helperText={
-                    errors.password
-                      ? errors.password.type === "minLength"
-                        ? "Password length must be at least 6"
-                        : "Password is required"
-                      : ""
-                  }
-                  {...field}
-                />
-              )}
-            />
-          </ListItem>
-          <ListItem>
             <Button variant="contained" type="submit" fullWidth color="primary">
-              Login
+              Submit
             </Button>
           </ListItem>
           <ListItem>
             <Grid container>
               <Grid item xs>
-                <NextLink href="/forgot-password" passHref>
-                  <Link>Forgot Password?</Link>
+                <NextLink href="/login" passHref>
+                  <Link>Return back to login page?</Link>
                 </NextLink>
               </Grid>
               <Grid item>
                 Don't have an account? &nbsp;
-                <NextLink
-                  href={`/register?redirect=${router.query.redirect || "/"}`}
-                  passHref
-                >
+                <NextLink href="/register" passHref>
                   <Link>Register</Link>
                 </NextLink>
               </Grid>
@@ -163,4 +128,4 @@ function Login() {
   )
 }
 
-export default dynamic(() => Promise.resolve(Login), { ssr: false })
+export default dynamic(() => Promise.resolve(ForgotPassword), { ssr: false })

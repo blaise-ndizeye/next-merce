@@ -3,9 +3,7 @@ import Document, { Html, Head, Main, NextScript } from "next/document"
 import { ServerStyleSheets } from "@material-ui/core/styles"
 import createEmotionServer from "@emotion/server/create-instance"
 import createEmotionCache from "../utils/createEmotionCache"
-import { createTheme, responsiveFontSizes } from "@material-ui/core/styles"
-
-const theme = responsiveFontSizes(createTheme())
+import { purple } from "@material-ui/core/colors"
 
 export default class MyDocument extends Document {
   render() {
@@ -13,7 +11,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* PWA primary color */}
-          <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name="theme-color" content={purple[700]} />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
