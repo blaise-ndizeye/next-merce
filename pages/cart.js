@@ -138,7 +138,7 @@ function Cart() {
                           ))}
                         </Select>
                       </TableCell>
-                      <TableCell align="right">FRW {item.price}</TableCell>
+                      <TableCell align="right">FRW&nbsp;{item.price}</TableCell>
                       <TableCell align="right">
                         <Button
                           variant="contained"
@@ -161,7 +161,7 @@ function Cart() {
                   <Typography variant="h2">
                     Subtotal (
                     {state.cart.cartItems.reduce((a, c) => a + c.quantity, 0)}{" "}
-                    items) : FRW
+                    items) : FRW&nbsp;
                     {state.cart.cartItems.reduce(
                       (a, c) => a + c.quantity * c.price,
                       0

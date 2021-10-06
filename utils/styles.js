@@ -172,7 +172,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.2rem",
     padding: 10,
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   keyword: {
     color: "lightblue",

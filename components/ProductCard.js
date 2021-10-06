@@ -83,13 +83,13 @@ function ProductCard({ product, hideActions }) {
       </NextLink>
       <CardContent>
         <Grid container spacing={1}>
-          <Grid item xs={6}>
+          <Grid item md={6} sm={12}>
             <Rating name="ratingForProduct" value={+product.rating} />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item md={6} sm={12} align="right">
             <Card style={{ textAlign: "center", backgroundColor: purple[50] }}>
               <Typography style={{ color: purple[900], padding: 10 }}>
-                <strong>Price:</strong> &nbsp; &nbsp;FRW {product.price}
+                <strong>Price:</strong> &nbsp; &nbsp;FRW&nbsp;{product.price}
               </Typography>
             </Card>
           </Grid>

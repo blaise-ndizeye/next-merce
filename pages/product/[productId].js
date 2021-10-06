@@ -147,7 +147,7 @@ function ProductScreen({ product }) {
                     <Typography>Price</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography>FRW {product.price}</Typography>
+                    <Typography>FRW&nbsp;{product.price}</Typography>
                   </Grid>
                 </Grid>
               </ListItem>
@@ -226,6 +226,10 @@ export async function getStaticProps(ctx) {
   await db.connect()
   const product = await Product.findOne({ _id: params.productId }).lean()
   await db.disconnect()
+  if (!product)
+    return {
+      notFound: true,
+    }
   return {
     props: {
       product: db.convertDocToObj(product),

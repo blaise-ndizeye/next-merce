@@ -89,7 +89,7 @@ function OrderHistory() {
                       <TableCell>
                         {moment(order.createdAt).format("LLLL")}
                       </TableCell>
-                      <TableCell>${order.totalPrice}</TableCell>
+                      <TableCell>FRW&nbsp;{order.totalPrice}</TableCell>
                       <TableCell>
                         {order.isPaid ? (
                           <p style={{ color: "green" }}>

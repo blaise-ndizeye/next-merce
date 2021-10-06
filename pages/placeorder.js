@@ -44,8 +44,8 @@ function PlaceOrder() {
   const itemsPrice = roundTo2(
     cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
   )
-  const shippingPrice = itemsPrice > 200 ? 0 : 15
-  const taxPrice = roundTo2(itemsPrice * 0.15)
+  const shippingPrice = itemsPrice < 50000 ? 0 : 2500
+  const taxPrice = roundTo2(itemsPrice * 0.03)
   const totalPrice = roundTo2(itemsPrice + shippingPrice + taxPrice)
 
   React.useEffect(() => {
@@ -102,7 +102,7 @@ function PlaceOrder() {
               </ListItem>
               <ListItem>
                 {shippingAddress.fullName}, {shippingAddress.address},{" "}
-                {shippingAddress.City}, {shippingAddress.postalCode},{" "}
+                {shippingAddress.city}, {shippingAddress.postalCode},{" "}
                 {shippingAddress.country}
               </ListItem>
             </List>
@@ -161,7 +161,7 @@ function PlaceOrder() {
                             <Typography>{item.quantity}</Typography>
                           </TableCell>
                           <TableCell align="right">
-                            <Typography>FRW {item.price}</Typography>
+                            <Typography>FRW&nbsp;{item.price}</Typography>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -184,7 +184,7 @@ function PlaceOrder() {
                     <Typography>Items:</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography align="right">FRW {itemsPrice}</Typography>
+                    <Typography align="right">FRW&nbsp;{itemsPrice}</Typography>
                   </Grid>
                 </Grid>
               </ListItem>
@@ -194,7 +194,7 @@ function PlaceOrder() {
                     <Typography>Tax:</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography align="right">FRW {taxPrice}</Typography>
+                    <Typography align="right">FRW&nbsp;{taxPrice}</Typography>
                   </Grid>
                 </Grid>
               </ListItem>
@@ -204,7 +204,9 @@ function PlaceOrder() {
                     <Typography>Shipping:</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography align="right">FRW {shippingPrice}</Typography>
+                    <Typography align="right">
+                      FRW&nbsp;{shippingPrice}
+                    </Typography>
                   </Grid>
                 </Grid>
               </ListItem>
@@ -217,7 +219,7 @@ function PlaceOrder() {
                   </Grid>
                   <Grid item xs={6}>
                     <Typography align="right">
-                      <strong>FRW {totalPrice}</strong>
+                      <strong>FRW&nbsp;{totalPrice}</strong>
                     </Typography>
                   </Grid>
                 </Grid>
