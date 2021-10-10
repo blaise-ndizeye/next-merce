@@ -1,5 +1,6 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
+import dynamic from "next/dynamic"
 import NextLink from "next/link"
 import NextImage from "next/image"
 import { useRouter } from "next/router"
@@ -226,7 +227,7 @@ export async function getStaticProps(ctx) {
   await db.connect()
   const product = await Product.findOne({ _id: params.productId }).lean()
   await db.disconnect()
-  if (!product)
+  if (!product._id)
     return {
       notFound: true,
     }
