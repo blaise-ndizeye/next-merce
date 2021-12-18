@@ -146,6 +146,9 @@ function PlaceOrder() {
                                   alt={item.name}
                                   width={50}
                                   height={50}
+                                  placeholder="blur"
+                                  blurDataURL="/images/homeCardImage.jpg"
+                                  className={classes.nextImage}
                                 />
                               </Link>
                             </NextLink>

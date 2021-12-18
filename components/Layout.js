@@ -5,7 +5,7 @@ import dynamic from "next/dynamic"
 import { Container, ThemeProvider, Slide } from "@material-ui/core"
 import { createTheme } from "@material-ui/core/styles"
 import { CssBaseline } from "@material-ui/core"
-import { purple, red } from "@material-ui/core/colors"
+import { purple, red, blueGrey } from "@material-ui/core/colors"
 import { Store } from "../utils/Store"
 import useStyles from "../utils/styles"
 import NProgress from "nprogress"
@@ -38,7 +38,7 @@ function Layout({ children, title, description }) {
     palette: {
       type: state.darkMode ? "dark" : "light",
       primary: {
-        main: purple[700],
+        main: blueGrey[800],
       },
       secondary: {
         main: red[200],

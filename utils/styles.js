@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles"
-import { pink, red, purple } from "@material-ui/core/colors"
+import { pink, red, blueGrey } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme) => ({
   sellingImage: {
@@ -11,13 +11,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-  },
-  navbar: {
-    backgroundColor: "rgb(76, 22, 83)",
-    "& a": {
-      color: "#f4f4f4",
-      marginLeft: 10,
-    },
   },
   brand: {
     color: "#f4f4f4",
@@ -31,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 10,
     fontSize: "1.3rem",
     fontWeight: "bold",
-    color: purple[600],
+    color: blueGrey[600],
     textTransform: "uppercase",
     marginLeft: 10,
     marginTop: 10,
@@ -188,9 +181,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cartAddButton: {
     color: "white",
-    backgroundColor: purple[700],
+    backgroundColor: blueGrey[700],
     "&:hover": {
-      backgroundColor: purple[500],
+      backgroundColor: blueGrey[500],
     },
   },
   footerParagraph: {
@@ -198,10 +191,10 @@ const useStyles = makeStyles((theme) => ({
     padding: 5,
   },
   linkBtn: {
-    color: purple[900],
-    backgroundColor: purple[50],
+    color: blueGrey[900],
+    backgroundColor: blueGrey[50],
     "&:hover": {
-      backgroundColor: purple[100],
+      backgroundColor: blueGrey[100],
     },
   },
   tabRoot: {
@@ -212,10 +205,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 10,
   },
   cartContinueBtn: {
-    color: purple[900],
-    backgroundColor: purple[50],
+    color: blueGrey[900],
+    backgroundColor: blueGrey[50],
     "&:hover": {
-      backgroundColor: purple[100],
+      backgroundColor: blueGrey[100],
     },
   },
   search: {

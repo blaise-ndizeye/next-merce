@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 import clsx from "clsx"
 import axios from "axios"
 import TextField from "@material-ui/core/TextField"
-import { purple } from "@material-ui/core/colors"
+import { blueGrey } from "@material-ui/core/colors"
 import { useRouter } from "next/router"
 import useStyles from "../utils/styles"
 import { getError } from "../utils/error"
@@ -44,7 +44,7 @@ function NavSearch() {
           "aria-label": "search",
           style: {
             color: "white",
-            backgroundColor: purple[500],
+            backgroundColor: blueGrey[500],
             padding: 10,
             borderRadius: 5,
           },

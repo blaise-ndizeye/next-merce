@@ -85,6 +85,8 @@ function Order({ params }) {
     deliveredAt,
   } = order
 
+  const roundTo2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100
+
   React.useEffect(() => {
     if (!userInfo) return router.push("/login")
     const fetchOrder = async () => {
@@ -135,7 +137,7 @@ function Order({ params }) {
       .create({
         purchase_units: [
           {
-            amount: { value: totalPrice / 950 },
+            amount: { value: roundTo2(totalPrice / 950) },
           },
         ],
       })
@@ -263,6 +265,9 @@ function Order({ params }) {
                                     alt={item.name}
                                     width={50}
                                     height={50}
+                                    placeholder="blur"
+                                    blurDataURL="/images/homeCardImage.jpg"
+                                    className={classes.nextImage}
                                   />
                                 </Link>
                               </NextLink>
@@ -362,7 +367,10 @@ function Order({ params }) {
                 {!isPaid && (
                   <ListItem>
                     {isPending ? (
-                      <LinearProgress color="secondary" />
+                      <>
+                        <Typography style={{ color: "lightblue", fontWeight: "bold" }}>Please wait for payment options...</Typography>
+                        <LinearProgress color="primary" />
+                      </>
                     ) : (
                       <div className={classes.fullWidth}>
                         <PayPalButtons

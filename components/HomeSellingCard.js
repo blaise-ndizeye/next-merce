@@ -4,7 +4,7 @@ import { Card, Divider, Grid, Typography } from "@material-ui/core"
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward"
 import { Alert } from "@material-ui/lab"
 import CheckIcon from "@material-ui/icons/Check"
-import { purple } from "@material-ui/core/colors"
+import { blueGrey } from "@material-ui/core/colors"
 import useStyles from "../utils/styles"
 
 export default function HomeSellingCard() {
@@ -23,7 +23,7 @@ export default function HomeSellingCard() {
               padding: 15,
               fontSize: "1.3rem",
               fontWeight: "bold",
-              color: purple[400],
+              color: blueGrey[400],
             }}
           >
             <ArrowDownwardIcon />
@@ -56,7 +56,7 @@ export default function HomeSellingCard() {
             padding: 15,
             fontSize: "0.7rem",
             fontWeight: "bold",
-            color: purple[400],
+            color: blueGrey[400],
           }}
         >
           You will end with a lot of happiness

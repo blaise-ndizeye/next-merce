@@ -1,7 +1,7 @@
 import React from "react"
 import NextImage from "next/image"
 import { Card, Divider, Grid, Typography } from "@material-ui/core"
-import { purple } from "@material-ui/core/colors"
+import { blueGrey } from "@material-ui/core/colors"
 import useStyles from "../utils/styles"
 import Layout from "../components/Layout"
 
@@ -88,7 +88,7 @@ export default function About() {
         style={{
           fontSize: "0.8rem",
           padding: 10,
-          color: purple[400],
+          color: blueGrey[400],
         }}
         component="h2"
       >

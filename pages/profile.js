@@ -12,6 +12,7 @@ import {
   ListItem,
   Divider,
 } from "@material-ui/core"
+import { Save } from "@material-ui/icons"
 import { useSnackbar } from "notistack"
 import { useForm, Controller } from "react-hook-form"
 import { Store } from "../utils/Store"
@@ -217,9 +218,10 @@ function Profile() {
                   variant="contained"
                   type="submit"
                   fullWidth
+                  startIcon={<Save />}
                   color="primary"
                 >
-                  update
+                  Save
                 </Button>
               </ListItem>
             </List>

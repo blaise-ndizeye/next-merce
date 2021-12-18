@@ -24,7 +24,7 @@ function MyApp(props) {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <StoreProvider>
-          <PayPalScriptProvider>
+          <PayPalScriptProvider deferLoading={true}>
             <Component {...pageProps} />
           </PayPalScriptProvider>
         </StoreProvider>

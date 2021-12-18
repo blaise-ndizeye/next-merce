@@ -15,7 +15,7 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core"
-import { pink, red, purple, grey } from "@material-ui/core/colors"
+import { pink, red, blueGrey, grey } from "@material-ui/core/colors"
 import { Rating } from "@material-ui/lab"
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
 import axios from "axios"
@@ -62,7 +62,7 @@ function ProductCard({ product, hideActions }) {
         title={product.name}
         component="h2"
         avatar={
-          <Avatar style={{ backgroundColor: purple[600], color: "white" }}>
+          <Avatar style={{ backgroundColor: blueGrey[600], color: "white" }}>
             {product.brand.charAt(0).toUpperCase()}
           </Avatar>
         }
@@ -87,8 +87,8 @@ function ProductCard({ product, hideActions }) {
             <Rating name="ratingForProduct" value={+product.rating} />
           </Grid>
           <Grid item md={6} sm={12} align="right">
-            <Card style={{ textAlign: "center", backgroundColor: purple[50] }}>
-              <Typography style={{ color: purple[900], padding: 10 }}>
+            <Card style={{ textAlign: "center", backgroundColor: blueGrey[50] }}>
+              <Typography style={{ color: blueGrey[900], padding: 10 }}>
                 <strong>Price:</strong> &nbsp; &nbsp;FRW&nbsp;{product.price}
               </Typography>
             </Card>

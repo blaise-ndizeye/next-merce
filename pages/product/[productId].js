@@ -16,7 +16,7 @@ import {
   Card,
   Button,
 } from "@material-ui/core"
-import { purple } from "@material-ui/core/colors"
+import { blueGrey } from "@material-ui/core/colors"
 import { Rating } from "@material-ui/lab"
 import axios from "axios"
 import useStyles from "../../utils/styles"
@@ -170,8 +170,8 @@ function ProductScreen({ product }) {
                   className={classes.linkBtn}
                   style={{
                     width: "100%",
-                    color: purple[900],
-                    backgroundColor: purple[50],
+                    color: blueGrey[900],
+                    backgroundColor: blueGrey[50],
                   }}
                 >
                   Go back
