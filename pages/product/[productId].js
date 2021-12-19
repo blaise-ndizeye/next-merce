@@ -64,7 +64,10 @@ function ProductScreen({ product }) {
           fontSize: "1.5rem",
         }}
       >
-        Product <strong style={{ color: "lightblue" }}>#{product._id}</strong>
+        Product{" "}
+        <span style={{ color: "lightblue", fontWeight: "bold" }}>
+          #{product._id.substring(8, 24)}
+        </span>
       </Typography>
       <Divider style={{ marginBottom: 10 }} />
       <Grid className={classes.section} container spacing={1}>
